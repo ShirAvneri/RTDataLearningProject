@@ -29,7 +29,7 @@ class SideMenu(QWidget):
         self.classicalBtn = SideMenuButton(self, 20, 90)
         self.classicalBtn.set_icon("Images\\ClassicGuitarPngIcon.png")
         self.acousticBtn = SideMenuButton(self, 110, 90)
-        self.acousticBtn.setText("Acoustic")  # Needs to be changed to icon
+        self.acousticBtn.set_icon("Images\\AcousticGuitarPngIcon.png")
         self.electricBtn = SideMenuButton(self, 200, 90)
         self.electricBtn.set_icon("Images\\ElectricGuitarPngIcon.png")
         self.chooseTuningLabel = SideMenuLabel(self, 10, 190, "CHOOSE TUNING")
