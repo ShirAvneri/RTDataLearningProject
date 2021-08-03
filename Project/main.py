@@ -7,7 +7,7 @@ def main():
     app = QApplication(sys.argv)
     window = QMainWindow()
     window.setFixedSize(900, 600)
-    window.setWindowTitle("CSMusicProject")
+    window.setWindowTitle("Music Project")
     MainLayout(900, 600, window)
     window.show()
     sys.exit(app.exec())

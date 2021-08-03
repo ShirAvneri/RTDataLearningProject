@@ -17,23 +17,23 @@ class SideMenu(QWidget):
         # Setting tool-box title:
         title_font = QFont()
         title_font.setFamilies([u"Calibri"])
-        title_font.setPointSize(20)
+        title_font.setPointSize(24)
         title_font.setBold(True)
         self.toolBoxLabel = QLabel(self)
-        self.toolBoxLabel.setGeometry(QRect(10, 20, 100, 30))
+        self.toolBoxLabel.setGeometry(QRect(10, 20, 150, 30))
         self.toolBoxLabel.setFont(title_font)
         self.toolBoxLabel.setText("Tool Box")
 
         # Setting everything else:
         self.chooseInstrumentLabel = SideMenuLabel(self, 10, 60, "CHOOSE AN INSTRUMENT")
-        self.classicalBtn = SideMenuButton(self, 20, 90)
+        self.classicalBtn = SideMenuButton(self, 20, 85)
         self.classicalBtn.set_icon("Images\\ClassicGuitarPngIcon.png")
-        self.acousticBtn = SideMenuButton(self, 110, 90)
+        self.acousticBtn = SideMenuButton(self, 110, 85)
         self.acousticBtn.set_icon("Images\\AcousticGuitarPngIcon.png")
-        self.electricBtn = SideMenuButton(self, 200, 90)
+        self.electricBtn = SideMenuButton(self, 200, 85)
         self.electricBtn.set_icon("Images\\ElectricGuitarPngIcon.png")
-        self.chooseTuningLabel = SideMenuLabel(self, 10, 190, "CHOOSE TUNING")
-        self.radio_buttons = SideMenuRadioButtons(self, 20, 220)
+        self.chooseTuningLabel = SideMenuLabel(self, 10, 180, "CHOOSE TUNING")
+        self.radio_buttons = SideMenuRadioButtons(self, 20, 205)
         self.radio_buttons.set_buttons()
 
 
@@ -67,8 +67,9 @@ class SideMenuLabel(QLabel):
 
 class SideMenuRadioButtons:
     def __init__(self, parent, x_pos, y_pos):
-        self.tuning_list = ["Regular", "Drop D", "Double drop D", "DADGAD", "Open D", "Open E", "Open G", "Open A",
-                            "Open C", "Open C6"]
+        self.tuning_list = ["Standard", "Drop D", "Drop C", "Drop C#", "Drop B", "Drop A", "DADGAD", "Half Step Down",
+                            "Full Step Down", "Half Step Up", "Open C", "Open D", "Open E", "Open F", "Open G",
+                            "Open A"]
         self.parent = parent
         self.x = x_pos
         self.y = y_pos
@@ -76,8 +77,12 @@ class SideMenuRadioButtons:
         self.buttons_list = {}
 
     def set_buttons(self):
+        font = QFont()
+        font.setFamilies([u"Calibri"])
+        font.setPointSize(10)
         for i, text in enumerate(self.tuning_list):
             radio_button = QRadioButton(self.parent)
             radio_button.setGeometry(QRect(self.x, self.y + i * self.margin, 150, 20))
+            radio_button.setFont(font)
             radio_button.setText(text)
             self.buttons_list[text] = radio_button
