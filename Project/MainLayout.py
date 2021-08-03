@@ -10,3 +10,6 @@ class MainLayout(QWidget):
         self.side_menu = SideMenu(self)
         self.top_bar = TopBar(self)
         self.content = Content(self)
+
+    def set_content(self, new_content):
+        self.content = new_content

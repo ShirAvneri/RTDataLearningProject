@@ -8,7 +8,8 @@ def main():
     window = QMainWindow()
     window.setFixedSize(900, 600)
     window.setWindowTitle("Music Project")
-    MainLayout(900, 600, window)
+    layout = MainLayout(900, 600, window)
+    layout.set_content(ClassicalGuitarTuner(window))
     window.show()
     sys.exit(app.exec())
 
