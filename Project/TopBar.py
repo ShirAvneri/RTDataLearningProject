@@ -33,4 +33,7 @@ class TopBar(QWidget):
             button.setText(text)
             button.setIcon(QIcon(self.buttons_icons[i]))
             button.setIconSize(QSize(27, 27))
+            #button.clicked.connect(lambda: tunner(name))
             self.buttons_list[text] = button
+
+
