@@ -2,7 +2,7 @@ from PySide6 import QtCore
 from PySide6.QtCore import QRect, QSize
 from PySide6.QtGui import QFont, QIcon
 from PySide6.QtWidgets import QWidget, QPushButton, QLabel, QRadioButton
-
+import json
 
 class SideMenu(QWidget):
     def __init__(self, parent):
@@ -13,7 +13,7 @@ class SideMenu(QWidget):
         self.setObjectName(self.name)
         self.setAttribute(QtCore.Qt.WA_StyledBackground, True)
         self.setStyleSheet("QWidget#" + self.name + " { " + self.style + " }")
-
+        self.main_layout = parent
         # Setting tool-box title:
         title_font = QFont()
         title_font.setFamilies([u"Calibri"])
@@ -76,6 +76,7 @@ class SideMenuRadioButtons:
         self.margin = 20
         self.buttons_list = {}
 
+
     def set_buttons(self):
         font = QFont()
         font.setFamilies([u"Calibri"])
@@ -85,4 +86,13 @@ class SideMenuRadioButtons:
             radio_button.setGeometry(QRect(self.x, self.y + i * self.margin, 150, 20))
             radio_button.setFont(font)
             radio_button.setText(text)
+            radio_button.toggled.connect(lambda: self.set_tuner(radio_button, text))
             self.buttons_list[text] = radio_button
+
+    def set_tuner(self, button, tuning):
+        print(button.isChecked())
+        if button.isChecked():
+            f = open("TuningNotes.json")
+            data = json.load(f)
+            print(data[tuning])
+            self.parent.main_layout.change_notes(data[tuning])

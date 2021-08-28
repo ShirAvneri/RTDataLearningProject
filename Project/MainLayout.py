@@ -13,3 +13,8 @@ class MainLayout(QWidget):
 
     def set_content(self, new_content):
         self.content = new_content
+
+    def change_notes(self,notes):
+        if self.content == ClassicalGuitarTuner:
+            self.content = ClassicalGuitarTuner(self.content)
+            self.content.change_notes(notes)

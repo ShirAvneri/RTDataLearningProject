@@ -41,6 +41,7 @@ class ClassicalGuitarTuner(Content):
         string6 = GuitarTuningButton(self, self.notes[5], 100, 235)
         self.notes_buttons.append(string6)
 
+
     def change_notes(self, notes: []):
         for i, _ in enumerate(self.notes_buttons):
             self.notes[i] = notes[i]

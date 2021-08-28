@@ -1,0 +1,191 @@
+{
+  "Standart": [
+
+    {
+      "note1": "E",
+      "note2": "A",
+      "note3": "D",
+      "note4": "G",
+      "note5": "B",
+      "note6": "E"
+    }
+  ],
+  "Drop D": [
+
+    {
+      "note1": "D",
+      "note2": "A",
+      "note3": "D",
+      "note4": "G",
+      "note5": "B",
+      "note6": "E"
+    }
+  ],
+  "Drop C": [
+
+    {
+      "note1": "C",
+      "note2": "G",
+      "note3": "C",
+      "note4": "F",
+      "note5": "A",
+      "note6": "D"
+    }
+  ],
+  "Drop C#": [
+
+    {
+      "note1": "C#",
+      "note2": "G#",
+      "note3": "C#",
+      "note4": "F#",
+      "note5": "A#",
+      "note6": "D#"
+    }
+  ],
+  "Drop B": [
+
+    {
+      "note1": "B",
+      "note2": "F#",
+      "note3": "B",
+      "note4": "E",
+      "note5": "G#",
+      "note6": "C#"
+
+    }
+  ],
+  "Drop A": [
+
+    {
+      "note1": "A1",
+      "note2": "E2",
+      "note3": "A2",
+      "note4": "D3",
+      "note5": "G3",
+      "note6": "B3",
+      "note7": "G4"
+
+    }
+  ],
+  "DADGAG": [
+
+    {
+      "note1": "D2",
+      "note2": "A2",
+      "note3": "D3",
+      "note4": "G3",
+      "note5": "A3",
+      "note6": "G4"
+
+    }
+  ],
+  "Half step down": [
+
+    {
+      "note1": "D#",
+      "note2": "G#",
+      "note3": "C#",
+      "note4": "F#",
+      "note5": "A#",
+      "note6": "G#"
+
+    }
+  ],
+  "full step down": [
+
+    {
+      "note1": "D",
+      "note2": "G",
+      "note3": "C",
+      "note4": "F",
+      "note5": "B",
+      "note6": "D"
+
+    }
+  ],
+  "half step up": [
+
+    {
+      "note1": "F",
+      "note2": "A#",
+      "note3": "D#",
+      "note4": "G#",
+      "note5": "C",
+      "note6": "F"
+
+    }
+  ],
+  "Open C": [
+
+    {
+      "note1": "C",
+      "note2": "E",
+      "note3": "G",
+      "note4": "C",
+      "note5": "E",
+      "note6": "G"
+
+    }
+  ],
+  "Open D": [
+
+    {
+      "note1": "D",
+      "note2": "A",
+      "note3": "D",
+      "note4": "F#",
+      "note5": "A",
+      "note6": "D"
+
+    }
+  ],
+  "Open E": [
+
+    {
+      "note1": "E",
+      "note2": "B",
+      "note3": "E",
+      "note4": "G#",
+      "note5": "B",
+      "note6": "E"
+
+    }
+  ],
+  "Open F": [
+
+    {
+      "note1": "F",
+      "note2": "A",
+      "note3": "C",
+      "note4": "F",
+      "note5": "C",
+      "note6": "F"
+
+    }
+  ],
+  "Open G": [
+
+    {
+      "note1": "D",
+      "note2": "G",
+      "note3": "D",
+      "note4": "G",
+      "note5": "B",
+      "note6": "D"
+
+    }
+  ],
+  "Open A": [
+
+    {
+      "note1": "E",
+      "note2": "A",
+      "note3": "E",
+      "note4": "A",
+      "note5": "C#",
+      "note6": "E"
+
+    }
+  ]
+}
