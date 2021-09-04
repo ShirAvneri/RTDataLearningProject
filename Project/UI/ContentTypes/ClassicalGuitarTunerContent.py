@@ -1,21 +1,11 @@
-from PySide6 import QtCore
 from PySide6.QtCore import QRect
 from PySide6.QtGui import QFont
-from PySide6.QtWidgets import QWidget, QLabel, QPushButton
+from PySide6.QtWidgets import QLabel, QPushButton
+
+from Project.UI.Content import Content
 
 
-class Content(QWidget):
-    def __init__(self, parent):
-        super().__init__(parent)
-        self.name = "Content"
-        self.style = ""
-        self.setGeometry(QRect(0, 50, 600, 550))
-        self.setObjectName(self.name)
-        self.setAttribute(QtCore.Qt.WA_StyledBackground, True)
-        self.setStyleSheet("QWidget#" + self.name + " { " + self.style + " }")
-
-
-class ClassicalGuitarTuner(Content):
+class ClassicalGuitarTunerContent(Content):
     def __init__(self, parent):
         super().__init__(parent)
         self.notes = ["E4", "B3", "G3", "D3", "A2", "E2"]
@@ -23,8 +13,8 @@ class ClassicalGuitarTuner(Content):
         guitar_image = QLabel(self)
         guitar_image.setObjectName("GuitarImageLabel")
         guitar_image.setGeometry(QRect(170, 50, 260, 500))
-        guitar_image.setStyleSheet("QLabel#GuitarImageLabel { border-image: url(ClassicGuitarTuningPng.png) "
-                                   "0 0 0 stretch stretch; }")
+        guitar_image.setStyleSheet("QLabel#GuitarImageLabel { "
+                                   "border-image: url(./UI/Images/ClassicGuitarTuningPng.png) 0 0 0 stretch stretch; }")
         self.init_notes()
 
     def init_notes(self):
@@ -40,7 +30,6 @@ class ClassicalGuitarTuner(Content):
         self.notes_buttons.append(string5)
         string6 = GuitarTuningButton(self, self.notes[5], 100, 235)
         self.notes_buttons.append(string6)
-
 
     def change_notes(self, notes: []):
         for i, _ in enumerate(self.notes_buttons):

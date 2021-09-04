@@ -7,6 +7,7 @@ from PySide6.QtWidgets import QWidget, QPushButton
 class TopBar(QWidget):
     def __init__(self, parent):
         super().__init__(parent)
+        self.main_layout = parent
         self.name = "TopBar"
         self.style = "background-color: #393939; border-bottom-right-radius: 10px; " \
                      "border-bottom-left-radius: 10px;"
@@ -16,8 +17,8 @@ class TopBar(QWidget):
         self.setStyleSheet("QWidget#" + self.name + " { " + self.style + " }")
 
         self.buttons_types = ["Guitar Tuning", "Recording", "Chord Detection"]
-        self.buttons_icons = ["Images\\TopBarIcons\\GuitarTuning.png", "Images\\TopBarIcons\\Recording.png",
-                              "Images\\TopBarIcons\\ChordDetection.png"]
+        self.buttons_icons = ["./UI/Images/TopBarIcons/GuitarTuning.png", "./UI/Images/TopBarIcons/Recording.png",
+                              "./UI/Images/TopBarIcons/ChordDetection.png"]
         self.buttons_style = "color: white; text-align: center; background-color: #393939; border-radius: 0px;" \
                              "border-right-style: outset; border-right-width: 1px; border-right-color: #616161;"
         self.buttons_x = 20

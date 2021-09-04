@@ -4,16 +4,17 @@ from PySide6.QtGui import QFont, QIcon
 from PySide6.QtWidgets import QWidget, QPushButton, QLabel, QRadioButton
 import json
 
+
 class SideMenu(QWidget):
     def __init__(self, parent):
         super().__init__(parent)
+        self.main_layout = parent
         self.name = "SideMenu"
         self.style = "background-color: #ffffff; border-top-left-radius: 10px; border-bottom-left-radius: 10px;"
         self.setGeometry(QRect(600, 50, 300, 550))
         self.setObjectName(self.name)
         self.setAttribute(QtCore.Qt.WA_StyledBackground, True)
         self.setStyleSheet("QWidget#" + self.name + " { " + self.style + " }")
-        self.main_layout = parent
         # Setting tool-box title:
         title_font = QFont()
         title_font.setFamilies([u"Calibri"])
@@ -27,11 +28,11 @@ class SideMenu(QWidget):
         # Setting everything else:
         self.chooseInstrumentLabel = SideMenuLabel(self, 10, 60, "CHOOSE AN INSTRUMENT")
         self.classicalBtn = SideMenuButton(self, 20, 85)
-        self.classicalBtn.set_icon("Images\\ClassicGuitarPngIcon.png")
+        self.classicalBtn.set_icon("./UI/Images/ClassicGuitarPngIcon.png")
         self.acousticBtn = SideMenuButton(self, 110, 85)
-        self.acousticBtn.set_icon("Images\\AcousticGuitarPngIcon.png")
+        self.acousticBtn.set_icon("./UI/Images/AcousticGuitarPngIcon.png")
         self.electricBtn = SideMenuButton(self, 200, 85)
-        self.electricBtn.set_icon("Images\\ElectricGuitarPngIcon.png")
+        self.electricBtn.set_icon("./UI/Images/ElectricGuitarPngIcon.png")
         self.chooseTuningLabel = SideMenuLabel(self, 10, 180, "CHOOSE TUNING")
         self.radio_buttons = SideMenuRadioButtons(self, 20, 205)
         self.radio_buttons.set_buttons()
@@ -76,7 +77,6 @@ class SideMenuRadioButtons:
         self.margin = 20
         self.buttons_list = {}
 
-
     def set_buttons(self):
         font = QFont()
         font.setFamilies([u"Calibri"])
@@ -92,7 +92,7 @@ class SideMenuRadioButtons:
     def set_tuner(self, button, tuning):
         print(button.isChecked())
         if button.isChecked():
-            f = open("TuningNotes.json")
+            f = open("../TuningNotes.json")
             data = json.load(f)
             print(data[tuning])
             self.parent.main_layout.change_notes(data[tuning])

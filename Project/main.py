@@ -1,6 +1,7 @@
 import sys
 from PySide6.QtWidgets import QApplication, QMainWindow
-from MainLayout import *
+from Project.UI.ContentTypes.ClassicalGuitarTunerContent import ClassicalGuitarTunerContent
+from Project.UI.MainLayout import MainLayout
 
 
 def main():
@@ -9,7 +10,7 @@ def main():
     window.setFixedSize(900, 600)
     window.setWindowTitle("Music Project")
     layout = MainLayout(900, 600, window)
-    layout.set_content(ClassicalGuitarTuner(window))
+    layout.set_content(ClassicalGuitarTunerContent(window))
     window.show()
     sys.exit(app.exec())
 
