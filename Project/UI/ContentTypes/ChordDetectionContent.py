@@ -4,10 +4,10 @@ from Project.UI.Content import Content
 from Project.UI.ContentTypes.Common import GuitarTunerButton
 
 
-class ClassicalGuitarTunerContent(Content):
+class ChordDetectionContent(Content):
     def __init__(self):
-        super(ClassicalGuitarTunerContent, self).__init__()
-        self.notes = ["E4", "B3", "G3", "D3", "A2", "E2"]
+        super(ChordDetectionContent, self).__init__()
+        self.notes = ["4", "B3", "G3", "D3", "A2", "E2"]
         self.notes_buttons = []
         guitar_image = QLabel(self)
         guitar_image.setObjectName("GuitarImageLabel")

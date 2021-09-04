@@ -4,8 +4,8 @@ from PySide6.QtWidgets import QPushButton
 
 
 class GuitarTunerButton(QPushButton):
-    def __init__(self, parent, note, string_num, x_pos, y_pos):
-        super().__init__(parent)
+    def __init__(self, note, string_num, x_pos, y_pos):
+        super(GuitarTunerButton, self).__init__()
         self.note = note
         self.name = "string" + string_num
         self.setObjectName(self.name)

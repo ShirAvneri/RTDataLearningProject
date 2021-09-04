@@ -1,0 +1,6 @@
+GUITAR_TUNING = "Guitar Tuning"
+CLASSICAL_GUITAR_TUNER = "Classical Guitar Tuner"
+ELECTRIC_GUITAR_TUNER = "Electric Guitar Tuner"
+ACOUSTIC_GUITAR_TUNER = "Acoustic Guitar Tuner"
+RECORDING = "Recording"
+CHORD_DETECTION = "Chord Detection"
