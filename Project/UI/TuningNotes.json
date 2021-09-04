@@ -1,0 +1,18 @@
+{
+  "Standard": ["E4", "B3", "G3", "D3", "A2", "E2"],
+  "Drop D": ["D", "A", "D", "G", "B", "E"],
+  "Drop C": ["C", "G", "C", "F", "A", "D"],
+  "Drop C#": ["C#", "G#", "C#", "F#", "A#", "D#"],
+  "Drop B": ["B", "F#", "B","E", "G#", "C#"],
+  "Drop A": ["A1", "E2", "A2", "D3", "G3", "B3", "G4"],
+  "DADGAD": ["D2", "A2", "D3", "G3", "A3", "G4"],
+  "Half Step Down": ["D#", "G#", "C#", "F#", "A#", "G#"],
+  "Full Step Down": ["D", "G", "C", "F", "B", "D"],
+  "Half Step Up": ["F", "A#", "D#", "G#", "C", "F"],
+  "Open C": ["C", "E", "G", "C", "E", "G"],
+  "Open D": ["D", "A", "D", "F#", "A", "D"],
+  "Open E": ["E", "B", "E", "G#", "B", "E"],
+  "Open F": ["F", "A", "C", "F", "C", "F"],
+  "Open G": ["D", "G", "D", "G", "B", "D"],
+  "Open A": ["E", "A", "E", "A", "C#", "E"]
+}

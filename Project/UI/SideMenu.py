@@ -1,7 +1,7 @@
 from PySide6 import QtCore
 from PySide6.QtCore import QRect, QSize
 from PySide6.QtGui import QFont, QIcon
-from PySide6.QtWidgets import QWidget, QPushButton, QLabel, QRadioButton
+from PySide6.QtWidgets import QWidget, QPushButton, QLabel, QRadioButton, QButtonGroup
 import json
 
 
@@ -76,6 +76,7 @@ class SideMenuRadioButtons:
         self.y = y_pos
         self.margin = 20
         self.buttons_list = {}
+        self.buttons_group = QButtonGroup(parent)
 
     def set_buttons(self):
         font = QFont()
@@ -86,13 +87,13 @@ class SideMenuRadioButtons:
             radio_button.setGeometry(QRect(self.x, self.y + i * self.margin, 150, 20))
             radio_button.setFont(font)
             radio_button.setText(text)
-            radio_button.toggled.connect(lambda: self.set_tuner(radio_button, text))
             self.buttons_list[text] = radio_button
+            self.buttons_group.addButton(radio_button, i)
+        self.buttons_group.buttonClicked.connect(self.change_notes)
 
-    def set_tuner(self, button, tuning):
-        print(button.isChecked())
-        if button.isChecked():
-            f = open("../TuningNotes.json")
-            data = json.load(f)
-            print(data[tuning])
-            self.parent.main_layout.change_notes(data[tuning])
+    def change_notes(self, button: QRadioButton):
+        selected_tuning = self.tuning_list[self.buttons_group.id(button)]
+        f = open('./UI/TuningNotes.json',)
+        tunings = json.load(f)
+        print(tunings[selected_tuning])
+        self.parent.main_layout.change_tuning_event(tunings[selected_tuning])

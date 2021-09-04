@@ -4,10 +4,10 @@ from PySide6.QtWidgets import QPushButton
 
 
 class GuitarTunerButton(QPushButton):
-    def __init__(self, parent, note, x_pos, y_pos):
+    def __init__(self, parent, note, string_num, x_pos, y_pos):
         super().__init__(parent)
         self.note = note
-        self.name = note + "_note"
+        self.name = "string" + string_num
         self.setObjectName(self.name)
         self.x = x_pos
         self.y = y_pos
@@ -24,9 +24,9 @@ class GuitarTunerButton(QPushButton):
         self.setText(self.note)
         self.setFont(font)
 
-    def change_note(self, note):
+    def change_note(self, note, string_num):
         self.note = note
-        self.name = note + "_note"
+        self.name = "string" + string_num
         self.setObjectName(self.name)
         self.setStyleSheet("QPushButton#" + self.name + " { " + self.style + " }")
         self.setText(self.note)

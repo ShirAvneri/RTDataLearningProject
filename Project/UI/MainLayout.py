@@ -1,7 +1,7 @@
+from Project.UI.ContentTypes import ClassicalGuitarTunerContent
 from Project.UI.SideMenu import *
 from Project.UI.TopBar import *
 from Project.UI.Content import *
-
 
 class MainLayout(QWidget):
     def __init__(self, width, height, parent=None):
@@ -13,3 +13,6 @@ class MainLayout(QWidget):
 
     def set_content(self, new_content):
         self.content = new_content
+
+    def change_tuning_event(self, notes):
+        self.content.change_notes(notes)
