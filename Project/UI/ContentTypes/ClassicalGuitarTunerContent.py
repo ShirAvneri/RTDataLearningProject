@@ -1,8 +1,7 @@
 from PySide6.QtCore import QRect
-from PySide6.QtGui import QFont
 from PySide6.QtWidgets import QLabel, QPushButton
-
 from Project.UI.Content import Content
+from Project.UI.ContentTypes.Common import GuitarTunerButton
 
 
 class ClassicalGuitarTunerContent(Content):
@@ -18,17 +17,17 @@ class ClassicalGuitarTunerContent(Content):
         self.init_notes()
 
     def init_notes(self):
-        string1 = GuitarTuningButton(self, self.notes[0], 450, 235)
+        string1 = GuitarTunerButton(self, self.notes[0], 450, 235)
         self.notes_buttons.append(string1)
-        string2 = GuitarTuningButton(self, self.notes[1], 450, 175)
+        string2 = GuitarTunerButton(self, self.notes[1], 450, 175)
         self.notes_buttons.append(string2)
-        string3 = GuitarTuningButton(self, self.notes[2], 450, 115)
+        string3 = GuitarTunerButton(self, self.notes[2], 450, 115)
         self.notes_buttons.append(string3)
-        string4 = GuitarTuningButton(self, self.notes[3], 100, 115)
+        string4 = GuitarTunerButton(self, self.notes[3], 100, 115)
         self.notes_buttons.append(string4)
-        string5 = GuitarTuningButton(self, self.notes[4], 100, 175)
+        string5 = GuitarTunerButton(self, self.notes[4], 100, 175)
         self.notes_buttons.append(string5)
-        string6 = GuitarTuningButton(self, self.notes[5], 100, 235)
+        string6 = GuitarTunerButton(self, self.notes[5], 100, 235)
         self.notes_buttons.append(string6)
 
     def change_notes(self, notes: []):
@@ -37,30 +36,3 @@ class ClassicalGuitarTunerContent(Content):
             self.notes_buttons[i].change_note(notes[i])
 
 
-class GuitarTuningButton(QPushButton):
-    def __init__(self, parent, note, x_pos, y_pos):
-        super().__init__(parent)
-        self.note = note
-        self.name = note + "_note"
-        self.setObjectName(self.name)
-        self.x = x_pos
-        self.y = y_pos
-        self.style = "border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color: white; " \
-                     "border-radius: 25px; "
-        self.set_button()
-
-    def set_button(self):
-        font = QFont()
-        font.setFamilies([u"Calibri"])
-        font.setPointSize(14)
-        self.setGeometry(QRect(self.x, self.y, 50, 50))
-        self.setStyleSheet("QPushButton#" + self.name + " { " + self.style + " }")
-        self.setText(self.note)
-        self.setFont(font)
-
-    def change_note(self, note):
-        self.note = note
-        self.name = note + "_note"
-        self.setObjectName(self.name)
-        self.setStyleSheet("QPushButton#" + self.name + " { " + self.style + " }")
-        self.setText(self.note)
