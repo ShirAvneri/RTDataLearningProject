@@ -1,5 +1,7 @@
 from Project.UI.ContentTypes.ChordDetectionContent import ChordDetectionContent
+from Project.UI.ContentTypes.GuitarTunerContent.AcousticGuitarTunerContent import AcousticGuitarTunerContent
 from Project.UI.ContentTypes.GuitarTunerContent.ClassicalGuitarTunerContent import ClassicalGuitarTunerContent
+from Project.UI.ContentTypes.GuitarTunerContent.ElectricGuitarTunerContent import ElectricGuitarTunerContent
 from Project.UI.ContentTypes.RecordingContent.RecordingContent import RecordingContent
 from Project.UI.SideMenu import *
 from Project.UI.TopBar import *
@@ -28,9 +30,9 @@ class MainLayout(QWidget):
         elif content_type == CLASSICAL_GUITAR_TUNER:
             new_content = ClassicalGuitarTunerContent()
         elif content_type == ELECTRIC_GUITAR_TUNER:
-            new_content = ClassicalGuitarTunerContent()
+            new_content = ElectricGuitarTunerContent()
         elif content_type == ACOUSTIC_GUITAR_TUNER:
-            new_content = ClassicalGuitarTunerContent()
+            new_content = AcousticGuitarTunerContent()
         elif content_type == CHORD_DETECTION:
             new_content = ChordDetectionContent()
         elif content_type == RECORDING:
@@ -40,5 +42,8 @@ class MainLayout(QWidget):
         self.content = new_content
         self.content.show()
 
-    def change_tuning(self, notes):
+    def tuning_change_event_handler(self, notes):
         self.content.change_notes(notes)
+
+    def guitar_change_event_handler(self, guitar_type):
+        self.change_content(guitar_type)
