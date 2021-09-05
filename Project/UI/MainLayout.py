@@ -1,7 +1,6 @@
 from Project.UI.ContentTypes.ChordDetectionContent import ChordDetectionContent
-from Project.UI.ContentTypes.ClassicalGuitarTunerContent import ClassicalGuitarTunerContent
-from Project.UI.ContentTypes.RecordingContent import RecordingContent
-
+from Project.UI.ContentTypes.GuitarTunerContent.ClassicalGuitarTunerContent import ClassicalGuitarTunerContent
+from Project.UI.ContentTypes.RecordingContent.RecordingContent import RecordingContent
 from Project.UI.SideMenu import *
 from Project.UI.TopBar import *
 from Project.UI.Content import *
