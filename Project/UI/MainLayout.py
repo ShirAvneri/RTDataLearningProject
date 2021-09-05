@@ -30,6 +30,7 @@ class MainLayout(QWidget):
             new_content = ClassicalGuitarTunerContent()
         elif content_type == ELECTRIC_GUITAR_TUNER:
             self.content.setParent(None)
+
             new_content = ClassicalGuitarTunerContent()
         elif content_type == ACOUSTIC_GUITAR_TUNER:
             self.content.setParent(None)
