@@ -14,3 +14,9 @@ class GuitarTunerContent(Content):
         for i, _ in enumerate(self.notes_buttons):
             self.notes[i] = notes[i]
             self.notes_buttons[i].change_note(notes[i], str(i + 1))
+
+    def tune_note(self, note):
+        # TO-DO:
+        # When this function is called, it will invoke the backend tuner function
+        # Connect this function to buttons
+        pass

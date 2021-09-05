@@ -112,4 +112,3 @@ class SideMenuRadioButtons(QButtonGroup):
         f = open('./UI/TuningNotes.json', )
         tunings = json.load(f)
         self.parent().tuning_change_event(tunings[selected_tuning])
-
