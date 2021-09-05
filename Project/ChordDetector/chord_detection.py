@@ -1,4 +1,5 @@
-from ChordDetection.chroma_chord_detection import chord_detection, chord_detection_filepath, chord_detection_prefilepath
+#from ChordDetection.chroma_chord_detection import chord_detection_filepath, chord_detection_prefilepath
+from Project.ChordDetector.ChordDetection.chroma_chord_detection import chord_detection_filepath, chord_detection_prefilepath
 
 import numpy as np
 import pyaudio # Soundcard audio I/O access library

@@ -4,9 +4,12 @@ from os import listdir
 from os.path import isfile, join
 import numpy as np
 import matplotlib.pyplot as plt
-from ChordDetection.chromagram import extract_pitch_chroma, block_audio, compute_stft, file_read, file_normalize
+from Project.ChordDetector.ChordDetection.chromagram import extract_pitch_chroma, block_audio, compute_stft, file_read, file_normalize
 
 # Loading the JSON into a variable
+cwd = os.getcwd()  # Get the current working directory (cwd)
+files = os.listdir(cwd)  # Get all the files in that directory
+print("Files in %r: %s" % (cwd, files))
 with open('chord_template.json', 'r') as fp:
     templates_json = json.load(fp)
 
