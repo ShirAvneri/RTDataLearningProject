@@ -4,7 +4,9 @@ from PySide6.QtWidgets import QLabel, QPushButton
 #from Project.ChordDetector import chord_detection
 from Project.ChordDetector import chord_detection
 from Project.UI.Content import Content
-from Project.UI.ContentTypes.Common import GuitarTunerButton, RecordingButton
+from Project.UI.ContentTypes.RecordingContent.Common import RecordingButton
+import threading
+import pathos.multiprocessing as multiprocessing
 from Project.UI.ContentTypes.GuitarTunerContent.GuitarTunerButton import GuitarTunerButton
 
 
@@ -31,6 +33,10 @@ class ChordDetectionContent(Content):
         self.buttons.append(record_button)
         record_button.setParent(self)
         record_button.clicked.connect(self.record)
+        self.thread = None
+        self.process = None
+        self.stream = None
+        self.p = None
         # text = QLabel(self)
         # text.setObjectName("GuitarImageLabel")
         # text.setGeometry(QRect(130, 50, 260, 500))
@@ -40,8 +46,22 @@ class ChordDetectionContent(Content):
         # text.setGeometry(QRect(220, 50, 260, 500))
         # text.setText('NOTE')
 
+    def get_chords(self):
+        self.stream, self.p = chord_detection.open_stream()
+        while True:
+            chord = chord_detection.get_chord_from_stream(stream, p)
+            print(chord)
+
     def record(self, btn):
-        print(self.sender().text())
         if self.sender().text() == "Record":
-            chord_detection.clicked2()
-            self.sender().setText('clicked')
+            #self.thread = threading.Thread(target=self.get_chords)
+            #self.thread.start()
+            self.process = multiprocessing.ProcessPool
+            self.process = multiprocessing.Process(target=self.get_chords)
+            self.process.start()
+            self.sender().setText('Recording')
+        if self.sender().text() == "Recording":
+            self.process.close()
+
+
+
