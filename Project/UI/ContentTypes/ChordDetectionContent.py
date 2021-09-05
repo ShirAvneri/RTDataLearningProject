@@ -2,6 +2,7 @@ from PySide6.QtCore import QRect
 from PySide6.QtWidgets import QLabel, QPushButton
 
 #from Project.ChordDetector import chord_detection
+from Project.ChordDetector import chord_detection
 from Project.UI.Content import Content
 from Project.UI.ContentTypes.Common import GuitarTunerButton, RecordingButton
 
@@ -29,8 +30,17 @@ class ChordDetectionContent(Content):
         self.buttons.append(record_button)
         record_button.setParent(self)
         record_button.clicked.connect(self.record)
+        # text = QLabel(self)
+        # text.setObjectName("GuitarImageLabel")
+        # text.setGeometry(QRect(130, 50, 260, 500))
+        # text.setText('note detected: ')
+        # text = QLabel(self)
+        # text.setObjectName("GuitarImageLabel")
+        # text.setGeometry(QRect(220, 50, 260, 500))
+        # text.setText('NOTE')
 
     def record(self, btn):
         print(self.sender().text())
         if self.sender().text() == "Record":
+            chord_detection.clicked2()
             self.sender().setText('clicked')

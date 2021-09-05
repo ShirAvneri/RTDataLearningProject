@@ -9,7 +9,7 @@ from Project.ChordDetector.ChordDetection.chromagram import extract_pitch_chroma
 # Loading the JSON into a variable
 cwd = os.getcwd()  # Get the current working directory (cwd)
 files = os.listdir(cwd)  # Get all the files in that directory
-print("Files in %r: %s" % (cwd, files))
+
 with open('chord_template.json', 'r') as fp:
     templates_json = json.load(fp)
 
@@ -81,9 +81,6 @@ def chord_detection_filepath(filepath):
     if len(x.shape) > 1:
         x = x[:, 1]
 
-
-
-
     xb, t = block_audio(x, block_size, hop_size, fs)
     X, fs = compute_stft(xb, fs, block_size, hop_size)
 
@@ -102,9 +99,7 @@ def chord_detection_filepath(filepath):
     cor_vec = np.zeros(24)
     for idx in range(24):
         cor_vec[idx] = np.dot(chroma_template, np.array(templates[idx]))
-    print(cor_vec)
     idx_max_cor = np.argmax(cor_vec)
-    #print(idx_max_cor)
 
     idx_chord = int(idx_max_cor + 1)
     chord_name = tuple(chords[idx_chord].split(" "))
@@ -119,7 +114,6 @@ def chord_detection_filepath(filepath):
     # plt.grid(True)
     # plt.plot(notes, chroma_template)
     # plt.show()
-
     return chord_name
 
 
