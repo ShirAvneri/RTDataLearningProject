@@ -4,6 +4,8 @@ from Project.UI.ContentTypes.GuitarTunerContent.GuitarTunerContent import Guitar
 
 
 class ElectricGuitarTunerContent(GuitarTunerContent):
+    # TO-DO:
+    # Set correct image and buttons
     def __init__(self):
         super(ElectricGuitarTunerContent, self).__init__()
         self.notes = ["1", "2", "3", "4", "5", "6"]
