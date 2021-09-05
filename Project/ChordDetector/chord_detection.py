@@ -56,6 +56,12 @@ def get_chord_from_stream(stream, p):
             chords.clear()
 
 
+def close_stream(stream, p):
+    stream.stop_stream()
+    stream.close()
+    p.terminate()
+
+
 def clicked():
     print("in clicked")
     p = pyaudio.PyAudio()

@@ -37,6 +37,7 @@ class ChordDetectionContent(Content):
         self.process = None
         self.stream = None
         self.p = None
+        self.flag = False
         # text = QLabel(self)
         # text.setObjectName("GuitarImageLabel")
         # text.setGeometry(QRect(130, 50, 260, 500))
@@ -49,19 +50,24 @@ class ChordDetectionContent(Content):
     def get_chords(self):
         self.stream, self.p = chord_detection.open_stream()
         while True:
-            chord = chord_detection.get_chord_from_stream(stream, p)
+
+            print(self.flag)
+            if self.flag:
+                break
+            chord = chord_detection.get_chord_from_stream(self.stream, self.p)
             print(chord)
 
     def record(self, btn):
         if self.sender().text() == "Record":
-            #self.thread = threading.Thread(target=self.get_chords)
-            #self.thread.start()
-            self.process = multiprocessing.ProcessPool
-            self.process = multiprocessing.Process(target=self.get_chords)
-            self.process.start()
+            self.flag = False
+            self.thread = threading.Thread(target=self.get_chords)
+            self.thread.start()
             self.sender().setText('Recording')
-        if self.sender().text() == "Recording":
-            self.process.close()
+        elif self.sender().text() == "Recording":
+            self.flag = True
+            chord_detection.close_stream(self.stream, self.p)
+            self.sender().setText('Record')
+
 
 
 
