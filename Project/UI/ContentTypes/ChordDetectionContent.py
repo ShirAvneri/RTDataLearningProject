@@ -5,6 +5,7 @@ from PySide6.QtWidgets import QLabel, QPushButton
 from Project.ChordDetector import chord_detection
 from Project.UI.Content import Content
 from Project.UI.ContentTypes.Common import GuitarTunerButton, RecordingButton
+from Project.UI.ContentTypes.GuitarTunerContent.GuitarTunerButton import GuitarTunerButton
 
 
 class ChordDetectionContent(Content):
