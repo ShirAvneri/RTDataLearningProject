@@ -2,7 +2,7 @@ from PySide6 import QtCore
 from PySide6.QtCore import QRect, QSize
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QWidget, QPushButton
-from Project.Constants import *
+from Project.Constants import TOP_BAR_FUNCTIONALITY
 
 
 class TopBar(QWidget):
@@ -15,8 +15,6 @@ class TopBar(QWidget):
         self.setObjectName(self.name)
         self.setAttribute(QtCore.Qt.WA_StyledBackground, True)
         self.setStyleSheet("QWidget#" + self.name + " { " + self.style + " }")
-
-        self.buttons_types = [GUITAR_TUNING, RECORDING, CHORD_DETECTION]
         self.buttons_icons = ["./UI/Images/TopBarIcons/GuitarTuning.png", "./UI/Images/TopBarIcons/Recording.png",
                               "./UI/Images/TopBarIcons/ChordDetection.png"]
         self.buttons_style = "color: white; text-align: center; background-color: #393939; border-radius: 0px;" \
@@ -27,16 +25,16 @@ class TopBar(QWidget):
         self.set_buttons()
 
     def set_buttons(self):
-        for i, text in enumerate(self.buttons_types):
+        for key in TOP_BAR_FUNCTIONALITY.keys():
+            i = TOP_BAR_FUNCTIONALITY[key]
             button = QPushButton(self)
             button.setGeometry(QRect(self.buttons_x + self.buttons_margin * i, 0, 135, 49))
             button.setStyleSheet(self.buttons_style)
-            button.setText(text)
+            button.setText(key)
             button.setIcon(QIcon(self.buttons_icons[i]))
             button.setIconSize(QSize(27, 27))
             button.clicked.connect(self.button_clicked)
-            self.buttons_list[text] = button
+            self.buttons_list[i] = button
 
     def button_clicked(self):
-        print(self.sender().text())
-        self.parent().change_content(self.sender().text())
+        self.parent().top_bar_event_handler(TOP_BAR_FUNCTIONALITY[self.sender().text()])
