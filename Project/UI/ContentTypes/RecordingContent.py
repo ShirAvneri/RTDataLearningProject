@@ -3,8 +3,6 @@ from PySide6.QtWidgets import QLabel
 from Project.UI.Content import Content
 from Project.UI.ContentTypes.Common import GuitarTunerButton
 from Project.UI.ContentTypes.Common import RecordingButton
-import pyaudio
-import wave
 
 
 class RecordingContent(Content):
