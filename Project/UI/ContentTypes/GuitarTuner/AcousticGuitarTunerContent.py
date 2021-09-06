@@ -1,11 +1,10 @@
 from PySide6.QtCore import QRect
-from Project.UI.ContentTypes.GuitarTunerContent.CommonClasses import GuitarTunerButton
-from Project.UI.ContentTypes.GuitarTunerContent.GuitarTunerContent import GuitarTunerContent
+
+from Project.UI.ContentTypes.GuitarTuner.CommonClasses import GuitarTunerButton
+from Project.UI.ContentTypes.GuitarTuner.GuitarTunerContent import GuitarTunerContent
 
 
 class AcousticGuitarTunerContent(GuitarTunerContent):
-    # TO-DO:
-    # Set correct image and buttons
     def __init__(self):
         super(AcousticGuitarTunerContent, self).__init__()
         self.notes = ["A", "B", "C", "D", "E", "F"]

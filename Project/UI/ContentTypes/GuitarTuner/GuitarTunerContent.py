@@ -1,4 +1,5 @@
 from PySide6.QtWidgets import QLabel
+
 from Project.UI.Content import Content
 
 
