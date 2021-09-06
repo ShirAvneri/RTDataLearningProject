@@ -1,7 +1,8 @@
 from PySide6 import QtCore
-from PySide6.QtCore import QRect, QSize
+from PySide6.QtCore import QSize, QRect
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QWidget, QPushButton
+
 from Project.Constants import TOP_BAR_FUNCTIONALITY
 
 
