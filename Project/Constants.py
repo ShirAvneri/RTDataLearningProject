@@ -1,6 +1,2 @@
-GUITAR_TUNING = "Guitar Tuning"
-CLASSICAL_GUITAR_TUNER = "Classical Guitar Tuner"
-ELECTRIC_GUITAR_TUNER = "Electric Guitar Tuner"
-ACOUSTIC_GUITAR_TUNER = "Acoustic Guitar Tuner"
-RECORDING = "Recording"
-CHORD_DETECTION = "Chord Detection"
+GUITAR_TYPES = {"Classic Guitar": 0, "Acoustic Guitar": 1, "Electric Guitar": 2}
+TOP_BAR_FUNCTIONALITY = {"Guitar Tuning": 0, "Recording": 1, "Chord Detection": 2}
