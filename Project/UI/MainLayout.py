@@ -1,4 +1,4 @@
-from Project.UI.ContentTypes.ChordDetectionContent import ChordDetectionContent
+from Project.UI.ContentTypes.ChordDetectionContent.ChordDetectionContent import ChordDetectionContent
 from Project.UI.ContentTypes.GuitarTunerContent.AcousticGuitarTunerContent import AcousticGuitarTunerContent
 from Project.UI.ContentTypes.GuitarTunerContent.ClassicalGuitarTunerContent import ClassicalGuitarTunerContent
 from Project.UI.ContentTypes.GuitarTunerContent.ElectricGuitarTunerContent import ElectricGuitarTunerContent
