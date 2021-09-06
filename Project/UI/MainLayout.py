@@ -5,6 +5,7 @@ from Project.UI.ContentTypes.ChordDetection.ChordDetectionContent import ChordDe
 from Project.UI.ContentTypes.GuitarTuner.AcousticGuitarTunerContent import AcousticGuitarTunerContent
 from Project.UI.ContentTypes.GuitarTuner.ClassicalGuitarTunerContent import ClassicalGuitarTunerContent
 from Project.UI.ContentTypes.GuitarTuner.ElectricGuitarTunerContent import ElectricGuitarTunerContent
+from Project.UI.ContentTypes.Metronome.MetronomeContent import MetronomeContent
 from Project.UI.ContentTypes.Recording.RecordingContent import RecordingContent
 from Project.UI.SideMenu import SideMenu
 from Project.UI.TopBar import TopBar
@@ -48,6 +49,8 @@ class MainLayout(QWidget):
             new_content = ClassicalGuitarTunerContent()
         elif functionality == TOP_BAR_FUNCTIONALITY["Recording"]:
             new_content = RecordingContent()
-        else:
+        elif functionality == TOP_BAR_FUNCTIONALITY["Chord Detection"]:
             new_content = ChordDetectionContent()
+        else:
+            new_content = MetronomeContent()
         self.change_content(new_content)
