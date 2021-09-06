@@ -38,4 +38,5 @@ class TopBar(QWidget):
             self.buttons_list[text] = button
 
     def button_clicked(self):
+        print(self.sender().text())
         self.parent().change_content(self.sender().text())
