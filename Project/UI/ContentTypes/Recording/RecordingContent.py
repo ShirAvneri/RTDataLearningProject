@@ -1,7 +1,7 @@
 from PySide6.QtCore import QRect
 from PySide6.QtWidgets import QLabel
 from Project.UI.Content import Content
-from Project.UI.ContentTypes.RecordingContent.CommonClasses import RecordingButton
+from Project.UI.ContentTypes.Recording.CommonClasses import RecordingButton
 
 
 class RecordingContent(Content):
