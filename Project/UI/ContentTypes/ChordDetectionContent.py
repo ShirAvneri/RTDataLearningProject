@@ -11,21 +11,6 @@ from Project.UI.ContentTypes.GuitarTunerContent.GuitarTunerButton import GuitarT
 
 
 class ChordDetectionContent(Content):
-    # def __init__(self):
-    #     super(ChordDetectionContent, self).__init__()
-    #     chord_image = QLabel(self)
-    #     chord_image.setObjectName("GuitarImageLabel")
-    #     chord_image.setGeometry(QRect(500, 50, 260, 500))
-    #     chord_image.setText("hello world")
-    #     record_button = QPushButton("record")
-    #     record_button = Recording
-    #     record_button.setGeometry(QRect(170, 50, 260, 500))
-    #     record_button.clicked.connect(self.record(record_button))
-    #
-    # def record(self, btn):
-    #     btn.setText("changed")
-    #     #chord_detection.clicked()
-
     def __init__(self):
         super(ChordDetectionContent, self).__init__()
         self.buttons = []
