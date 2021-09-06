@@ -4,10 +4,10 @@ from PySide6.QtWidgets import QLabel, QPushButton
 #from Project.ChordDetector import chord_detection
 from Project.ChordDetector import chord_detection
 from Project.UI.Content import Content
-from Project.UI.ContentTypes.RecordingContent.Common import RecordingButton
+from Project.UI.ContentTypes.RecordingContent.CommonClasses import RecordingButton
 import threading
 import pathos.multiprocessing as multiprocessing
-from Project.UI.ContentTypes.GuitarTunerContent.GuitarTunerButton import GuitarTunerButton
+from Project.UI.ContentTypes.GuitarTunerContent.CommonClasses import GuitarTunerButton
 
 
 class ChordDetectionContent(Content):
