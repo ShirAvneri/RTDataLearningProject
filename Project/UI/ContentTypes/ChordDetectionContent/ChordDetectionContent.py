@@ -1,7 +1,7 @@
 from PySide6.QtCore import QRect
 from PySide6.QtWidgets import QLabel, QPushButton
 
-#from Project.ChordDetector import chord_detection
+# from Project.ChordDetector import chord_detection
 from Project.ChordDetector import chord_detection
 from Project.UI.Content import Content
 from Project.UI.ContentTypes.RecordingContent.CommonClasses import RecordingButton
@@ -67,7 +67,3 @@ class ChordDetectionContent(Content):
             self.flag = True
             chord_detection.close_stream(self.stream, self.p)
             self.sender().setText('Record')
-
-
-
-
