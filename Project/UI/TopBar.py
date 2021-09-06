@@ -17,7 +17,7 @@ class TopBar(QWidget):
         self.setAttribute(QtCore.Qt.WA_StyledBackground, True)
         self.setStyleSheet("QWidget#" + self.name + " { " + self.style + " }")
         self.buttons_icons = ["./UI/Images/TopBarIcons/GuitarTuning.png", "./UI/Images/TopBarIcons/Recording.png",
-                              "./UI/Images/TopBarIcons/ChordDetection.png"]
+                              "./UI/Images/TopBarIcons/ChordDetection.png", ""]
         self.buttons_style = "color: white; text-align: center; background-color: #393939; border-radius: 0px;" \
                              "border-right-style: outset; border-right-width: 1px; border-right-color: #616161;"
         self.buttons_x = 20
