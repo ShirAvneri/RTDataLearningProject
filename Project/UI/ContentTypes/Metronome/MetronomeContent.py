@@ -2,7 +2,7 @@ import threading
 
 from PySide6.QtCore import QRect
 from PySide6.QtGui import QFont
-from PySide6.QtWidgets import QPushButton
+from PySide6.QtWidgets import QPushButton, QSpinBox, QComboBox
 
 from Project.Metronome import Metronome
 from Project.UI.Content import Content
@@ -39,5 +39,23 @@ class MetronomeContent(Content):
         self.start_btn.setParent(self)
         self.stop_btn.setParent(self)
 
+        self.bpm_spinbox = QSpinBox(self)
+        self.bpm_spinbox.displayIntegerBase()
+        self.bpm_spinbox.setMinimum(70)
+        self.bpm_spinbox.setMaximum(300)
+        self.bpm_spinbox.setGeometry(QRect(250, 100, 100, 25))
+        self.bpm_spinbox.setFont(font)
+
+        self.bpb_combobox = QComboBox()
+        self.bpb_combobox.setPlaceholderText("Select BPB")
+        self.bpb_combobox.setGeometry(QRect(250, 150, 100, 25))
+        self.bpb_combobox.setParent(self)
+        self.bpb_combobox.addItems(["2/4", "3/4", "4/4", "5/4", "6/4", "7/4", "8/4"])
+
     def start_with_thread(self):
+        self.metronome.bpm = int(self.bpm_spinbox.text())
+        bpb_index = self.bpb_combobox.currentIndex()
+        if bpb_index == -1:  # bpb not selected
+            bpb_index = 2
+        self.metronome.bpb = self.metronome.supported_bpb[bpb_index]
         threading.Thread(target=self.metronome.start).start()
