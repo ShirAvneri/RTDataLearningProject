@@ -5,6 +5,7 @@ from PySide6.QtGui import QFont
 from PySide6.QtWidgets import QPushButton
 
 from Project.Tuner import main_tuner, better_tuner
+from Project.UI.CommonWidgets.FontFactory import font_factory
 
 
 class GuitarTunerButton(QPushButton):
@@ -46,13 +47,10 @@ class GuitarTunerButton(QPushButton):
             #print(chord)
 
     def set_button(self):
-        font = QFont()
-        font.setFamilies([u"Calibri"])
-        font.setPointSize(14)
         self.setGeometry(QRect(self.x, self.y, 50, 50))
         self.setStyleSheet("QPushButton#" + self.name + " { " + self.style + " }")
         self.setText(self.note)
-        self.setFont(font)
+        self.setFont(font_factory("14"))
 
     def change_note(self, note, string_num):
         self.note = note
