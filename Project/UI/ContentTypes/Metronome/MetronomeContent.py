@@ -1,8 +1,7 @@
 import threading
 
 from PySide6.QtCore import QRect
-from PySide6.QtGui import QFont, QColor
-from PySide6.QtWidgets import QPushButton, QSpinBox, QComboBox, QGraphicsDropShadowEffect
+from PySide6.QtWidgets import QSpinBox, QComboBox
 
 from Project.Metronome import Metronome
 from Project.UI.CommonWidgets.StartStopButton import StartStopButton
