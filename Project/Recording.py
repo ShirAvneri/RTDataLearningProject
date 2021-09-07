@@ -1,6 +1,8 @@
 import pyaudio
 import wave
 
+from PySide6 import QtGui, QtCore
+from PySide6.QtWidgets import QFileDialog
 
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
@@ -37,4 +39,10 @@ def end_stream(stream, p, frames):
     wf.setsampwidth(p.get_sample_size(FORMAT))
     wf.setframerate(RATE)
     wf.writeframes(b''.join(frames))
+
+    #filename, _ = QFileDialog.getSaveFileName(
+     #   self,
+      ## '',
+        #"ReStructuredText Files (*.rst *.txt)"
+    #)
     wf.close()
