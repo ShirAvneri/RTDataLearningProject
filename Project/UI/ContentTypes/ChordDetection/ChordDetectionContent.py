@@ -1,4 +1,5 @@
 from Project.ChordDetector import chord_detection
+from Project.UI.CommonWidgets.StartStopButton import StartStopButton
 from Project.UI.Content import Content
 from Project.UI.ContentTypes.ChordDetection.CommonClasses import RecordingButton
 import threading
@@ -8,10 +9,10 @@ class ChordDetectionContent(Content):
     def __init__(self):
         super(ChordDetectionContent, self).__init__()
         self.buttons = []
-        record_button = RecordingButton(300, 100)
-        self.buttons.append(record_button)
-        record_button.setParent(self)
-        record_button.clicked.connect(self.record)
+        self.record_button = StartStopButton(self.start_record, self.stop_record)
+        self.buttons.append(self.record_button)
+        self.record_button.setParent(self)
+        self.record_button.init_style("MetronomeController", 250, 400)
         self.thread = None
         self.process = None
         self.stream = None
@@ -29,20 +30,20 @@ class ChordDetectionContent(Content):
     def get_chords(self):
         self.stream, self.p = chord_detection.open_stream()
         while True:
-
-            print(self.flag)
             if self.flag:
+                chord_detection.close_stream(self.stream, self.p)
+                print('recording complete')
                 break
             chord = chord_detection.get_chord_from_stream(self.stream, self.p)
             print(chord)
 
-    def record(self, btn):
-        if self.sender().text() == "RECORD":
-            self.flag = False
-            self.thread = threading.Thread(target=self.get_chords)
-            self.thread.start()
-            self.sender().setText('Recording')
-        elif self.sender().text() == "Recording":
-            self.flag = True
-            chord_detection.close_stream(self.stream, self.p)
-            self.sender().setText('RECORD')
+    def start_record(self):
+        print('opening stream...')
+        self.flag = False
+        self.thread = threading.Thread(target=self.get_chords)
+        self.thread.start()
+
+    def stop_record(self):
+        self.flag = True
+
+
