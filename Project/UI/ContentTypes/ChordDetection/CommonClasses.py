@@ -1,8 +1,8 @@
 from PySide6.QtCore import QRect
-from PySide6.QtGui import QFont
 from PySide6.QtWidgets import QPushButton
 
 from Project.ChordRecording import main_recording
+from Project.UI.CommonWidgets.WidgetsFactory import font_factory
 
 
 class RecordingButton(QPushButton):
@@ -16,11 +16,8 @@ class RecordingButton(QPushButton):
         self.set_button()
 
     def set_button(self):
-        font = QFont()
-        font.setFamilies([u"Calibri"])
-        font.setPointSize(14)
         self.setGeometry(QRect(self.x, self.y, 50, 50))
         self.setStyleSheet("QPushButton#" + "Recording  Button" + " { " + self.style + " }")
         self.setText("RECORD")
-        self.setFont(font)
+        self.setFont(font_factory(size=14))
         self.clicked.connect(main_recording)

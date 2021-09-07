@@ -13,12 +13,8 @@ class SideMenu(QWidget):
         self.setAttribute(QtCore.Qt.WA_StyledBackground, True)
         self.setStyleSheet("QWidget#" + self.name + " { " + self.style + " }")
         # Setting tool-box title:
-        title_font = QFont()
-        title_font.setFamilies([u"Calibri"])
-        title_font.setPointSize(24)
-        title_font.setBold(True)
         self.toolBoxLabel = QLabel(self)
         self.toolBoxLabel.setGeometry(QRect(10, 20, 150, 30))
-        self.toolBoxLabel.setFont(title_font)
+        self.toolBoxLabel.setFont(font_factory(size=24, bold=True))
         self.toolBoxLabel.setText("Tool Box")
         self.toolBoxLabel.setParent(self)
