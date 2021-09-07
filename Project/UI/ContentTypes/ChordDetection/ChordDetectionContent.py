@@ -38,7 +38,7 @@ class ChordDetectionContent(Content):
             print(chord)
 
     def record(self, btn):
-        if self.sender().text() == "Record":
+        if self.sender().text() == "RECORD":
             self.flag = False
             self.thread = threading.Thread(target=self.get_chords)
             self.thread.start()
@@ -46,4 +46,4 @@ class ChordDetectionContent(Content):
         elif self.sender().text() == "Recording":
             self.flag = True
             chord_detection.close_stream(self.stream, self.p)
-            self.sender().setText('Record')
+            self.sender().setText('RECORD')
