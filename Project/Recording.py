@@ -16,8 +16,6 @@ def open_stream():
                     frames_per_buffer=CHUNK)
     return stream, p
 
-    print("* recording")
-
 def get_stream(stream, p,frames):
 
     data = stream.read(CHUNK)
@@ -27,7 +25,6 @@ def get_stream(stream, p,frames):
         #data = stream.read(CHUNK)
         #frames.append(data)
 
-    print("* done recording")
 
 def end_stream(stream, p, frames):
 
