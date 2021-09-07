@@ -1,7 +1,6 @@
-# from Project.ChordDetector import chord_detection
 from Project.ChordDetector import chord_detection
 from Project.UI.Content import Content
-from Project.UI.ContentTypes.Recording.CommonClasses import RecordingButton
+from Project.UI.ContentTypes.ChordDetection.CommonClasses import RecordingButton
 import threading
 
 
