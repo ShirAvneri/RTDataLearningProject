@@ -11,9 +11,9 @@ class RecordingContent(Content):
         recording_image = QLabel(self)
         recording_image.setObjectName("Recording")
         recording_image.setGeometry(QRect(500, 50, 260, 500))
-        recording_image.setStyleSheet("QLabel#Recording { ""border-image: url(./UI/Images/Recording.png) 0 0 0 stretch stretch; }")
+        recording_image.setStyleSheet(
+            "QLabel#Recording { ""border-image: url(./UI/Images/Recording.png) 0 0 0 stretch stretch; }")
         self.make_button()
-
 
     def make_button(self):
         string1 = RecordingButton(450, 235)
