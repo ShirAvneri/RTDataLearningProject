@@ -1,26 +1,28 @@
-from PySide6.QtCore import QRect
-from PySide6.QtWidgets import QLabel
+import threading
+from Project import Recording
+from Project.UI.CommonWidgets.StartStopButton import StartStopButton
 from Project.UI.Content import Content
-from Project.UI.ContentTypes.Recording.CommonClasses import RecordingButton
 
 
 class RecordingContent(Content):
     def __init__(self):
         super(RecordingContent, self).__init__()
-        self.notes_buttons = []
-        recording_image = QLabel(self)
-        recording_image.setObjectName("Recording")
-        recording_image.setGeometry(QRect(500, 50, 260, 500))
-        recording_image.setStyleSheet(
-            "QLabel#Recording { ""border-image: url(./UI/Images/Recording.png) 0 0 0 stretch stretch; }")
-        self.make_button()
+        self.is_recording = False
+        self.button = StartStopButton(self.start_recording, self.stop_recording)
+        self.button.init_style("Recording Button", 500, 50)
+        self.button.setParent(self)
 
-    def make_button(self):
-        string1 = RecordingButton(450, 235)
-        string1.clicked.connect(self.button_clicked)
-        self.notes_buttons.append(string1)
-        for button in self.notes_buttons:
-            button.setParent(self)
+    def start_recording(self):
+        self.is_recording = True
+        thread = threading.Thread(target=self.get_tape)
+        thread.start()
 
-    def button_clicked(self):
-        pass
+    def stop_recording(self):
+        self.is_recording = False
+
+    def get_tape(self):
+        stream, p = Recording.open_stream()
+        frames = []
+        while self.is_recording:
+            Recording.get_stream(stream, p, frames)
+        Recording.end_stream(stream, p, frames)

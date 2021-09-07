@@ -132,11 +132,19 @@ def callback(indata, frames, time, status):
     print('no input')
 
 
-def main_tuner(label):
+def main_tuner():
   try:
     print("Starting HPS guitar tuner...")
     with sd.InputStream(channels=1, callback=callback, blocksize=WINDOW_STEP, samplerate=SAMPLE_FREQ):
       while True:
         time.sleep(0.5)
+  except Exception as exc:
+    print(str(exc))
+
+def better_tuner():
+  try:
+    print("Starting HPS guitar tuner...")
+    with sd.InputStream(channels=1, callback=callback, blocksize=WINDOW_STEP, samplerate=SAMPLE_FREQ):
+      time.sleep(0.5)
   except Exception as exc:
     print(str(exc))

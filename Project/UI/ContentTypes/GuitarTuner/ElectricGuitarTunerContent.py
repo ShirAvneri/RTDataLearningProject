@@ -1,4 +1,6 @@
 from PySide6.QtCore import QRect
+
+from Project.Tuner import main_tuner
 from Project.UI.ContentTypes.GuitarTuner.CommonClasses import GuitarTunerButton
 from Project.UI.ContentTypes.GuitarTuner.GuitarTunerContent import GuitarTunerContent
 
@@ -15,6 +17,7 @@ class ElectricGuitarTunerContent(GuitarTunerContent):
     def init_notes(self):
         string1 = GuitarTunerButton(self.notes[0], "1", 285, 5)
         self.notes_buttons.append(string1)
+        #string1.clicked.connect(self.play_tuner)
         string2 = GuitarTunerButton(self.notes[1], "2", 250, 45)
         self.notes_buttons.append(string2)
         string3 = GuitarTunerButton(self.notes[2], "3", 215, 85)
@@ -27,3 +30,9 @@ class ElectricGuitarTunerContent(GuitarTunerContent):
         self.notes_buttons.append(string6)
         for button in self.notes_buttons:
             button.setParent(self)
+            #button.clicked.connect(self.play_tuner)
+
+    def play_tuner(self):
+        print("in play tuner")
+        main_tuner()
+
