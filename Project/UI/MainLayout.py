@@ -9,6 +9,7 @@ from Project.UI.ContentTypes.Metronome.MetronomeContent import MetronomeContent
 from Project.UI.ContentTypes.Recording.RecordingContent import RecordingContent
 from Project.UI.SideMenu import SideMenu
 from Project.UI.SideMenuTypes.GuitarTunerSideMenu import GuitarTunerSideMenu
+from Project.UI.SideMenuTypes.MetronomeSideMenu import MetronomeSideMenu
 from Project.UI.TopBar import TopBar
 from Project.Constants import GUITAR_TYPES, TOP_BAR_FUNCTIONALITY
 
@@ -64,6 +65,9 @@ class MainLayout(QWidget):
             new_side_menu = GuitarTunerSideMenu()
         else:
             new_content = MetronomeContent()
-            new_side_menu = GuitarTunerSideMenu()
+            new_side_menu = MetronomeSideMenu()
         self.change_content(new_content)
         self.change_side_menu(new_side_menu)
+
+    def genre_change_event_handler(self, min_bpm, max_bpm):
+        self.content.set_min_max(min_bpm, max_bpm)
