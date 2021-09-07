@@ -1,6 +1,6 @@
 from PySide6.QtCore import QRect
-from Project.UI.ContentTypes.GuitarTunerContent.CommonClasses import GuitarTunerButton
-from Project.UI.ContentTypes.GuitarTunerContent.GuitarTunerContent import GuitarTunerContent
+from Project.UI.ContentTypes.GuitarTuner.CommonClasses import GuitarTunerButton
+from Project.UI.ContentTypes.GuitarTuner.GuitarTunerContent import GuitarTunerContent
 
 
 class AcousticGuitarTunerContent(GuitarTunerContent):

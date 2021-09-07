@@ -1,12 +1,15 @@
-from Project.UI.ContentTypes.ChordDetectionContent.ChordDetectionContent import ChordDetectionContent
-from Project.UI.ContentTypes.GuitarTunerContent.AcousticGuitarTunerContent import AcousticGuitarTunerContent
-from Project.UI.ContentTypes.GuitarTunerContent.ClassicalGuitarTunerContent import ClassicalGuitarTunerContent
-from Project.UI.ContentTypes.GuitarTunerContent.ElectricGuitarTunerContent import ElectricGuitarTunerContent
-from Project.UI.ContentTypes.RecordingContent.RecordingContent import RecordingContent
-from Project.UI.SideMenu import *
-from Project.UI.TopBar import *
-from Project.UI.Content import *
-from Project.Constants import *
+from PySide6.QtWidgets import QWidget
+
+from Project.UI.Content import Content
+from Project.UI.ContentTypes.ChordDetection.ChordDetectionContent import ChordDetectionContent
+from Project.UI.ContentTypes.GuitarTuner.AcousticGuitarTunerContent import AcousticGuitarTunerContent
+from Project.UI.ContentTypes.GuitarTuner.ClassicalGuitarTunerContent import ClassicalGuitarTunerContent
+from Project.UI.ContentTypes.GuitarTuner.ElectricGuitarTunerContent import ElectricGuitarTunerContent
+from Project.UI.ContentTypes.Metronome.MetronomeContent import MetronomeContent
+from Project.UI.ContentTypes.Recording.RecordingContent import RecordingContent
+from Project.UI.SideMenu import SideMenu
+from Project.UI.TopBar import TopBar
+from Project.Constants import GUITAR_TYPES, TOP_BAR_FUNCTIONALITY
 
 
 class MainLayout(QWidget):
@@ -23,20 +26,7 @@ class MainLayout(QWidget):
         self.content = ClassicalGuitarTunerContent()
         self.content.setParent(self)
 
-    def change_content(self, content_type):
-        new_content = None
-        if content_type == GUITAR_TUNING:
-            new_content = ClassicalGuitarTunerContent()
-        elif content_type == CLASSICAL_GUITAR_TUNER:
-            new_content = ClassicalGuitarTunerContent()
-        elif content_type == ELECTRIC_GUITAR_TUNER:
-            new_content = ElectricGuitarTunerContent()
-        elif content_type == ACOUSTIC_GUITAR_TUNER:
-            new_content = AcousticGuitarTunerContent()
-        elif content_type == CHORD_DETECTION:
-            new_content = ChordDetectionContent()
-        elif content_type == RECORDING:
-            new_content = RecordingContent()
+    def change_content(self, new_content):
         self.content.setParent(None)
         new_content.setParent(self)
         self.content = new_content
@@ -46,4 +36,21 @@ class MainLayout(QWidget):
         self.content.change_notes(notes)
 
     def guitar_change_event_handler(self, guitar_type):
-        self.change_content(guitar_type)
+        if guitar_type == GUITAR_TYPES["Classic Guitar"]:
+            new_content = ClassicalGuitarTunerContent()
+        elif guitar_type == GUITAR_TYPES["Electric Guitar"]:
+            new_content = ElectricGuitarTunerContent()
+        else:
+            new_content = AcousticGuitarTunerContent()
+        self.change_content(new_content)
+
+    def top_bar_event_handler(self, functionality):
+        if functionality == TOP_BAR_FUNCTIONALITY["Guitar Tuning"]:
+            new_content = ClassicalGuitarTunerContent()
+        elif functionality == TOP_BAR_FUNCTIONALITY["Recording"]:
+            new_content = RecordingContent()
+        elif functionality == TOP_BAR_FUNCTIONALITY["Chord Detection"]:
+            new_content = ChordDetectionContent()
+        else:
+            new_content = MetronomeContent()
+        self.change_content(new_content)
