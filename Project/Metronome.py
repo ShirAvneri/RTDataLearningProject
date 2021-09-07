@@ -1,3 +1,4 @@
+import time
 from time import sleep
 from winsound import Beep
 
@@ -20,10 +21,11 @@ class Metronome:
         delay = 60.0 / self.bpm  # Will provide the delay, since bpm is beats per minute
         counter = 0
         while self.is_running:
+            delta_time = time.time()  # Need to reduce the process time from the delay
             counter += 1
             if counter == self.bpb[0]:  # End of bar
                 Beep(800, 100)
                 counter = 0
             else:
                 Beep(400, 100)
-            sleep(delay)
+            sleep(delay - (time.time() - delta_time))
