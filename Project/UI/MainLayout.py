@@ -8,6 +8,7 @@ from Project.UI.ContentTypes.GuitarTuner.ElectricGuitarTunerContent import Elect
 from Project.UI.ContentTypes.Metronome.MetronomeContent import MetronomeContent
 from Project.UI.ContentTypes.Recording.RecordingContent import RecordingContent
 from Project.UI.SideMenu import SideMenu
+from Project.UI.SideMenuTypes.GuitarTunerSideMenu import GuitarTunerSideMenu
 from Project.UI.TopBar import TopBar
 from Project.Constants import GUITAR_TYPES, TOP_BAR_FUNCTIONALITY
 
@@ -21,8 +22,9 @@ class MainLayout(QWidget):
         self.content = Content()
 
     def init_layout(self):
-        self.side_menu.setParent(self)
         self.top_bar.setParent(self)
+        self.side_menu = GuitarTunerSideMenu()
+        self.side_menu.setParent(self)
         self.content = ClassicalGuitarTunerContent()
         self.content.setParent(self)
 
@@ -31,6 +33,12 @@ class MainLayout(QWidget):
         new_content.setParent(self)
         self.content = new_content
         self.content.show()
+
+    def change_side_menu(self, new_side_menu):
+        self.side_menu.setParent(None)
+        new_side_menu.setParent(self)
+        self.side_menu = new_side_menu
+        self.side_menu.show()
 
     def tuning_change_event_handler(self, notes):
         self.content.change_notes(notes)
@@ -47,10 +55,15 @@ class MainLayout(QWidget):
     def top_bar_event_handler(self, functionality):
         if functionality == TOP_BAR_FUNCTIONALITY["Guitar Tuning"]:
             new_content = ClassicalGuitarTunerContent()
+            new_side_menu = GuitarTunerSideMenu()
         elif functionality == TOP_BAR_FUNCTIONALITY["Recording"]:
             new_content = RecordingContent()
+            new_side_menu = GuitarTunerSideMenu()
         elif functionality == TOP_BAR_FUNCTIONALITY["Chord Detection"]:
             new_content = ChordDetectionContent()
+            new_side_menu = GuitarTunerSideMenu()
         else:
             new_content = MetronomeContent()
+            new_side_menu = GuitarTunerSideMenu()
         self.change_content(new_content)
+        self.change_side_menu(new_side_menu)
