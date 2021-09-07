@@ -4,7 +4,7 @@ from PySide6.QtGui import QFont, QIcon
 from PySide6.QtWidgets import QWidget, QPushButton, QLabel, QRadioButton, QButtonGroup
 import json
 
-from Project.Constants import *
+from Project.Constants import GUITAR_TYPES
 
 
 class SideMenu(QWidget):
@@ -29,13 +29,13 @@ class SideMenu(QWidget):
         # Setting everything else:
         self.chooseInstrumentLabel = SideMenuLabel(10, 60, "CHOOSE AN INSTRUMENT")
         self.chooseInstrumentLabel.setParent(self)
-        self.classicalBtn = SideMenuButton(CLASSICAL_GUITAR_TUNER, 20, 85)
+        self.classicalBtn = SideMenuButton(GUITAR_TYPES["Classic Guitar"], 20, 85)
         self.classicalBtn.set_icon("./UI/Images/ClassicGuitarPngIcon.png")
         self.classicalBtn.setParent(self)
-        self.acousticBtn = SideMenuButton(ACOUSTIC_GUITAR_TUNER, 110, 85)
+        self.acousticBtn = SideMenuButton(GUITAR_TYPES["Acoustic Guitar"], 110, 85)
         self.acousticBtn.set_icon("./UI/Images/AcousticGuitarPngIcon.png")
         self.acousticBtn.setParent(self)
-        self.electricBtn = SideMenuButton(ELECTRIC_GUITAR_TUNER, 200, 85)
+        self.electricBtn = SideMenuButton(GUITAR_TYPES["Electric Guitar"], 200, 85)
         self.electricBtn.set_icon("./UI/Images/ElectricGuitarPngIcon.png")
         self.electricBtn.setParent(self)
         self.chooseTuningLabel = SideMenuLabel(10, 180, "CHOOSE TUNING")
