@@ -20,9 +20,8 @@ class MetronomeContent(Content):
 
         self.bpm_spinbox = QSpinBox(self)
         self.bpm_spinbox.displayIntegerBase()
-        self.bpm_spinbox.setMinimum(70)
-        self.bpm_spinbox.setMaximum(300)
         self.bpm_spinbox.setGeometry(QRect(250, 100, 100, 25))
+        self.set_min_max(70, 300)
 
         self.bpb_combobox = QComboBox()
         self.bpb_combobox.setPlaceholderText("Select BPB")
@@ -37,3 +36,7 @@ class MetronomeContent(Content):
             bpb_index = 2
         self.metronome.bpb = self.metronome.supported_bpb[bpb_index]
         threading.Thread(target=self.metronome.start).start()
+
+    def set_min_max(self, min_bpm, max_bpm):
+        self.bpm_spinbox.cleanText()
+        self.bpm_spinbox.setRange(min_bpm, max_bpm)
