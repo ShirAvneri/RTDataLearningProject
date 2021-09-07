@@ -29,7 +29,7 @@ class SideMenuLabel(QLabel):
         super(SideMenuLabel, self).__init__()
         font = QFont()
         font.setFamilies([u"Calibri"])
-        font.setPointSize(10)
+        font.setPointSize(12)
         font.setBold(True)
         self.setGeometry(QRect(x_pos, y_pos, 150, 20))
         self.setFont(font)
