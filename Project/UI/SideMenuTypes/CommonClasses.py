@@ -1,6 +1,7 @@
 from PySide6.QtCore import QRect, QSize
-from PySide6.QtGui import QFont, QIcon
+from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QPushButton, QLabel, QButtonGroup, QRadioButton
+from Project.UI.CommonWidgets.WidgetsFactory import font_factory
 
 
 class SideMenuGuitarButton(QPushButton):
@@ -8,10 +9,6 @@ class SideMenuGuitarButton(QPushButton):
         super(SideMenuGuitarButton, self).__init__()
         self.guitar_type = guitar_type
         self.style = "background-color: #f5f5f5; background-radius: 10px; border-radius: 10px;"
-        font = QFont()
-        font.setFamilies([u"Calibri"])
-        font.setPointSize(10)
-        self.setFont(font)
         self.setStyleSheet(self.style)
         self.setGeometry(QRect(x_pos, y_pos, 80, 80))
         self.clicked.connect(self.change_guitar)
@@ -27,12 +24,8 @@ class SideMenuGuitarButton(QPushButton):
 class SideMenuLabel(QLabel):
     def __init__(self, x_pos, y_pos, text):
         super(SideMenuLabel, self).__init__()
-        font = QFont()
-        font.setFamilies([u"Calibri"])
-        font.setPointSize(12)
-        font.setBold(True)
-        self.setGeometry(QRect(x_pos, y_pos, 150, 20))
-        self.setFont(font)
+        self.setGeometry(QRect(x_pos, y_pos, 300, 20))
+        self.setFont(font_factory(size=12, bold=True))
         self.setText(text)
 
 
@@ -49,13 +42,10 @@ class SideMenuRadioButtons(QButtonGroup):
         self.buttons()[0].setChecked(True)
 
     def set_buttons(self):
-        font = QFont()
-        font.setFamilies([u"Calibri"])
-        font.setPointSize(10)
         for i, text in enumerate(self.buttons_texts):
             radio_button = QRadioButton()
-            radio_button.setGeometry(QRect(self.x, self.y + i * self.margin, 150, 20))
-            radio_button.setFont(font)
+            radio_button.setGeometry(QRect(self.x, self.y + i * self.margin, 300, 20))
+            radio_button.setFont(font_factory(size=12))
             radio_button.setText(text)
             radio_button.setParent(self.parent())
             self.addButton(radio_button, i)
