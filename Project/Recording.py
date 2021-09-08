@@ -9,7 +9,7 @@ FORMAT = pyaudio.paInt16
 CHANNELS = 2
 RATE = 44100
 RECORD_SECONDS = 5
-WAVE_OUTPUT_FILENAME = "output.wav"
+WAVE_OUTPUT_FILENAME = "recorded.wav"
 
 def open_stream():
     p = pyaudio.PyAudio()
@@ -28,13 +28,13 @@ def get_stream(stream, p,frames):
         #frames.append(data)
 
 
-def end_stream(stream, p, frames):
+def end_stream(stream, p, frames, file_name):
 
     stream.stop_stream()
     stream.close()
     p.terminate()
 
-    wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+    wf = wave.open(file_name, 'wb')
     wf.setnchannels(CHANNELS)
     wf.setsampwidth(p.get_sample_size(FORMAT))
     wf.setframerate(RATE)
