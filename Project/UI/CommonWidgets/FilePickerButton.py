@@ -11,6 +11,7 @@ class FilePickerButton(QPushButton):
         self.stop_style = "color: white; border-style: solid; border-width: 10px; border-color: #FFFFFF; " \
                           "background-color: #972c2c; border-radius: 50px;"
         self.clicked.connect(self.button_clicked)
+        self.path = ""
 
     def init_style(self, button_name: str, x_pos: int, y_pos: int):
         self.setObjectName(button_name)
@@ -30,6 +31,6 @@ class FilePickerButton(QPushButton):
 
     def button_clicked(self):
         file_name = QFileDialog.getOpenFileName(self, "open a file", "C://")
-        self.parent.path = file_name
+        self.path = file_name
 
 
