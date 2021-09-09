@@ -108,14 +108,8 @@ class PlayButton(QPushButton):
         listen_thread.start()
 
     def listen_to_user(self):
-            print("current_type:"+self.current_type)
-            print("current_fp:"+self.current_fp)
-            print("current_notes:"+self.current_notes)
             if self.current_type!="0" and self.current_fp!="0" and self.current_notes!="0":
                 WAV_PATH="C:/Users/user/Desktop/GIT/RTDataLearningProject/Project/Guitar Samples/Guitar Samples/"+self.current_fp+"/"+self.current_notes+"/"+self.current_notes+" "+self.current_type+".wav"
-                #fo = open(WAV_PATH, "rb")
                 playsound(WAV_PATH)
-                #fo.close()
-                print(WAV_PATH)
             self.setStyleSheet(self.start_style)
 
