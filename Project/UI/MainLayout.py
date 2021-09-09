@@ -6,6 +6,7 @@ from Project.UI.ContentTypes.GuitarTuner.AcousticGuitarTunerContent import Acous
 from Project.UI.ContentTypes.GuitarTuner.ClassicalGuitarTunerContent import ClassicalGuitarTunerContent
 from Project.UI.ContentTypes.GuitarTuner.ElectricGuitarTunerContent import ElectricGuitarTunerContent
 from Project.UI.ContentTypes.Metronome.MetronomeContent import MetronomeContent
+from Project.UI.ContentTypes.Music.MusicContent import MusicContent
 from Project.UI.ContentTypes.Recording.RecordingContent import RecordingContent
 from Project.UI.ContentTypes.SongUpload.SongUploadContent import SongUploadContent
 from Project.UI.SideMenu import SideMenu
@@ -66,6 +67,9 @@ class MainLayout(QWidget):
             new_side_menu = GuitarTunerSideMenu()
         elif functionality == TOP_BAR_FUNCTIONALITY["Upload"]:
             new_content = SongUploadContent()
+            new_side_menu = GuitarTunerSideMenu()
+        elif functionality == TOP_BAR_FUNCTIONALITY["Music"]:
+            new_content = MusicContent()
             new_side_menu = GuitarTunerSideMenu()
         else:
             new_content = MetronomeContent()
