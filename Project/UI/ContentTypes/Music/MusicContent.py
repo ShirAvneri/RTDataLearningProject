@@ -40,6 +40,12 @@ class MusicContent(Content):
         self.toolBoxLabel.setText("Type:")
         self.toolBoxLabel.setParent(self)
 
+        self.toolBoxLabel = QLabel(self)
+        self.toolBoxLabel.setGeometry(QRect(15, 20, 150, 640))
+        self.toolBoxLabel.setFont(font_factory(size=24, bold=True))
+        self.toolBoxLabel.setText("Stayl:")
+        self.toolBoxLabel.setParent(self)
+
 
     def zero_all_notes(self):
         for button in self.notes_buttons:
@@ -81,11 +87,12 @@ class MusicContent(Content):
         string12 = MusicButton(self.notes[11], "11", 480, 145)
         self.notes_buttons.append(string12)
 
-        finger_bot = MusicButton(self.finger_pick[0], "1", 430, 400)
+        finger_bot = MusicButton(self.finger_pick[0], "1", 430, 370)
         finger_bot.setGeometry(QRect(finger_bot.x, finger_bot.y, 80, 80))
         self.finger_pick_buttons.append(finger_bot)
 
-        pick_bot = MusicButton(self.finger_pick[1], "2", 130, 400)
+
+        pick_bot = MusicButton(self.finger_pick[1], "2", 130, 370)
         pick_bot.setGeometry(QRect(pick_bot.x, pick_bot.y, 80, 80))
         self.finger_pick_buttons.append(pick_bot)
 
@@ -96,7 +103,8 @@ class MusicContent(Content):
         major = MusicButton(self.type[2], "3", 150, 260)
         self.current_fp_buttons.append(major)
 
-        play = PlayButton("PLAY", "3", 0, 0)
+        play = PlayButton("PLAY", "3", 255, 450)
+        play.setGeometry(QRect(play.x, play.y, 120, 80))
         self.play.append(play)
         play.setParent(self)
 
