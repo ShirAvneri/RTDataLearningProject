@@ -16,7 +16,9 @@ class RecordingContent(Content):
         self.recording_button = StartStopButton(self.start_recording, self.stop_recording)
         self.recording_button.init_style("Recording Button", 400, 30)
         self.recording_button.setParent(self)
-
+        self.stream = None
+        self.p = None
+        self.frames = []
         self.timer_label = QLabel()
         self.timer_label.setParent(self)
         self.timer_label.setText("00:00:00")
@@ -34,16 +36,16 @@ class RecordingContent(Content):
         self.is_recording = True
         recording_thread = threading.Thread(target=self.get_audio_stream)
         self.used_threads.append(recording_thread)
-        timer_thread = threading.Thread(target=self.start_timer)
-        self.used_threads.append(timer_thread)
         recording_thread.start()
-        timer_thread.start()
 
     def stop_recording(self):
         self.is_recording = False
         self.timer_label.setText("00:00:00")
         for used_thread in self.used_threads:
             used_thread.join()
+        file_name = self.save_file()
+        Recording.end_stream(self.stream, self.p, self.frames, file_name[0])
+        self.frames = []
 
     def start_timer(self):
         time_start = time.time()
@@ -66,14 +68,17 @@ class RecordingContent(Content):
             self.stop_recording()
 
     def save_file(self):
-        fileName = QFileDialog.getSaveFileName(self, "Save F:xile",
-                                               "/home/jana/untitled.png",
-                                               "Images (*.png *.xpm *.jpg)")
+        return QFileDialog.getSaveFileName(self, "Save F:xile",
+                                               "recored_file.wav",
+                                               "sound (*.wav)")
 
     def get_audio_stream(self):
-        stream, p = Recording.open_stream()
-        frames = []
+        self.stream, self.p = Recording.open_stream()
+        timer_thread = threading.Thread(target=self.start_timer)
+        self.used_threads.append(timer_thread)
+        timer_thread.start()
         while self.is_recording:
-            Recording.get_stream(stream, p, frames)
-        Recording.end_stream(stream, p, frames)
+            Recording.get_stream(self.stream, self.p, self.frames)
+
+
         print("audio saved")

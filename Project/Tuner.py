@@ -13,6 +13,9 @@ import sounddevice as sd
 import time
 
 # General settings that can be changed by the user
+from Project import Constants
+from Project.UI.ContentTypes.GuitarTuner.GuitarTunerContent import GuitarTunerContent
+
 SAMPLE_FREQ = 48000  # sample frequency in Hz
 WINDOW_SIZE = 48000  # window size of the DFT in samples
 WINDOW_STEP = 12000  # step size of window
@@ -41,6 +44,7 @@ def find_closest_note(pitch):
   i = int(np.round(np.log2(pitch / CONCERT_PITCH) * 12))
   closest_note = ALL_NOTES[i % 12] + str(4 + (i + 9) // 12)
   closest_pitch = CONCERT_PITCH * 2 ** (i / 12)
+  Constants.ClosetNote = closest_note
   return closest_note, closest_pitch
 
 
@@ -70,7 +74,7 @@ def callback(indata, frames, time, status):
       callback.window_samples)
     if signal_power < POWER_THRESH:
       os.system('cls' if os.name == 'nt' else 'clear')
-      print("Closest note: ...")
+      #print("Closest note: ...")
       return
 
     # avoid spectral leakage by multiplying the signal with a hann window
@@ -122,11 +126,13 @@ def callback(indata, frames, time, status):
 
     os.system('cls' if os.name == 'nt' else 'clear')
     if callback.noteBuffer.count(callback.noteBuffer[0]) == len(callback.noteBuffer):
-      print(f"Closest note: {closest_note} {max_freq}/{closest_pitch}")
+      pass
+      #print(f"Closest note: {closest_note} {max_freq}/{closest_pitch}")
       # self.label_your_note.setText("")
 
     else:
-      print(f"Closest note: ...")
+      pass
+      #print(f"Closest note: ...")
 
   else:
     print('no input')
@@ -139,7 +145,8 @@ def main_tuner():
       while True:
         time.sleep(0.5)
   except Exception as exc:
-    print(str(exc))
+    pass
+    #print(str(exc))
 
 def better_tuner():
   try:
@@ -147,4 +154,5 @@ def better_tuner():
     with sd.InputStream(channels=1, callback=callback, blocksize=WINDOW_STEP, samplerate=SAMPLE_FREQ):
       time.sleep(0.5)
   except Exception as exc:
-    print(str(exc))
+    #print(str(exc))
+    pass

@@ -10,6 +10,7 @@ class GuitarTunerContent(Content):
         self.guitar_image = QLabel(self)
         self.guitar_image.setObjectName("GuitarImageLabel")
 
+
     def change_notes(self, notes: []):
         for i, _ in enumerate(self.notes_buttons):
             self.notes[i] = notes[i]
