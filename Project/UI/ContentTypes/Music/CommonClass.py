@@ -1,9 +1,12 @@
 import os
 import threading
-
+import asyncio
 from PySide6.QtCore import QRect
 from PySide6.QtWidgets import QPushButton
 from playsound import playsound
+from pydub import AudioSegment
+from pydub.playback import play
+import multiprocessing
 
 from Project.UI.CommonWidgets.WidgetsFactory import font_factory
 
@@ -67,6 +70,22 @@ class MusicButton(QPushButton):
         print(self.sender().text())
 
 
+class LOCK(object):
+    def __init__(self):
+        self.value = 0
+        self._lock = threading.Lock()
+
+    def free(self):
+        with self._lock:
+            self.value = 0
+
+    def lock(self):
+        with self._lock:
+            self.value = 1
+
+
+lock = threading.Lock()
+
 class PlayButton(QPushButton):
     def __init__(self, note, string_num, x_pos, y_pos):
         super(PlayButton, self).__init__()
@@ -88,7 +107,7 @@ class PlayButton(QPushButton):
                            "background-color: #00a215; border-radius: 50px;"
         self.stop_style = "color: white; border-style: solid; border-width: 10px; border-color: #FFFFFF; " \
                           "background-color: #972c2c; border-radius: 50px;"
-        self.is_on=0
+        #self.lock = LOCK()
         self.clicked.connect(self.play_note)
         self.set_button()
 
@@ -102,17 +121,21 @@ class PlayButton(QPushButton):
         self.is_on=0
 
     def play_note(self):
-        print("hii")
         self.setStyleSheet(self.stop_style)
-        listen_thread = threading.Thread(target=self.listen_to_user)
-        self.used_threads.append(listen_thread)
-        listen_thread.start()
+        self.setEnabled(False)
+        self.listen_to_user()
 
     def listen_to_user(self):
-            if self.current_type!="0" and self.current_fp!="0" and self.current_notes!="0":
-                WAV_PATH="/Guitar Samples/Guitar Samples/"+self.current_fp+"/"+self.current_notes+"/"+self.current_notes+" "+self.current_type+".wav"
-                WAV_PATH = str(os.path.abspath(os.curdir)).replace("\\", "/")+WAV_PATH
-                print(WAV_PATH)
-                playsound(WAV_PATH)
-            self.setStyleSheet(self.start_style)
+       # global lock
+        if self.current_type!="0" and self.current_fp!="0" and self.current_notes!="0":
+            WAV_PATH="/Guitar Samples/Guitar Samples/"+self.current_fp+"/"+self.current_notes+"/"+self.current_notes+" "+self.current_type+".wav"
+            WAV_PATH = str(os.path.abspath(os.curdir)).replace("\\", "/")+WAV_PATH
+            listen_thread = threading.Thread(target=self.play_play,args=(WAV_PATH,))
+            self.used_threads.append(listen_thread)
+            listen_thread.start()
 
+    def play_play(self,WAV_PATH):
+        song = AudioSegment.from_wav(WAV_PATH)
+        play(song)
+        self.setStyleSheet(self.start_style)
+        self.setEnabled(True)
