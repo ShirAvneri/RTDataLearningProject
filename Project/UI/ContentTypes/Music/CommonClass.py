@@ -1,3 +1,4 @@
+import os
 import threading
 
 from PySide6.QtCore import QRect
@@ -109,7 +110,9 @@ class PlayButton(QPushButton):
 
     def listen_to_user(self):
             if self.current_type!="0" and self.current_fp!="0" and self.current_notes!="0":
-                WAV_PATH="C:/Users/user/Desktop/GIT/RTDataLearningProject/Project/Guitar Samples/Guitar Samples/"+self.current_fp+"/"+self.current_notes+"/"+self.current_notes+" "+self.current_type+".wav"
+                WAV_PATH="/Guitar Samples/Guitar Samples/"+self.current_fp+"/"+self.current_notes+"/"+self.current_notes+" "+self.current_type+".wav"
+                WAV_PATH = str(os.path.abspath(os.curdir)).replace("\\", "/")+WAV_PATH
+                print(WAV_PATH)
                 playsound(WAV_PATH)
             self.setStyleSheet(self.start_style)
 
