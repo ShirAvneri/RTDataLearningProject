@@ -25,7 +25,7 @@ class MusicContent(Content):
         self.type = ["7", "maj", "min"]
         self.current_type = "0"
         self.current_fp = "0"
-        self.current_notes="0"
+        self.current_notes = "0"
         #self.play_note()
         self.init_notes()
 
