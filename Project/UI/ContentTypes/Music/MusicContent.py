@@ -6,7 +6,7 @@ from Project import Recording
 from Project.UI.CommonWidgets.WidgetsFactory import font_factory
 from Project.UI.CommonWidgets.StartStopButton import StartStopButton
 from Project.UI.Content import Content
-from Project.UI.ContentTypes.Music.CommonClass import MusicButton
+from Project.UI.ContentTypes.Music.CommonClass import MusicButton, PlayButton
 from playsound import playsound
 
 
@@ -15,33 +15,32 @@ class MusicContent(Content):
         super(MusicContent, self).__init__()
         self.notes_buttons = []
         self.used_threads = []
+        self.finger_pick_buttons = []
+        self.current_fp_buttons = []
+
+        self.play = []
 
         self.notes = ["A", "Ab", "B", "Bb", "C", "D", "Db", "E", "Eb", "F", "G", "Gb"]
         self.finger_pick = ["Fingers", "Pick"]
         self.type = ["7", "maj", "min"]
-        self.current_type="0"
-        self.current_fp="0"
+        self.current_type = "0"
+        self.current_fp = "0"
         self.current_notes="0"
-        self.play_note()
+        #self.play_note()
         self.init_notes()
 
-    def play_note(self):
-        listen_thread = threading.Thread(target=self.listen_to_user)
-        self.used_threads.append(listen_thread)
-        listen_thread.start()
+    def zero_all_notes(self):
+        for button in self.notes_buttons:
+            button.setStyleSheet(button.start_style)
 
-    def listen_to_user(self):
-        while 1:
-            print("current_type:"+self.current_type)
-            print("current_fp:"+self.current_fp)
-            print("current_notes:"+self.current_notes)
-            if self.current_type!="0" and self.current_fp!="0" and self.current_notes!="0":
-                WAV_PATH="C:/Users/user/Desktop/GIT/RTDataLearningProject/Project/Guitar Samples/Guitar Samples/"+self.current_fp+"/"+self.current_notes+"/"+self.current_notes+" "+self.current_type+".wav"
-                #fo = open(WAV_PATH, "rb")
-                playsound(WAV_PATH)
-                #fo.close()
-                time.sleep(2.4)
-                print(WAV_PATH)
+
+    def zero_all_finger_pick(self):
+        for button in self.finger_pick_buttons:
+            button.setStyleSheet(button.start_style)
+
+    def zero_all_type(self):
+        for button in self.current_fp_buttons:
+            button.setStyleSheet(button.start_style)
 
     def init_notes(self):
         string1 = MusicButton(self.notes[0], "1", 400, 55)
@@ -71,16 +70,26 @@ class MusicContent(Content):
         self.notes_buttons.append(string12)
 
         finger_bot = MusicButton(self.finger_pick[0], "1", 400, 400)
-        self.notes_buttons.append(finger_bot)
+        self.finger_pick_buttons.append(finger_bot)
         pick_bot = MusicButton(self.finger_pick[1], "2", 150, 400)
-        self.notes_buttons.append(pick_bot)
+        self.finger_pick_buttons.append(pick_bot)
 
         regular = MusicButton(self.type[0], "1", 400, 450)
-        self.notes_buttons.append(regular)
+        self.current_fp_buttons.append(regular)
         minor = MusicButton(self.type[1], "2", 400, 500)
-        self.notes_buttons.append(minor)
+        self.current_fp_buttons.append(minor)
         major = MusicButton(self.type[2], "3", 150, 500)
-        self.notes_buttons.append(major)
+        self.current_fp_buttons.append(major)
+
+        play = PlayButton("PLAY", "3", 0, 0)
+        self.play.append(play)
+        play.setParent(self)
+
 
         for button in self.notes_buttons:
             button.setParent(self)
+        for button in self.current_fp_buttons:
+            button.setParent(self)
+        for button in self.finger_pick_buttons:
+            button.setParent(self)
+
