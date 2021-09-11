@@ -1,15 +1,15 @@
 from PySide6.QtWidgets import QLabel
-from Project.UI.Content import Content
+
+from Project.UI import ContentComponent
 
 
-class GuitarTunerContent(Content):
+class GuitarTunerContent(ContentComponent.Content):
     def __init__(self):
         super(GuitarTunerContent, self).__init__()
         self.notes = None
         self.notes_buttons = []
         self.guitar_image = QLabel(self)
         self.guitar_image.setObjectName("GuitarImageLabel")
-
 
     def change_notes(self, notes: []):
         for i, _ in enumerate(self.notes_buttons):

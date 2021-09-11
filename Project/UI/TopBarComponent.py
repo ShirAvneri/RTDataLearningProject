@@ -2,11 +2,11 @@ from PySide6 import QtCore
 from PySide6.QtCore import QSize, QRect
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QWidget, QPushButton
-
 from Project.Constants import TOP_BAR_FUNCTIONALITY
+from Project.UI.BaseComponent import BaseGuiComponent
 
 
-class TopBar(QWidget):
+class TopBar(QWidget, BaseGuiComponent):
     def __init__(self):
         super(TopBar, self).__init__()
         self.name = "TopBar"
@@ -18,7 +18,7 @@ class TopBar(QWidget):
         self.setStyleSheet("QWidget#" + self.name + " { " + self.style + " }")
         self.buttons_icons = ["./UI/Images/TopBarIcons/GuitarTuning.png", "./UI/Images/TopBarIcons/Recording.png",
                               "./UI/Images/TopBarIcons/ChordDetection.png", "./UI/Images/TopBarIcons/Metronome.png",
-                              "./UI/Images/TopBarIcons/GuitarTuning.png","./UI/Images/TopBarIcons/GuitarTuning.png"]
+                              "./UI/Images/TopBarIcons/GuitarTuning.png", "./UI/Images/TopBarIcons/GuitarTuning.png"]
         self.buttons_style = "color: white; text-align: center; background-color: #393939; border-radius: 0px;" \
                              "border-right-style: outset; border-right-width: 1px; border-right-color: #616161;"
         self.buttons_x = 20
@@ -27,8 +27,8 @@ class TopBar(QWidget):
         self.set_buttons()
 
     def set_buttons(self):
-        for key in TOP_BAR_FUNCTIONALITY.keys():
-            i = TOP_BAR_FUNCTIONALITY[key]
+        for key, val in TOP_BAR_FUNCTIONALITY.items():
+            i = int(val.value)
             button = QPushButton(self)
             button.setGeometry(QRect(self.buttons_x + self.buttons_margin * i, 0, 135, 49))
             button.setStyleSheet(self.buttons_style)
@@ -39,4 +39,5 @@ class TopBar(QWidget):
             self.buttons_list[i] = button
 
     def button_clicked(self):
-        self.parent().top_bar_event_handler(TOP_BAR_FUNCTIONALITY[self.sender().text()])
+        key = self.sender().text()
+        self.mediator.notify(TOP_BAR_FUNCTIONALITY[key])

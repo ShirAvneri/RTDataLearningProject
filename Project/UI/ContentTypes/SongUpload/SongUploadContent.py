@@ -1,15 +1,12 @@
-from Project.ChordDetector import chord_detection
-from Project.UI.CommonWidgets.FilePickerButton import FilePickerButton
-from Project.UI.CommonWidgets.StartStopButton import StartStopButton
-from Project.UI.Content import Content
-from Project.UI.ContentTypes.ChordDetection.CommonClasses import RecordingButton, ChordAnalyzingButton
 from Project.ChordDetector.ChordDetection.chroma_chord_detection import chord_detection_prefilepath
-import threading
+from Project.UI.CommonWidgets.FilePickerButton import FilePickerButton
+from Project.UI.ContentComponent import Content
+from Project.UI.ContentTypes.ChordDetection.CommonClasses import ChordAnalyzingButton
 
 
 class SongUploadContent(Content):
-    def __init__(self):
-        super(SongUploadContent, self).__init__()
+    def __init__(self, is_full_screen):
+        super(SongUploadContent, self).__init__(is_full_screen)
         self.buttons = []
         self.path = "a"
         self.upload_button = FilePickerButton()
