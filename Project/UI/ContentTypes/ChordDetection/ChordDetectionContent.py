@@ -1,16 +1,11 @@
+import threading
+
 from PySide6.QtCore import QRect
+from PySide6.QtWidgets import QPushButton, QLabel, QVBoxLayout, QPlainTextEdit
 
 from Project.ChordDetector import chord_detection
 from Project.UI.CommonWidgets.StartStopButton import StartStopButton
-
 from Project.UI.ContentComponent import Content
-
-from Project.UI.ContentTypes.ChordDetection.CommonClasses import RecordingButton
-import threading
-from PySide6.QtWidgets import QApplication, QPushButton, QWidget, QFormLayout, QGroupBox, QLabel, QScrollArea, \
-    QVBoxLayout
-import sys
-from PySide6 import QtGui
 
 
 class ChordDetectionContent(Content):
