@@ -25,7 +25,7 @@ class MusicButton(QPushButton):
         self.stop_style = "color: white; border-style: solid; border-width: 10px; border-color: #FFFFFF; " \
                           "background-color: #972c2c; border-radius: 50px;"
         self.is_on=0
-        self.clicked.connect(self.start_music)
+        self.pressed.connect(self.start_music)
         self.set_button()
 
 
@@ -39,7 +39,7 @@ class MusicButton(QPushButton):
 
 
     def start_music(self):
-        print("start tuner")
+        print("button clicked")
         #self.style = "background-color: red; "
         if self.is_on==1:
             self.is_on = 0
@@ -69,7 +69,9 @@ class MusicButton(QPushButton):
                 self.parent().zero_all_type()
                 self.setStyleSheet(self.stop_style)
                 self.parent().play[0].current_type = self.sender().text()
-        print(self.sender().text())
+            else:
+                print(self.sender().text())
+        print("all good " + self.sender().text())
 
 
 class LOCK(object):
