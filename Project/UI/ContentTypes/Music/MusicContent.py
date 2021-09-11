@@ -45,15 +45,18 @@ class MusicContent(Content):
     def zero_all_notes(self):
         for button in self.notes_buttons:
             button.setStyleSheet(button.start_style)
+            button.is_on = 0
 
 
     def zero_all_finger_pick(self):
         for button in self.finger_pick_buttons:
             button.setStyleSheet(button.start_style)
+            button.is_on = 0
 
     def zero_all_type(self):
         for button in self.current_fp_buttons:
             button.setStyleSheet(button.start_style)
+            button.is_on = 0
 
     def init_notes(self):
 
