@@ -18,15 +18,15 @@ class GuitarTunerButton(QPushButton):
         self.y = y_pos
         self.style = "border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color: white; " \
                      "border-radius: 25px; "
-        self.style_red = "border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color: red; " \
+        self.style_red = "border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color:  #ff1a1a; " \
                       "border-radius: 25px; "
-        self.style_green = "border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color: green; " \
+        self.style_green = "border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color:  #0033cc; " \
                          "border-radius: 25px; "
-        self.style_OK = "border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color: yellow; " \
+        self.style_OK = "border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color: green; " \
                            "border-radius: 25px; "
-        self.style_OK_up = "border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color:  #808000; " \
+        self.style_OK_up = "border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color:   #ff6666; " \
                         "border-radius: 25px; "
-        self.style_OK_down = "border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color:  #ffff66; " \
+        self.style_OK_down = "border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color:   #668cff; " \
                         "border-radius: 25px; "
         self.clicked.connect(self.start_tuner)
         self.set_button()
@@ -58,7 +58,7 @@ class GuitarTunerButton(QPushButton):
             better_tuner()
             #print("***********************")
             print(Constants.ClosetNote)
-            if Constants.ClosetNote[0]<self.note[0]:
+            if Constants.ClosetNote[0] < self.note[0]:
                 self.setStyleSheet("QPushButton#" + self.name + " { " + self.style_red + " }")
                 print("in red")
                 if self.flag:
