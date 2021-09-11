@@ -1,18 +1,16 @@
+import threading
+
 from PySide6.QtCore import QRect
+from PySide6.QtWidgets import QPushButton, QLabel, QVBoxLayout, QPlainTextEdit
 
 from Project.ChordDetector import chord_detection
 from Project.UI.CommonWidgets.StartStopButton import StartStopButton
-from Project.UI.Content import Content
-from Project.UI.ContentTypes.ChordDetection.CommonClasses import RecordingButton, PlainText
-import threading
-from PySide6.QtWidgets import QApplication, QPushButton, QWidget, QFormLayout, QGroupBox, QLabel, QScrollArea, \
-    QVBoxLayout, QPlainTextEdit
-import sys
-from PySide6 import QtGui
+from Project.UI.ContentComponent import Content
+
 
 class ChordDetectionContent(Content):
-    def __init__(self):
-        super(ChordDetectionContent, self).__init__()
+    def __init__(self, is_full_screen):
+        super(ChordDetectionContent, self).__init__(is_full_screen)
 
         self.count = 0
         #self.vBOX=QVBoxLayout()
@@ -39,6 +37,7 @@ class ChordDetectionContent(Content):
         self.chord_text.setReadOnly(True)
         self.vBOX.addWidget(self.chord_text)
         self.setLayout(self.vBOX)
+
 
         self.buttons = []
         self.record_button = StartStopButton(self.start_record, self.stop_record)
@@ -67,9 +66,10 @@ class ChordDetectionContent(Content):
             text='%s' % chord
             self.chord_text.appendPlainText(text)
             print(len(self.labelList), self.count)
-            for i in range (1):
+            for i in range(1):
                 self.labelList.append(QLabel("Label "))
                 self.buttonList.append(QPushButton("Btn "))
+
             #self.formLayout.addRow(self.labelList[self.count - 1], QPushButton("Btn "))
 
     def start_record(self):
@@ -80,5 +80,3 @@ class ChordDetectionContent(Content):
 
     def stop_record(self):
         self.flag = True
-
-
