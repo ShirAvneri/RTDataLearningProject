@@ -45,6 +45,7 @@ class MusicButton(QPushButton):
             self.is_on = 0
             self.setStyleSheet(self.start_style)
             if self.sender().text() in self.parent().notes:
+                print("zero note")
                 self.parent().current_notes = "0"
             elif self.sender().text() in self.parent().finger_pick:
                 self.parent().current_fp = "0"
@@ -54,6 +55,7 @@ class MusicButton(QPushButton):
             self.is_on = 1
             #self.parent().
             if self.sender().text() in self.parent().notes:
+                print("reall note")
                 self.parent().zero_all_notes()
                 self.setStyleSheet(self.stop_style)
                 self.parent().play[0].current_notes = self.sender().text()
@@ -104,9 +106,9 @@ class PlayButton(QPushButton):
         self.current_fp = "0"
         self.current_notes="0"
         self.start_style = "color: white; border-style: solid; border-width: 10px; border-color: #FFFFFF; " \
-                           "background-color: #00a215; border-radius: 50px;"
+                           "background-color:  #007acc; border-radius: 50px;"
         self.stop_style = "color: white; border-style: solid; border-width: 10px; border-color: #FFFFFF; " \
-                          "background-color: #972c2c; border-radius: 50px;"
+                          "background-color: #000066; border-radius: 50px;"
         #self.lock = LOCK()
         self.clicked.connect(self.play_note)
         self.set_button()
@@ -123,16 +125,22 @@ class PlayButton(QPushButton):
     def play_note(self):
         self.setStyleSheet(self.stop_style)
         self.setEnabled(False)
+        print("in play_note")
         self.listen_to_user()
 
     def listen_to_user(self):
        # global lock
+        print("self.current_notes")
+        print(self.current_notes)
         if self.current_type!="0" and self.current_fp!="0" and self.current_notes!="0":
             WAV_PATH="/Guitar Samples/Guitar Samples/"+self.current_fp+"/"+self.current_notes+"/"+self.current_notes+" "+self.current_type+".wav"
             WAV_PATH = str(os.path.abspath(os.curdir)).replace("\\", "/")+WAV_PATH
             listen_thread = threading.Thread(target=self.play_play,args=(WAV_PATH,))
             self.used_threads.append(listen_thread)
             listen_thread.start()
+        else:
+            self.setStyleSheet(self.start_style)
+            self.setEnabled(True)
 
     def play_play(self,WAV_PATH):
         song = AudioSegment.from_wav(WAV_PATH)
