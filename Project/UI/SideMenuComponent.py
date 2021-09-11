@@ -1,9 +1,10 @@
 from PySide6 import QtCore
 from PySide6.QtWidgets import QWidget
+from Project.UI.BaseComponent import BaseGuiComponent
 from Project.UI.SideMenuTypes.CommonClasses import *
 
 
-class SideMenu(QWidget):
+class SideMenu(QWidget, BaseGuiComponent):
     def __init__(self):
         super(SideMenu, self).__init__()
         self.name = "SideMenu"

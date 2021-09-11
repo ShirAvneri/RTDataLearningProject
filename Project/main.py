@@ -1,11 +1,11 @@
 import sys
 from PySide6.QtWidgets import QApplication
-from Project.ApplicationWindow import ApplicationWindow
+from Project.UI.AppMainWindow import AppMainWindow
 
 
 def main():
     app = QApplication(sys.argv)
-    window = ApplicationWindow()
+    window = AppMainWindow()
     window.show()
     sys.exit(app.exec())
 

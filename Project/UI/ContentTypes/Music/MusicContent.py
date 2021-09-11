@@ -1,18 +1,13 @@
-import threading
-import time
 from PySide6.QtCore import QRect
-from PySide6.QtWidgets import QFileDialog, QLabel
-from Project import Recording
+from PySide6.QtWidgets import QLabel
 from Project.UI.CommonWidgets.WidgetsFactory import font_factory
-from Project.UI.CommonWidgets.StartStopButton import StartStopButton
-from Project.UI.Content import Content
+from Project.UI.ContentComponent import Content
 from Project.UI.ContentTypes.Music.CommonClass import MusicButton, PlayButton
-from playsound import playsound
 
 
 class MusicContent(Content):
-    def __init__(self):
-        super(MusicContent, self).__init__()
+    def __init__(self, is_full_screen):
+        super(MusicContent, self).__init__(is_full_screen)
         self.notes_buttons = []
         self.used_threads = []
         self.finger_pick_buttons = []

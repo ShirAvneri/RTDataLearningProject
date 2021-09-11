@@ -1,4 +1,5 @@
-from Project.UI.SideMenu import SideMenu
+from Project.UI.Enums import SideMenuEvents
+from Project.UI.SideMenuComponent import SideMenu
 from Project.UI.SideMenuTypes.CommonClasses import *
 
 # BPM Taken from: https://www.musical-u.com/learn/rhythm-tips-for-identifying-music-genres-by-ear/
@@ -31,13 +32,14 @@ class MetronomeSideMenu(SideMenu):
                             "Trap": (138, 142),
                             "Techno": (120, 160),
                             }
-
-        self.radio_buttons = SideMenuRadioButtons(20, 90, self.genre_change_event, self.genres_list.keys())
+        self.radio_buttons = SideMenuRadioButtons(invoke_on_click=self.notify,
+                                                  click_signal=SideMenuEvents.CHANGE_GENRE,
+                                                  x_pos=20, y_pos=90,
+                                                  buttons_names=self.genres_list.keys())
         self.radio_buttons.setParent(self)
         self.radio_buttons.set_buttons()
 
-    def genre_change_event(self, genre):
-        bpm = self.genres_list[genre]
-        self.parent().genre_change_event_handler(bpm[0], bpm[1])
+    def notify(self, event_signal, genre):
+        self.mediator.notify(event_signal, self.genres_list[genre])
 
 
