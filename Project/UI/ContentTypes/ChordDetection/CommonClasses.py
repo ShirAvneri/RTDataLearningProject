@@ -1,8 +1,29 @@
 from PySide6.QtCore import QRect
-from PySide6.QtWidgets import QPushButton
+from PySide6.QtWidgets import QPushButton, QVBoxLayout, QPlainTextEdit, QWidget
 
 from Project.ChordRecording import main_recording
 from Project.UI.CommonWidgets.WidgetsFactory import font_factory
+from Project.UI.Content import Content
+
+
+class PlainText(QPlainTextEdit):
+    def __init__(self, x_pos, y_pos):
+        super(PlainText, self).__init__()
+        self.setObjectName("Plain Text")
+        self.setGeometry(QRect(x_pos, y_pos, 50, 50))
+        self.vBOX = QVBoxLayout()
+        #self.chord_text = QPlainTextEdit()
+        self.init_content()
+
+    def init_content(self):
+        print("I am here")
+        text = "Detected Chord:"
+        self.appendPlainText(text)
+        self.setReadOnly(True)
+        self.vBOX.addWidget(self)
+        self.setLayout(self.vBOX)
+        #self.parent.show()
+
 
 
 class RecordingButton(QPushButton):
