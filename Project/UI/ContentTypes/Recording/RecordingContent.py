@@ -5,12 +5,12 @@ from PySide6.QtWidgets import QFileDialog, QLabel
 from Project import Recording
 from Project.UI.CommonWidgets.WidgetsFactory import font_factory
 from Project.UI.CommonWidgets.StartStopButton import StartStopButton
-from Project.UI.Content import Content
+from Project.UI.ContentComponent import Content
 
 
 class RecordingContent(Content):
-    def __init__(self):
-        super(RecordingContent, self).__init__()
+    def __init__(self, is_full_screen):
+        super(RecordingContent, self).__init__(is_full_screen)
         self.is_recording = False
         self.used_threads = []
         self.recording_button = StartStopButton(self.start_recording, self.stop_recording)

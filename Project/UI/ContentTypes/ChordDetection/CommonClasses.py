@@ -3,7 +3,6 @@ from PySide6.QtWidgets import QPushButton, QVBoxLayout, QPlainTextEdit, QWidget
 
 from Project.ChordRecording import main_recording
 from Project.UI.CommonWidgets.WidgetsFactory import font_factory
-from Project.UI.Content import Content
 
 
 class PlainText(QPlainTextEdit):
