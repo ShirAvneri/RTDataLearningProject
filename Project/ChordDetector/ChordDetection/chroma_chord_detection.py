@@ -114,7 +114,7 @@ def chord_detection_filepath(filepath):
 
 
 def chord_detection_prefilepath(filepath):
-
+    list = []
     for chord in chords:
         if chord == 'N':
             continue
@@ -142,6 +142,7 @@ def chord_detection_prefilepath(filepath):
         idx_chord = int(idx_max_cor + 1)
         chord_name = tuple(chords[idx_chord].split(" "))
         print(chord_name)
+        list.append(chord_name)
         # # Plotting all figures
         # plt.figure(1)
         # notes = ['G','G#','A','A#','B','C','C#','D','D#','E','F','F#']
@@ -153,7 +154,7 @@ def chord_detection_prefilepath(filepath):
         # plt.plot(notes, chroma_template)
         # plt.show()
 
-    return chord_name
+    return list
 
 
 if __name__ == "__main__":
