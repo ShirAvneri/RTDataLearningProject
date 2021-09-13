@@ -1,5 +1,5 @@
+from PyQt5.QtCore import pyqtSlot
 from PySide6.QtWidgets import QMainWindow
-
 from Project.UI.CommonWidgets.WidgetsFactory import Factory
 from Project.UI.Enums import *
 
@@ -16,7 +16,8 @@ class AppMainWindow(QMainWindow):
         self.content = None
         self.init_gui_components()
 
-    # @pyqtSlot(str)
+
+    #@pyqtSlot(str)
     def my_function(self, chord):
         print('in my_function with signal:' + chord)
         self.content.append_text(chord)
@@ -69,3 +70,4 @@ class AppMainWindow(QMainWindow):
         if self.side_menu is not None:
             self.side_menu.setParent(self)
             self.side_menu.show()
+
