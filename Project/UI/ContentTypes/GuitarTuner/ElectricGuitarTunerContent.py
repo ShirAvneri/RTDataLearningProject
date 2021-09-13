@@ -32,9 +32,14 @@ class ElectricGuitarTunerContent(GuitarTunerContent):
             button.setParent(self)
             #button.clicked.connect(self.play_tuner)
 
-    def zero_all(self):
+    def zero_all(self, note):
         for button in self.notes_buttons:
-            button.Flag = 0
+            if button != note:
+                if button.Flag == 1:
+                    button.Flag = 0
+                    button.flag = True
+                    button.setText(button.note)
+                    button.setStyleSheet("QPushButton#" + button.name + " { " + button.style + " }")
 
 
     def play_tuner(self):

@@ -12,9 +12,14 @@ class ClassicalGuitarTunerContent(GuitarTunerContent):
                                         "./UI/Images/TunerGuitars/ClassicGuitar.png) 0 0 0 stretch stretch; }")
         self.init_notes()
 
-    def zero_all(self):
+    def zero_all(self, note):
         for button in self.notes_buttons:
-            button.Flag = 0
+            if button != note:
+                if button.Flag == 1:
+                    button.Flag = 0
+                    button.flag = True
+                    button.setText(button.note)
+                    button.setStyleSheet("QPushButton#" + button.name + " { " + button.style + " }")
 
     def init_notes(self):
         string1 = GuitarTunerButton(self.notes[0], "1", 400, 55)
