@@ -1,9 +1,10 @@
-from PySide6.QtCore import QRect, Signal, QThread
+from PySide6.QtCore import QRect, Signal, QThread, Qt
 from PySide6.QtGui import QTextCursor
 from PySide6.QtWidgets import QPushButton, QLabel, QVBoxLayout, QPlainTextEdit
 
 from Project.ChordDetector import chord_detection
 from Project.UI.CommonWidgets.CommonButtons import StartStopButton
+from Project.UI.CommonWidgets.CommonFonts import create_font
 from Project.UI.CommonWidgets.CommonLabels import Label
 from Project.UI.ContentComponent import Content
 
@@ -28,7 +29,12 @@ class ChordDetectionContent(Content):
         self.chord_text.appendPlainText(text)
         # self.chord_text.setPlainText("**********************")
         self.chord_text.setReadOnly(True)
-        self.chord_label = Label(625, 220, "F#")
+        self.chord_label = QLabel(self)
+        self.chord_label.setGeometry(QRect(0, 0, 1350, 400))
+        self.chord_label.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+        self.chord_label.setFont(create_font(size=150, bold=True))
+        self.chord_label.setStyleSheet("color: #972c2c")
+        self.chord_label.setText("")
         self.buttons = []
         self.record_button = StartStopButton(self.start_record, self.stop_record)
         self.buttons.append(self.record_button)
@@ -54,6 +60,8 @@ class ChordDetectionContent(Content):
         self.flag = True
 
     def append_text(self, text):
+        self.chord_label.setText("")
+        self.chord_label.setText(text)
         self.chord_text.moveCursor(QTextCursor.End)
         self.count += 1
         self.chord_text.moveCursor(QTextCursor.EndOfBlock)
