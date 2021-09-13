@@ -1,7 +1,7 @@
 from PySide6.QtCore import QRect, QSize
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QPushButton, QLabel, QButtonGroup, QRadioButton
-from Project.UI.CommonWidgets.WidgetsFactory import font_factory
+from Project.UI.CommonWidgets.FontFactory import create_font
 
 
 class SideMenuGuitarButton(QPushButton):
@@ -25,7 +25,7 @@ class SideMenuLabel(QLabel):
     def __init__(self, x_pos, y_pos, text):
         super(SideMenuLabel, self).__init__()
         self.setGeometry(QRect(x_pos, y_pos, 300, 20))
-        self.setFont(font_factory(size=12, bold=True))
+        self.setFont(create_font(size=12, bold=True))
         self.setText(text)
 
 
@@ -46,7 +46,7 @@ class SideMenuRadioButtons(QButtonGroup):
         for i, text in enumerate(self.buttons_names):
             radio_button = QRadioButton()
             radio_button.setGeometry(QRect(self.x, self.y + i * self.margin, 300, 20))
-            radio_button.setFont(font_factory(size=12))
+            radio_button.setFont(create_font(size=12))
             radio_button.setText(text)
             radio_button.setParent(self.parent())
             self.addButton(radio_button, i)

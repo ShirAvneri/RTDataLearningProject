@@ -1,7 +1,8 @@
 from PySide6 import QtCore
-from PySide6.QtWidgets import QWidget
+from PySide6.QtCore import QRect
+from PySide6.QtWidgets import QWidget, QLabel
 from Project.UI.BaseComponent import BaseGuiComponent
-from Project.UI.SideMenuTypes.CommonClasses import *
+from Project.UI.CommonWidgets.FontFactory import create_font
 
 
 class SideMenu(QWidget, BaseGuiComponent):
@@ -16,6 +17,6 @@ class SideMenu(QWidget, BaseGuiComponent):
         # Setting tool-box title:
         self.toolBoxLabel = QLabel(self)
         self.toolBoxLabel.setGeometry(QRect(10, 20, 150, 30))
-        self.toolBoxLabel.setFont(font_factory(size=24, bold=True))
+        self.toolBoxLabel.setFont(create_font(size=24, bold=True))
         self.toolBoxLabel.setText("Tool Box")
         self.toolBoxLabel.setParent(self)
