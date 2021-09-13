@@ -1,7 +1,7 @@
 from PySide6.QtCore import QRect
 from PySide6.QtWidgets import QLabel
 
-from Project.UI.CommonWidgets.WidgetsFactory import Factory
+from Project.UI.CommonWidgets.FontFactory import create_font
 from Project.UI.ContentComponent import Content
 from Project.UI.ContentTypes.Music.CommonClass import MusicButton, PlayButton
 
@@ -27,7 +27,7 @@ class MusicContent(Content):
         self.toolBoxLabel = QLabel(self)
 
         self.toolBoxLabel.setGeometry(QRect(15, 40, 150, 30))
-        font = Factory.create_font(size=24, bold=True)
+        font = create_font(size=24, bold=True)
         self.toolBoxLabel.setFont(font)
 
         self.toolBoxLabel.setText("Chord:")
