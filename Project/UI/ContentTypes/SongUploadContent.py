@@ -1,8 +1,8 @@
-from PySide6.QtCore import QRect
-from PySide6.QtWidgets import QVBoxLayout, QPlainTextEdit, QWidget
+
+from PySide6.QtWidgets import QPlainTextEdit
 
 from Project.ChordDetector.ChordDetection.chroma_chord_detection import chord_detection_prefilepath
-from Project.UI.CommonWidgets.FilePickerButton import FilePickerButton
+from Project.UI.CommonWidgets.CommonButtons import FilePickerButton
 from Project.UI.ContentComponent import Content
 from Project.UI.ContentTypes.ChordDetection.CommonClasses import ChordAnalyzingButton
 
@@ -17,7 +17,7 @@ class SongUploadContent(Content):
         self.chord_text.setMinimumWidth(450)
         self.chord_text.setMinimumHeight(550)
 
-        #self.QPlainTextEdit.setGeometry(QRect(50, 50, 50, 50))
+        # self.QPlainTextEdit.setGeometry(QRect(50, 50, 50, 50))
 
         self.chord_text.appendPlainText(text)
         # self.chord_text.setPlainText("**********************")
@@ -39,8 +39,6 @@ class SongUploadContent(Content):
         self.flag = False
         self.analyze_button.path = self.path
 
-
-
     def analyze(self):
         print(self.upload_button.path[0])
 
@@ -50,9 +48,7 @@ class SongUploadContent(Content):
             self.chord_text.appendPlainText("Iteration number:" + str(self.counter))
             print("*******************")
             return_list = chord_detection_prefilepath(self.upload_button.path[0])
-            #self.chord_text.appendPlainText(str(*chord_detection_prefilepath(self.upload_button.path[0]), sep=", "))
+            # self.chord_text.appendPlainText(str(*chord_detection_prefilepath(self.upload_button.path[0]), sep=", "))
             for x in range(len(return_list)):
                 self.chord_text.appendPlainText(str(return_list[x]))
-            self.counter+=1
-
-
+            self.counter += 1
