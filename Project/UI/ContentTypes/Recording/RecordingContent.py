@@ -35,7 +35,7 @@ class RecordingContent(Content):
 
         self.count_down_label = QLabel()
         self.count_down_label.setParent(self)
-        self.count_down_label.setText("HADAR")
+        self.count_down_label.setText("")
         self.count_down_label.setGeometry(QRect(450, 300, 90, 30))
         self.count_down_label.setFont(font_factory(size=18))
         self.count_down_label.setStyleSheet("QLabel { color : red; }");
@@ -62,6 +62,7 @@ class RecordingContent(Content):
         self.frames = []
 
     def start_timer(self):
+        self.setEnabled(False)
         self.count_down_label.setText("3")
         time.sleep(1)
         self.count_down_label.setText("2")
@@ -70,6 +71,7 @@ class RecordingContent(Content):
         time.sleep(1)
         self.count_down_label.setText("")
         time_start = time.time()
+        self.setEnabled(True)
         seconds = 0
         minutes = 0
         hours = 0

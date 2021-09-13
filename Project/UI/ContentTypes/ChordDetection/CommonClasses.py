@@ -50,12 +50,12 @@ class ChordAnalyzingButton(QPushButton):
         self.x = x_pos
         self.y = y_pos
         self.path = "b"
-        self.style = "border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color: white; " \
+        self.style = "border-style: solid; border-width: 10px; border-color: #c9c9c9; background-color: white; " \
                      "border-radius: 25px; "
         self.set_button()
 
     def set_button(self):
-        self.setGeometry(QRect(self.x, self.y, 50, 50))
+        self.setGeometry(QRect(self.x, self.y, 80, 50))
         self.setStyleSheet("QPushButton#" + "Recording  Button" + " { " + self.style + " }")
         self.setText("Analyze")
         self.setFont(font_factory(size=14))
