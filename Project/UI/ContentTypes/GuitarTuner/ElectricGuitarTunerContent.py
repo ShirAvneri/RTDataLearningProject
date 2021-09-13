@@ -32,6 +32,11 @@ class ElectricGuitarTunerContent(GuitarTunerContent):
             button.setParent(self)
             #button.clicked.connect(self.play_tuner)
 
+    def zero_all(self):
+        for button in self.notes_buttons:
+            button.Flag = 0
+
+
     def play_tuner(self):
         print("in play tuner")
         main_tuner()
