@@ -16,24 +16,23 @@ class ChordDetectionContent(Content):
         self.labelList = []
         self.buttonList = []
 
-
-        self.vBOX = QVBoxLayout()
-
         text = "Detected Chord:"
         self.chord_text = QPlainTextEdit()
-        self.vBOX.setGeometry(QRect(50, 50, 50, 50))
+        self.chord_text.setParent(self)
+        self.chord_text.setMinimumWidth(450)
+        self.chord_text.setMinimumHeight(550)
+
+        # self.QPlainTextEdit.setGeometry(QRect(50, 50, 50, 50))
 
         self.chord_text.appendPlainText(text)
+        # self.chord_text.setPlainText("**********************")
         self.chord_text.setReadOnly(True)
-        self.vBOX.addWidget(self.chord_text)
-        self.setLayout(self.vBOX)
-
 
         self.buttons = []
         self.record_button = StartStopButton(self.start_record, self.stop_record)
         self.buttons.append(self.record_button)
         self.record_button.setParent(self)
-        self.record_button.init_style("MetronomeController", 250, 400)
+        self.record_button.init_style("MetronomeController", 625, 225)
         self.thread = None
         self.process = None
         self.stream = None
@@ -52,7 +51,7 @@ class ChordDetectionContent(Content):
                 break
             chord = chord_detection.get_chord_from_stream(self.stream, self.p)
             print(chord)
-            text='%s' % chord
+            text = '%s' % chord
             self.chord_text.appendPlainText(text)
             print(len(self.labelList), self.count)
             for i in range(1):

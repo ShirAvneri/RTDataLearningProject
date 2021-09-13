@@ -35,9 +35,10 @@ class GuitarTunerButton(QPushButton):
         self.set_button()
 
     def start_tuner(self):
-        # self.parent().zero_all()
+        self.parent().zero_all(self)
         print("start tuner")
         print(self.sender().Flag)
+        #self.parent().zero_all()
         if self.sender().Flag == 0:
             print("START")
             self.sender().Flag = 1
