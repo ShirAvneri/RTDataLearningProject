@@ -3,8 +3,7 @@ import threading
 import time
 
 from PySide6.QtCore import QRect, Qt
-from PySide6.QtGui import QColor, QPainter, QPainterPath, QPen
-from PySide6.QtWidgets import QFileDialog, QLabel, QGraphicsDropShadowEffect, QGraphicsBlurEffect, QGraphicsScene
+from PySide6.QtWidgets import QFileDialog, QLabel
 
 from Project import Recording
 from Project.UI.CommonWidgets.CommonButtons import StartStopButton
