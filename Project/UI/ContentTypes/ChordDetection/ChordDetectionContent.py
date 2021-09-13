@@ -1,5 +1,6 @@
 import threading
 
+from PyQt5.QtCore import pyqtSignal, QThread, pyqtSlot
 from PySide6.QtCore import QRect
 from PySide6.QtWidgets import QPushButton, QLabel, QVBoxLayout, QPlainTextEdit
 
@@ -13,27 +14,18 @@ class ChordDetectionContent(Content):
         super(ChordDetectionContent, self).__init__(is_full_screen)
 
         self.count = 0
-        #self.vBOX=QVBoxLayout()
-        #self.chord_text=QPlainTextEdit()
-        #self.formLayout = QFormLayout()
-        #self.groupBox = QGroupBox("This is a groupBox")
         self.labelLists = []
         self.labelList = []
         self.buttonList = []
-
-        #self.plain_text=PlainText(50,50)
-        #self.plain_text.parent=self
-        #self.chord_text = QPlainTextEdit()
 
 
         self.vBOX = QVBoxLayout()
 
         text = "Detected Chord:"
         self.chord_text = QPlainTextEdit()
-        self.vBOX.setGeometry(QRect(50,50,50,50))
+        self.vBOX.setGeometry(QRect(50, 50, 50, 50))
 
         self.chord_text.appendPlainText(text)
-        #self.chord_text.setPlainText("**********************")
         self.chord_text.setReadOnly(True)
         self.vBOX.addWidget(self.chord_text)
         self.setLayout(self.vBOX)
@@ -52,7 +44,6 @@ class ChordDetectionContent(Content):
         self.counter = 1
 
     def get_chords(self):
-        #print("chord")
         self.chord_text.appendPlainText("Iteration number:"+str(self.counter))
         self.counter+=1
         self.stream, self.p = chord_detection.open_stream()
@@ -74,9 +65,31 @@ class ChordDetectionContent(Content):
 
     def start_record(self):
         print('opening stream...')
-        self.flag = False
-        self.thread = threading.Thread(target=self.get_chords)
+        self.thread = ThreadClass(self)
         self.thread.start()
+        self.thread.any_signal.connect(self.parent().my_function)
 
     def stop_record(self):
         self.flag = True
+
+    def append_text(self, text):
+        self.chord_text.appendPlainText(text)
+
+
+class ThreadClass(QThread):
+    any_signal = pyqtSignal(str)
+
+    def __init__(self, ChordDetectionContent, parent=None, index=0):
+        super(ThreadClass, self).__init__(parent)
+        self.ChordDetectionContent = ChordDetectionContent
+
+    def run(self):
+        # print("chord")
+        self.stream, self.p = chord_detection.open_stream()
+        while True:
+            if self.ChordDetectionContent.flag:
+                chord_detection.close_stream(self.stream, self.p)
+                print('recording complete')
+                break
+            chord = chord_detection.get_chord_from_stream(self.stream, self.p)
+            self.any_signal.emit(chord)

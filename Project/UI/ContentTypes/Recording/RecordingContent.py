@@ -4,7 +4,7 @@ import time
 from PySide6.QtCore import QRect
 from PySide6.QtWidgets import QFileDialog, QLabel
 from Project import Recording
-from Project.UI.CommonWidgets.WidgetsFactory import font_factory
+from Project.UI.CommonWidgets.FontFactory import create_font
 from Project.UI.CommonWidgets.StartStopButton import StartStopButton
 from Project.UI.ContentComponent import Content
 
@@ -23,8 +23,8 @@ class RecordingContent(Content):
         self.timer_label = QLabel()
         self.timer_label.setParent(self)
         self.timer_label.setText("00:00:00")
-        self.timer_label.setGeometry(QRect(250, 520, 250, 30))
-        self.timer_label.setFont(font_factory(size=18))
+        self.timer_label.setGeometry(QRect(40, 520, 250, 30))
+        self.timer_label.setFont(create_font(size=18))
 
         microphone_image = QLabel(self)
         microphone_image.setObjectName("MicrophoneImageLabel")
@@ -37,9 +37,8 @@ class RecordingContent(Content):
         self.count_down_label.setParent(self)
         self.count_down_label.setText("")
         self.count_down_label.setGeometry(QRect(450, 300, 90, 30))
-        self.count_down_label.setFont(font_factory(size=18))
+        self.count_down_label.setFont(create_font(size=18))
         self.count_down_label.setStyleSheet("QLabel { color : red; }");
-
 
     def start_recording(self):
         self.is_recording = True
@@ -53,9 +52,9 @@ class RecordingContent(Content):
         for used_thread in self.used_threads:
             used_thread.join()
         file_name = self.save_file()
-        print ("*****************")
+        print("*****************")
         print(file_name[0])
-        if not file_name[0] :
+        if not file_name[0]:
             file_name = "/Grabge.py/"
             file_name = str(os.path.abspath(os.curdir)).replace("\\", "/") + file_name
         Recording.end_stream(self.stream, self.p, self.frames, file_name[0])
@@ -92,9 +91,8 @@ class RecordingContent(Content):
 
     def save_file(self):
         return QFileDialog.getSaveFileName(self, "Save F:xile",
-                                               "recored_file.wav",
-                                               "sound (*.wav)")
-
+                                           "recored_file.wav",
+                                           "sound (*.wav)")
 
     def get_audio_stream(self):
         self.stream, self.p = Recording.open_stream()
@@ -103,6 +101,5 @@ class RecordingContent(Content):
         timer_thread.start()
         while self.is_recording:
             Recording.get_stream(self.stream, self.p, self.frames)
-
 
         print("audio saved")

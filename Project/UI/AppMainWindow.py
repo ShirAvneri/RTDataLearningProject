@@ -1,5 +1,5 @@
+from PyQt5.QtCore import pyqtSlot
 from PySide6.QtWidgets import QMainWindow
-from sympy.core import singleton
 
 from Project.UI.ContentTypes.ChordDetection.ChordDetectionContent import ChordDetectionContent
 from Project.UI.ContentTypes.GuitarTuner.AcousticGuitarTunerContent import AcousticGuitarTunerContent
@@ -10,10 +10,11 @@ from Project.UI.ContentTypes.Music.MusicContent import MusicContent
 from Project.UI.ContentTypes.Recording.RecordingContent import RecordingContent
 from Project.UI.ContentTypes.SongUpload.SongUploadContent import SongUploadContent
 from Project.UI.Enums import TunerSignals, TopBarSignals
+
+from Project.UI.CommonWidgets.WidgetsFactory import Factory
+from Project.UI.Enums import *
+
 from Project.UI.MediatorPattern import GuiMediator
-from Project.UI.SideMenuTypes.GuitarTunerSideMenu import GuitarTunerSideMenu
-from Project.UI.SideMenuTypes.MetronomeSideMenu import MetronomeSideMenu
-from Project.UI.TopBarComponent import TopBar
 
 
 class AppMainWindow(QMainWindow):
@@ -26,23 +27,28 @@ class AppMainWindow(QMainWindow):
         self.content = None
         self.init_gui_components()
 
+    #@pyqtSlot(str)
+    def my_function(self, chord):
+        print('in my_function with signal:' + chord)
+        self.content.append_text(chord)
+
     def init_gui_components(self):
-        self.top_bar = TopBar()
+        self.top_bar = Factory.create_top_bar()
         self.top_bar.setParent(self)
-        self.side_menu = GuitarTunerSideMenu()
+        self.side_menu = Factory.create_side_menu(AppWidgetTypes.TUNER_SIDE_MENU)
         self.side_menu.setParent(self)
-        self.content = ClassicalGuitarTunerContent()
+        self.content = Factory.create_content(AppWidgetTypes.CLASSIC_TUNER_CONTENT)
         self.content.setParent(self)
         GuiMediator(self, self.top_bar, self.side_menu, self.content)
 
     def change_tuner(self, signal_type: TunerSignals):
         self.content.setParent(None)
         if signal_type == TunerSignals.CHANGE_TUNER_TO_CLASSIC:
-            self.content = ClassicalGuitarTunerContent()
+            self.content = Factory.create_content(AppWidgetTypes.CLASSIC_TUNER_CONTENT)
         elif signal_type == TunerSignals.CHANGE_TUNER_TO_ELECTRIC:
-            self.content = ElectricGuitarTunerContent()
+            self.content = Factory.create_content(AppWidgetTypes.ELECTRIC_TUNER_CONTENT)
         else:
-            self.content = AcousticGuitarTunerContent()
+            self.content = Factory.create_content(AppWidgetTypes.ACOUSTIC_TUNER_CONTENT)
         self.content.setParent(self)
         self.content.show()
 
@@ -52,25 +58,26 @@ class AppMainWindow(QMainWindow):
             self.side_menu.setParent(None)
 
         if signal_type == TopBarSignals.GUITAR_TUNING_CLICK:
-            self.content = ClassicalGuitarTunerContent()
-            self.side_menu = GuitarTunerSideMenu()
+            self.content = Factory.create_content(AppWidgetTypes.CLASSIC_TUNER_CONTENT)
+            self.side_menu = Factory.create_side_menu(AppWidgetTypes.TUNER_SIDE_MENU)
         elif signal_type == TopBarSignals.RECORDING_CLICK:
-            self.content = RecordingContent(True)
+            self.content = Factory.create_content(AppWidgetTypes.RECORDING_CONTENT)
             self.side_menu = None
         elif signal_type == TopBarSignals.CHORD_DETECTION_CLICK:
-            self.content = ChordDetectionContent(True)
+            self.content = Factory.create_content(AppWidgetTypes.CHORD_DETECTION_CONTENT)
             self.side_menu = None
         elif signal_type == TopBarSignals.METRONOME_CLICK:
-            self.content = MetronomeContent()
-            self.side_menu = MetronomeSideMenu()
+            self.content = Factory.create_content(AppWidgetTypes.METRONOME_CONTENT)
+            self.side_menu = Factory.create_side_menu(AppWidgetTypes.METRONOME_SIDE_MENU)
         elif signal_type == TopBarSignals.UPLOAD_CLICK:
-            self.content = SongUploadContent(True)
+            self.content = Factory.create_content(AppWidgetTypes.UPLOAD_CONTENT)
             self.side_menu = None
         else:
-            self.content = MusicContent(True)
+            self.content = Factory.create_content(AppWidgetTypes.MUSIC_CONTENT)
             self.side_menu = None
         self.content.setParent(self)
         self.content.show()
         if self.side_menu is not None:
             self.side_menu.setParent(self)
             self.side_menu.show()
+

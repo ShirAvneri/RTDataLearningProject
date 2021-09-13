@@ -1,8 +1,7 @@
 from PySide6.QtCore import QRect
 from PySide6.QtWidgets import QPushButton, QVBoxLayout, QPlainTextEdit, QWidget
-
 from Project.ChordRecording import main_recording
-from Project.UI.CommonWidgets.WidgetsFactory import font_factory
+from Project.UI.CommonWidgets.FontFactory import create_font
 
 
 class PlainText(QPlainTextEdit):
@@ -11,7 +10,7 @@ class PlainText(QPlainTextEdit):
         self.setObjectName("Plain Text")
         self.setGeometry(QRect(x_pos, y_pos, 50, 50))
         self.vBOX = QVBoxLayout()
-        #self.chord_text = QPlainTextEdit()
+        # self.chord_text = QPlainTextEdit()
         self.init_content()
 
     def init_content(self):
@@ -21,8 +20,7 @@ class PlainText(QPlainTextEdit):
         self.setReadOnly(True)
         self.vBOX.addWidget(self)
         self.setLayout(self.vBOX)
-        #self.parent.show()
-
+        # self.parent.show()
 
 
 class RecordingButton(QPushButton):
@@ -39,7 +37,7 @@ class RecordingButton(QPushButton):
         self.setGeometry(QRect(self.x, self.y, 50, 50))
         self.setStyleSheet("QPushButton#" + "Recording  Button" + " { " + self.style + " }")
         self.setText("RECORD")
-        self.setFont(font_factory(size=14))
+        self.setFont(create_font(size=14))
         self.clicked.connect(main_recording)
 
 
@@ -58,5 +56,4 @@ class ChordAnalyzingButton(QPushButton):
         self.setGeometry(QRect(self.x, self.y, 80, 50))
         self.setStyleSheet("QPushButton#" + "Recording  Button" + " { " + self.style + " }")
         self.setText("Analyze")
-        self.setFont(font_factory(size=14))
-
+        self.setFont(create_font(size=14))
