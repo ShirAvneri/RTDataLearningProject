@@ -1,7 +1,7 @@
 from PySide6.QtCore import QRect
 from PySide6.QtWidgets import QPushButton, QVBoxLayout, QPlainTextEdit, QWidget
 from Project.ChordRecording import main_recording
-from Project.UI.CommonWidgets.FontFactory import create_font
+from Project.UI.CommonWidgets.CommonFonts import create_font
 
 
 class PlainText(QPlainTextEdit):

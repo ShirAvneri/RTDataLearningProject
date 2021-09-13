@@ -2,7 +2,7 @@ from PySide6 import QtCore
 from PySide6.QtCore import QRect
 from PySide6.QtWidgets import QWidget, QLabel
 from Project.UI.BaseComponent import BaseGuiComponent
-from Project.UI.CommonWidgets.FontFactory import create_font
+from Project.UI.CommonWidgets.CommonFonts import create_font
 
 
 class SideMenu(QWidget, BaseGuiComponent):

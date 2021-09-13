@@ -1,7 +1,6 @@
 from PySide6.QtCore import QRect
 from PySide6.QtWidgets import QLabel
-
-from Project.UI.CommonWidgets.FontFactory import create_font
+from Project.UI.CommonWidgets.CommonFonts import create_font
 from Project.UI.ContentComponent import Content
 from Project.UI.ContentTypes.Music.CommonClass import MusicButton, PlayButton
 
@@ -22,7 +21,7 @@ class MusicContent(Content):
         self.current_type = "0"
         self.current_fp = "0"
         self.current_notes = "0"
-        #self.play_note()
+        # self.play_note()
         self.init_notes()
         self.toolBoxLabel = QLabel(self)
 
@@ -49,12 +48,10 @@ class MusicContent(Content):
         self.toolBoxLabel.setText("Style:")
         self.toolBoxLabel.setParent(self)
 
-
     def zero_all_notes(self):
         for button in self.notes_buttons:
             button.setStyleSheet(button.start_style)
             button.is_on = 0
-
 
     def zero_all_finger_pick(self):
         for button in self.finger_pick_buttons:
@@ -97,7 +94,6 @@ class MusicContent(Content):
         finger_bot.setGeometry(QRect(finger_bot.x, finger_bot.y, 80, 80))
         self.finger_pick_buttons.append(finger_bot)
 
-
         pick_bot = MusicButton(self.finger_pick[1], "2", 240, 370)
         pick_bot.setGeometry(QRect(pick_bot.x, pick_bot.y, 80, 80))
         self.finger_pick_buttons.append(pick_bot)
@@ -114,11 +110,9 @@ class MusicContent(Content):
         self.play.append(play)
         play.setParent(self)
 
-
         for button in self.notes_buttons:
             button.setParent(self)
         for button in self.current_fp_buttons:
             button.setParent(self)
         for button in self.finger_pick_buttons:
             button.setParent(self)
-

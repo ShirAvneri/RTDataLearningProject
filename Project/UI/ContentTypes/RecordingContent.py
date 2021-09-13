@@ -4,8 +4,8 @@ import time
 from PySide6.QtCore import QRect
 from PySide6.QtWidgets import QFileDialog, QLabel
 from Project import Recording
-from Project.UI.CommonWidgets.FontFactory import create_font
-from Project.UI.CommonWidgets.StartStopButton import StartStopButton
+from Project.UI.CommonWidgets.CommonButtons import StartStopButton
+from Project.UI.CommonWidgets.CommonFonts import create_font
 from Project.UI.ContentComponent import Content
 
 

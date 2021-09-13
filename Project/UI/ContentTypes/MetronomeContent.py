@@ -4,7 +4,7 @@ from PySide6.QtCore import QRect
 from PySide6.QtWidgets import QSpinBox, QComboBox
 
 from Project.Metronome import Metronome
-from Project.UI.CommonWidgets.StartStopButton import StartStopButton
+from Project.UI.CommonWidgets.CommonButtons import StartStopButton
 from Project.UI.ContentComponent import Content
 
 
