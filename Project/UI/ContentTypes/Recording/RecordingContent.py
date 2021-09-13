@@ -1,3 +1,4 @@
+import os
 import threading
 import time
 from PySide6.QtCore import QRect
@@ -52,7 +53,11 @@ class RecordingContent(Content):
         for used_thread in self.used_threads:
             used_thread.join()
         file_name = self.save_file()
-        #if file_name
+        print ("*****************")
+        print(file_name[0])
+        if not file_name[0] :
+            file_name = "/Grabge.py/"
+            file_name = str(os.path.abspath(os.curdir)).replace("\\", "/") + file_name
         Recording.end_stream(self.stream, self.p, self.frames, file_name[0])
         self.frames = []
 
