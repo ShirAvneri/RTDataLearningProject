@@ -1,9 +1,10 @@
+import os
 import threading
 import time
 from PySide6.QtCore import QRect
 from PySide6.QtWidgets import QFileDialog, QLabel
 from Project import Recording
-from Project.UI.CommonWidgets.WidgetsFactory import font_factory
+from Project.UI.CommonWidgets.FontFactory import create_font
 from Project.UI.CommonWidgets.StartStopButton import StartStopButton
 from Project.UI.ContentComponent import Content
 
@@ -14,7 +15,7 @@ class RecordingContent(Content):
         self.is_recording = False
         self.used_threads = []
         self.recording_button = StartStopButton(self.start_recording, self.stop_recording)
-        self.recording_button.init_style("Recording Button", 400, 30)
+        self.recording_button.init_style("Recording Button", 550, 30)
         self.recording_button.setParent(self)
         self.stream = None
         self.p = None
@@ -23,14 +24,21 @@ class RecordingContent(Content):
         self.timer_label.setParent(self)
         self.timer_label.setText("00:00:00")
         self.timer_label.setGeometry(QRect(40, 520, 250, 30))
-        self.timer_label.setFont(font_factory(size=18))
+        self.timer_label.setFont(create_font(size=18))
 
         microphone_image = QLabel(self)
         microphone_image.setObjectName("MicrophoneImageLabel")
-        microphone_image.setGeometry(QRect(175, 30, 250, 530))
+        microphone_image.setGeometry(QRect(315, 30, 250, 530))
         microphone_image.setStyleSheet("QLabel#MicrophoneImageLabel { border-image: url(./UI/Images/Microphone.png) "
                                        "0 0 0 stretch stretch; }")
         microphone_image.setParent(self)
+
+        self.count_down_label = QLabel()
+        self.count_down_label.setParent(self)
+        self.count_down_label.setText("HADAR")
+        self.count_down_label.setGeometry(QRect(450, 300, 90, 30))
+        self.count_down_label.setFont(create_font(size=18))
+        self.count_down_label.setStyleSheet("QLabel { color : red; }");
 
     def start_recording(self):
         self.is_recording = True
@@ -44,10 +52,22 @@ class RecordingContent(Content):
         for used_thread in self.used_threads:
             used_thread.join()
         file_name = self.save_file()
+        print("*****************")
+        print(file_name[0])
+        if not file_name[0]:
+            file_name = "/Grabge.py/"
+            file_name = str(os.path.abspath(os.curdir)).replace("\\", "/") + file_name
         Recording.end_stream(self.stream, self.p, self.frames, file_name[0])
         self.frames = []
 
     def start_timer(self):
+        self.count_down_label.setText("3")
+        time.sleep(1)
+        self.count_down_label.setText("2")
+        time.sleep(1)
+        self.count_down_label.setText("1")
+        time.sleep(1)
+        self.count_down_label.setText("")
         time_start = time.time()
         seconds = 0
         minutes = 0
@@ -69,8 +89,8 @@ class RecordingContent(Content):
 
     def save_file(self):
         return QFileDialog.getSaveFileName(self, "Save F:xile",
-                                               "recored_file.wav",
-                                               "sound (*.wav)")
+                                           "recored_file.wav",
+                                           "sound (*.wav)")
 
     def get_audio_stream(self):
         self.stream, self.p = Recording.open_stream()
@@ -79,6 +99,5 @@ class RecordingContent(Content):
         timer_thread.start()
         while self.is_recording:
             Recording.get_stream(self.stream, self.p, self.frames)
-
 
         print("audio saved")
