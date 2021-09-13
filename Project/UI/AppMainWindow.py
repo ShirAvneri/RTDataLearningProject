@@ -1,6 +1,4 @@
 from PySide6.QtWidgets import QMainWindow
-from sympy.core import singleton
-
 from Project.UI.ContentTypes.ChordDetection.ChordDetectionContent import ChordDetectionContent
 from Project.UI.ContentTypes.GuitarTuner.AcousticGuitarTunerContent import AcousticGuitarTunerContent
 from Project.UI.ContentTypes.GuitarTuner.ClassicalGuitarTunerContent import ClassicalGuitarTunerContent

@@ -1,10 +1,9 @@
 import threading
 from PySide6.QtCore import QRect
 from PySide6.QtWidgets import QPushButton
-
 from Project import Constants
 from Project.Tuner import better_tuner
-from Project.UI.CommonWidgets.WidgetsFactory import font_factory
+from Project.UI.CommonWidgets.WidgetsFactory import Factory
 
 
 class GuitarTunerButton(QPushButton):
@@ -91,7 +90,7 @@ class GuitarTunerButton(QPushButton):
         self.setGeometry(QRect(self.x, self.y, 50, 50))
         self.setStyleSheet("QPushButton#" + self.name + " { " + self.style + " }")
         self.setText(self.note)
-        self.setFont(font_factory(size=14))
+        self.setFont(Factory.create_font(size=14))
 
     def change_note(self, note, string_num):
         self.note = note
