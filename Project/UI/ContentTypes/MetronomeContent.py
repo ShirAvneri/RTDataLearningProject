@@ -40,3 +40,4 @@ class MetronomeContent(Content):
     def set_min_max(self, min_bpm, max_bpm):
         self.bpm_spinbox.cleanText()
         self.bpm_spinbox.setRange(min_bpm, max_bpm)
+        self.bpm_spinbox.setValue(min_bpm)
