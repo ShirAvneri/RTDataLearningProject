@@ -1,6 +1,19 @@
+from PyQt5.QtCore import pyqtSlot
 from PySide6.QtWidgets import QMainWindow
+
+from Project.UI.ContentTypes.ChordDetection.ChordDetectionContent import ChordDetectionContent
+from Project.UI.ContentTypes.GuitarTuner.AcousticGuitarTunerContent import AcousticGuitarTunerContent
+from Project.UI.ContentTypes.GuitarTuner.ClassicalGuitarTunerContent import ClassicalGuitarTunerContent
+from Project.UI.ContentTypes.GuitarTuner.ElectricGuitarTunerContent import ElectricGuitarTunerContent
+from Project.UI.ContentTypes.Metronome.MetronomeContent import MetronomeContent
+from Project.UI.ContentTypes.Music.MusicContent import MusicContent
+from Project.UI.ContentTypes.Recording.RecordingContent import RecordingContent
+from Project.UI.ContentTypes.SongUpload.SongUploadContent import SongUploadContent
+from Project.UI.Enums import TunerSignals, TopBarSignals
+
 from Project.UI.CommonWidgets.WidgetsFactory import Factory
 from Project.UI.Enums import *
+
 from Project.UI.MediatorPattern import GuiMediator
 
 
@@ -13,6 +26,11 @@ class AppMainWindow(QMainWindow):
         self.side_menu = None
         self.content = None
         self.init_gui_components()
+
+    #@pyqtSlot(str)
+    def my_function(self, chord):
+        print('in my_function with signal:' + chord)
+        self.content.append_text(chord)
 
     def init_gui_components(self):
         self.top_bar = Factory.create_top_bar()
@@ -62,3 +80,4 @@ class AppMainWindow(QMainWindow):
         if self.side_menu is not None:
             self.side_menu.setParent(self)
             self.side_menu.show()
+
