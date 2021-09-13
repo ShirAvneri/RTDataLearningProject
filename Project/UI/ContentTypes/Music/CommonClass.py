@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QPushButton
 from pydub import AudioSegment
 from pydub.playback import play
 
-from Project.UI.CommonWidgets.WidgetsFactory import Factory
+from Project.UI.CommonWidgets.FontFactory import create_font
 
 
 class MusicButton(QPushButton):
@@ -30,7 +30,7 @@ class MusicButton(QPushButton):
         self.setGeometry(QRect(self.x, self.y, 50, 50))
         # self.setStyleSheet("QPushButton#" + self.name + " { " + self.style + " }")
         self.setText(self.note)
-        self.setFont(Factory.create_font(size=14))
+        self.setFont(create_font(size=14))
         self.setStyleSheet(self.start_style)
         self.is_on = 0
 
@@ -117,7 +117,7 @@ class PlayButton(QPushButton):
         self.setGeometry(QRect(self.x, self.y, 50, 50))
         # self.setStyleSheet("QPushButton#" + self.name + " { " + self.style + " }")
         self.setText(self.note)
-        self.setFont(Factory.create_font(size=14))
+        self.setFont(create_font(size=14))
         self.setStyleSheet(self.start_style)
         self.is_on = 0
 
