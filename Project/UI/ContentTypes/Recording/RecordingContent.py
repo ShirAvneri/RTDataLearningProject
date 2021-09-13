@@ -4,8 +4,8 @@ import time
 from PySide6.QtCore import QRect
 from PySide6.QtWidgets import QFileDialog, QLabel
 from Project import Recording
-from Project.UI.CommonWidgets.WidgetsFactory import font_factory
 from Project.UI.CommonWidgets.StartStopButton import StartStopButton
+from Project.UI.CommonWidgets.WidgetsFactory import Factory
 from Project.UI.ContentComponent import Content
 
 
@@ -23,8 +23,9 @@ class RecordingContent(Content):
         self.timer_label = QLabel()
         self.timer_label.setParent(self)
         self.timer_label.setText("00:00:00")
-        self.timer_label.setGeometry(QRect(250, 520, 250, 30))
-        self.timer_label.setFont(font_factory(size=18))
+        self.timer_label.setGeometry(QRect(40, 520, 250, 30))
+        self.timer_label.setFont(Factory.create_font(size=18))
+
 
         microphone_image = QLabel(self)
         microphone_image.setObjectName("MicrophoneImageLabel")

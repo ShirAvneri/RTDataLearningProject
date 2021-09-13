@@ -2,11 +2,10 @@ import os
 import threading
 from PySide6.QtCore import QRect
 from PySide6.QtWidgets import QPushButton
-from playsound import playsound
 from pydub import AudioSegment
 from pydub.playback import play
 
-from Project.UI.CommonWidgets.WidgetsFactory import font_factory
+from Project.UI.CommonWidgets.WidgetsFactory import Factory
 
 
 class MusicButton(QPushButton):
@@ -31,7 +30,7 @@ class MusicButton(QPushButton):
         self.setGeometry(QRect(self.x, self.y, 50, 50))
         # self.setStyleSheet("QPushButton#" + self.name + " { " + self.style + " }")
         self.setText(self.note)
-        self.setFont(font_factory(size=14))
+        self.setFont(Factory.create_font(size=14))
         self.setStyleSheet(self.start_style)
         self.is_on = 0
 
@@ -118,7 +117,7 @@ class PlayButton(QPushButton):
         self.setGeometry(QRect(self.x, self.y, 50, 50))
         # self.setStyleSheet("QPushButton#" + self.name + " { " + self.style + " }")
         self.setText(self.note)
-        self.setFont(font_factory(size=14))
+        self.setFont(Factory.create_font(size=14))
         self.setStyleSheet(self.start_style)
         self.is_on = 0
 
@@ -133,9 +132,10 @@ class PlayButton(QPushButton):
         print("self.current_notes")
         print(self.current_notes)
         if self.current_type != "0" and self.current_fp != "0" and self.current_notes != "0":
-            WAV_PATH = "/Guitar Samples/Guitar Samples/" + self.current_fp + "/" + self.current_notes + "/" + self.current_notes + " " + self.current_type + ".wav"
-            WAV_PATH = str(os.path.abspath(os.curdir)).replace("\\", "/") + WAV_PATH
-            listen_thread = threading.Thread(target=self.play_play, args=(WAV_PATH,))
+            file_path = str(os.path.abspath(os.curdir)).replace("\\", "/") + \
+                        f"/Guitar Samples/Guitar Samples/{self.current_fp}/{self.current_notes}/{self.current_notes} {self.current_type}.wav"
+
+            listen_thread = threading.Thread(target=self.play_play, args=(file_path,))
             self.used_threads.append(listen_thread)
             listen_thread.start()
         else:

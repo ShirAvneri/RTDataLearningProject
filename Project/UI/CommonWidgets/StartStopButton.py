@@ -2,7 +2,7 @@ from PySide6.QtCore import QRect
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import QPushButton, QGraphicsDropShadowEffect
 
-from Project.UI.CommonWidgets.WidgetsFactory import font_factory
+from Project.UI.CommonWidgets.WidgetsFactory import Factory
 
 
 class StartStopButton(QPushButton):
@@ -22,7 +22,7 @@ class StartStopButton(QPushButton):
         self.setGeometry(QRect(x_pos, y_pos, 100, 100))
         self.setText("START")
         self.setStyleSheet(self.start_style)
-        self.setFont(font_factory(size=16, bold=True))
+        self.setFont(Factory.create_font(size=16, bold=True))
         effect = QGraphicsDropShadowEffect(self)
         effect.setColor(QColor(117, 117, 117))
         effect.setOffset(0)
