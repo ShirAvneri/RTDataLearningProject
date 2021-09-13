@@ -14,9 +14,9 @@ with open('chord_template.json', 'r') as fp:
     templates_json = json.load(fp)
 
 # List of the 24 (major and minor) chord classes
-chords = ['N', 'G maj', 'G# maj', 'A maj', 'A# maj', 'B maj', 'C maj', 'C# maj',
-            'D maj','D# maj','E maj', 'E7', 'F maj','F# maj','G min','G# min','A min',
-            'A# min','B min','C min','C# min','D min','D# min','E min','F min','F# min']
+chords = ['N', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#',
+            'D','D#','E', 'E7', 'F', 'F#', 'Gm', 'Gm#', 'Am',
+            'Am#', 'Bm', 'Cm', 'Cm#', 'Dm', 'Dm#', 'Em', 'Fm', 'Fm#']
 
 templates = []
 
@@ -53,7 +53,7 @@ def chord_detection(audio):
     idx_max_cor = np.argmax(cor_vec)
 
     idx_chord = int(idx_max_cor + 1)
-    chord_name = tuple(chords[idx_chord].split(" "))
+    chord_name = tuple(chords[idx_chord])
 
     # # Plotting all figures
     # plt.figure(1)
@@ -98,7 +98,7 @@ def chord_detection_filepath(filepath):
     idx_max_cor = np.argmax(cor_vec)
 
     idx_chord = int(idx_max_cor + 1)
-    chord_name = tuple(chords[idx_chord].split(" "))
+    chord_name = (chords[idx_chord])
     # print(chord_name)
     # # Plotting all figures
     # plt.figure(1)
@@ -140,8 +140,7 @@ def chord_detection_prefilepath(filepath):
 
         idx_max_cor = np.argmax(cor_vec)
         idx_chord = int(idx_max_cor + 1)
-        chord_name = tuple(chords[idx_chord].split(" "))
-        print(chord_name)
+        chord_name = (chords[idx_chord])
         list.append(chord_name)
         # # Plotting all figures
         # plt.figure(1)

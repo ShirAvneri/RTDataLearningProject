@@ -1,4 +1,4 @@
-
+from PySide6.QtGui import QTextCursor
 from PySide6.QtWidgets import QPlainTextEdit
 
 from Project.ChordDetector.ChordDetection.chroma_chord_detection import chord_detection_prefilepath
@@ -45,10 +45,16 @@ class SongUploadContent(Content):
         if self.upload_button.path == "":
             return
         else:
-            self.chord_text.appendPlainText("Iteration number:" + str(self.counter))
-            print("*******************")
             return_list = chord_detection_prefilepath(self.upload_button.path[0])
-            # self.chord_text.appendPlainText(str(*chord_detection_prefilepath(self.upload_button.path[0]), sep=", "))
+            self.chord_text.moveCursor(QTextCursor.End)
+            self.chord_text.insertPlainText('\n')
+            count = 0
             for x in range(len(return_list)):
-                self.chord_text.appendPlainText(str(return_list[x]))
+                count += 1
+                self.chord_text.moveCursor(QTextCursor.EndOfBlock)
+                self.chord_text.insertPlainText(str(return_list[x]) + '                      ')
+                if count == 4:
+                    self.chord_text.moveCursor(QTextCursor.End)
+                    self.chord_text.insertPlainText('\n\n')
+                    count = 0
             self.counter += 1
