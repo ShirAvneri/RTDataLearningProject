@@ -12,6 +12,10 @@ class AcousticGuitarTunerContent(GuitarTunerContent):
                                         "url(./UI/Images/TunerGuitars/AcousticGuitar.png) 0 0 0 stretch stretch; }")
         self.init_notes()
 
+    def zero_all(self):
+        for button in self.notes_buttons:
+            button.Flag = 0
+
     def init_notes(self):
         string1 = GuitarTunerButton(self.notes[0], "1", 400, 40)
         self.notes_buttons.append(string1)
@@ -27,3 +31,4 @@ class AcousticGuitarTunerContent(GuitarTunerContent):
         self.notes_buttons.append(string6)
         for button in self.notes_buttons:
             button.setParent(self)
+

@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QPushButton
 from pydub import AudioSegment
 from pydub.playback import play
 
-from Project.UI.CommonWidgets.FontFactory import create_font
+from Project.UI.CommonWidgets.CommonFonts import create_font
 
 
 class MusicButton(QPushButton):
@@ -21,7 +21,7 @@ class MusicButton(QPushButton):
                            "background-color: #00a215; border-radius: 50px;"
         self.stop_style = "color: white; border-style: solid; border-width: 10px; border-color: #FFFFFF; " \
                           "background-color: #972c2c; border-radius: 50px;"
-        self.is_on=0
+        self.is_on = 0
         self.pressed.connect(self.start_music)
 
         self.set_button()
@@ -36,8 +36,8 @@ class MusicButton(QPushButton):
 
     def start_music(self):
         print("button clicked")
-        #self.style = "background-color: red; "
-        if self.is_on==1:
+        # self.style = "background-color: red; "
+        if self.is_on == 1:
 
             self.is_on = 0
             self.setStyleSheet(self.start_style)
@@ -142,8 +142,8 @@ class PlayButton(QPushButton):
             self.setStyleSheet(self.start_style)
             self.setEnabled(True)
 
-    def play_play(self, WAV_PATH):
-        song = AudioSegment.from_wav(WAV_PATH)
+    def play_play(self, file_path):
+        song = AudioSegment.from_wav(file_path)
         play(song)
         self.setStyleSheet(self.start_style)
         self.setEnabled(True)
