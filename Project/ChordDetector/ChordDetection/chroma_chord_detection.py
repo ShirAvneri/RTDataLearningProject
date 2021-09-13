@@ -14,9 +14,9 @@ with open('chord_template.json', 'r') as fp:
     templates_json = json.load(fp)
 
 # List of the 24 (major and minor) chord classes
-chords = ['N', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#',
-            'D','D#','E', 'E7', 'F', 'F#', 'Gm', 'Gm#', 'Am',
-            'Am#', 'Bm', 'Cm', 'Cm#', 'Dm', 'Dm#', 'Em', 'Fm', 'Fm#']
+chords = ['N', 'G  ', 'G# ', 'A  ', 'A# ', 'B  ', 'C  ', 'C# ',
+            'D  ','D# ','E  ', 'E7 ', 'F  ', 'F# ', 'Gm ', 'Gm#', 'Am ',
+            'Am#', 'Bm ', 'Cm ', 'Cm#', 'Dm ', 'Dm#', 'Em ', 'Fm ', 'Fm#']
 
 templates = []
 
