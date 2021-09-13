@@ -1,6 +1,7 @@
-from PyQt5.QtCore import pyqtSlot
+
 from PySide6.QtWidgets import QMainWindow
-from Project.UI.CommonWidgets.WidgetsFactory import Factory
+
+from Project.UI.CommonWidgets.ComponentsFactory import Factory
 from Project.UI.Enums import *
 
 from Project.UI.MediatorPattern import GuiMediator
