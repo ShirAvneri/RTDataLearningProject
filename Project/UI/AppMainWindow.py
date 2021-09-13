@@ -1,5 +1,6 @@
+from PyQt5.QtCore import pyqtSlot
 from PySide6.QtWidgets import QMainWindow
-from sympy.core import singleton
+#from PyQt5.QtWidgets import QMainWindow
 
 from Project.UI.ContentTypes.ChordDetection.ChordDetectionContent import ChordDetectionContent
 from Project.UI.ContentTypes.GuitarTuner.AcousticGuitarTunerContent import AcousticGuitarTunerContent
@@ -25,6 +26,11 @@ class AppMainWindow(QMainWindow):
         self.side_menu = None
         self.content = None
         self.init_gui_components()
+
+    #@pyqtSlot(str)
+    def my_function(self, chord):
+        print('in my_function with signal:' + chord)
+        self.content.append_text(chord)
 
     def init_gui_components(self):
         self.top_bar = TopBar()
@@ -74,3 +80,4 @@ class AppMainWindow(QMainWindow):
         if self.side_menu is not None:
             self.side_menu.setParent(self)
             self.side_menu.show()
+
