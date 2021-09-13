@@ -1,16 +1,5 @@
 from PyQt5.QtCore import pyqtSlot
 from PySide6.QtWidgets import QMainWindow
-
-from Project.UI.ContentTypes.ChordDetection.ChordDetectionContent import ChordDetectionContent
-from Project.UI.ContentTypes.GuitarTuner.AcousticGuitarTunerContent import AcousticGuitarTunerContent
-from Project.UI.ContentTypes.GuitarTuner.ClassicalGuitarTunerContent import ClassicalGuitarTunerContent
-from Project.UI.ContentTypes.GuitarTuner.ElectricGuitarTunerContent import ElectricGuitarTunerContent
-from Project.UI.ContentTypes.Metronome.MetronomeContent import MetronomeContent
-from Project.UI.ContentTypes.Music.MusicContent import MusicContent
-from Project.UI.ContentTypes.Recording.RecordingContent import RecordingContent
-from Project.UI.ContentTypes.SongUpload.SongUploadContent import SongUploadContent
-from Project.UI.Enums import TunerSignals, TopBarSignals
-
 from Project.UI.CommonWidgets.WidgetsFactory import Factory
 from Project.UI.Enums import *
 
@@ -26,6 +15,7 @@ class AppMainWindow(QMainWindow):
         self.side_menu = None
         self.content = None
         self.init_gui_components()
+
 
     #@pyqtSlot(str)
     def my_function(self, chord):
