@@ -1,6 +1,8 @@
 from PySide6.QtWidgets import QMainWindow
-from Project.UI.CommonWidgets.ComponentsFactory import Factory
+
+from Project.UI.CommonWidgets.WidgetsFactory import Factory
 from Project.UI.Enums import *
+
 from Project.UI.MediatorPattern import GuiMediator
 
 
@@ -13,6 +15,11 @@ class AppMainWindow(QMainWindow):
         self.side_menu = None
         self.content = None
         self.init_gui_components()
+
+    # @pyqtSlot(str)
+    def my_function(self, chord):
+        print('in my_function with signal:' + chord)
+        self.content.append_text(chord)
 
     def init_gui_components(self):
         self.top_bar = Factory.create_top_bar()
