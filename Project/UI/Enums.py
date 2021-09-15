@@ -18,7 +18,7 @@ class TopBarSignals(Enum):
     CHORD_DETECTION_CLICK = 2
     METRONOME_CLICK = 3
     UPLOAD_CLICK = 4
-    MUSIC_CLICK = 5
+    PITCH_TRAINING_CLICK = 5
 
 
 class AppWidgetTypes(Enum):
@@ -34,4 +34,4 @@ class AppWidgetTypes(Enum):
     CHORD_DETECTION_CONTENT = 9
     METRONOME_CONTENT = 10
     UPLOAD_CONTENT = 11
-    MUSIC_CONTENT = 12
+    PITCH_TRAINING_CONTENT = 12
