@@ -42,7 +42,7 @@ class ContentFactory:
             return ChordDetectionContent(True)
         if of_type == AppWidgetTypes.METRONOME_CONTENT:
             return MetronomeContent()
-        if of_type == AppWidgetTypes.UPLOAD_CONTENT:
+        if of_type == AppWidgetTypes.AUDIO_ANALYSIS_CONTENT:
             return SongUploadContent(True)
         if of_type == AppWidgetTypes.PITCH_TRAINING_CONTENT:
             return PitchTrainingContent(True)

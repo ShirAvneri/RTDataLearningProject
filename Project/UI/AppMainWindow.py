@@ -60,8 +60,8 @@ class AppMainWindow(QMainWindow):
         elif signal_type == TopBarSignals.METRONOME_CLICK:
             self.content = Factory.create_content(AppWidgetTypes.METRONOME_CONTENT)
             self.side_menu = Factory.create_side_menu(AppWidgetTypes.METRONOME_SIDE_MENU)
-        elif signal_type == TopBarSignals.UPLOAD_CLICK:
-            self.content = Factory.create_content(AppWidgetTypes.UPLOAD_CONTENT)
+        elif signal_type == TopBarSignals.AUDIO_ANALYSIS_CLICK:
+            self.content = Factory.create_content(AppWidgetTypes.AUDIO_ANALYSIS_CONTENT)
             self.side_menu = None
         else:
             self.content = Factory.create_content(AppWidgetTypes.PITCH_TRAINING_CONTENT)
