@@ -5,6 +5,9 @@ from PySide6.QtWidgets import QWidget, QPushButton
 from Project.Constants import TOP_BAR_FUNCTIONALITY
 from Project.UI.BaseComponent import BaseGuiComponent
 
+# TO DO:
+# Disable buttons when a content thread is running
+
 
 class TopBar(QWidget, BaseGuiComponent):
     def __init__(self):
@@ -18,7 +21,7 @@ class TopBar(QWidget, BaseGuiComponent):
         self.setStyleSheet("QWidget#" + self.name + " { " + self.style + " }")
         self.buttons_icons = ["./UI/Images/TopBarIcons/GuitarTuning.png", "./UI/Images/TopBarIcons/Recording.png",
                               "./UI/Images/TopBarIcons/ChordDetection.png", "./UI/Images/TopBarIcons/Metronome.png",
-                              "./UI/Images/TopBarIcons/GuitarTuning.png", "./UI/Images/TopBarIcons/GuitarTuning.png"]
+                              "./UI/Images/TopBarIcons/GuitarTuning.png", "./UI/Images/TopBarIcons/PitchTraining.png"]
         self.buttons_style = "color: white; text-align: center; background-color: #393939; border-radius: 0px;" \
                              "border-right-style: outset; border-right-width: 1px; border-right-color: #616161;"
         self.buttons_x = 20

@@ -6,5 +6,5 @@ TOP_BAR_FUNCTIONALITY = {"Guitar Tuning": TopBarSignals.GUITAR_TUNING_CLICK,
                          "Chord Detection": TopBarSignals.CHORD_DETECTION_CLICK,
                          "Metronome": TopBarSignals.METRONOME_CLICK,
                          "Upload": TopBarSignals.UPLOAD_CLICK,
-                         "Music": TopBarSignals.MUSIC_CLICK}
+                         "Pitch Training": TopBarSignals.PITCH_TRAINING_CLICK}
 ClosetNote = "0"
