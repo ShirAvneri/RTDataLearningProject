@@ -1,7 +1,5 @@
 import os
 import threading
-
-from PySide6.QtWidgets import QLabel, QGraphicsDropShadowEffect
 from pydub import AudioSegment
 from pydub.playback import play
 from Project.UI.CommonWidgets.CommonButtons import RadioButtonsGroup, StartStopButton
@@ -24,7 +22,7 @@ class PitchTrainingContent(Content):
             "Styles": RadioButtonsGroup(invoke_on_click=None, click_signal=None, x_pos=650, y_pos=85,
                                         buttons_names=self.styles)
         }
-        self.play_button = StartStopButton(start_function=self.play, stop_function=None, start_text="PLAY",
+        self.play_button = StartStopButton(start_function=self.set_audio, stop_function=None, start_text="PLAY",
                                            stop_text="PLAYING")
         self.play_button.setParent(self)
         self.play_button.init_style("MusicButtonController", 400, 400)
@@ -48,26 +46,25 @@ class PitchTrainingContent(Content):
         for key in self.radio_buttons.keys():
             self.radio_buttons[key].init_selected_button()
 
-    def play(self):
+    def set_audio(self):
         self.play_button.setEnabled(False)
-        selected_chord = self.radio_buttons["Chords"].checkedButton().text()
-        selected_interval = self.radio_buttons["Intervals"].checkedButton().text()
-        selected_style = self.radio_buttons["Styles"].checkedButton().text()
-        self.set_audio(selected_chord, selected_interval, selected_style)
-
-    def stop(self):
-        self.play_button.setText(self.play_button.start_text)
-        self.play_button.setStyleSheet(self.play_button.start_style)
-        self.play_button.is_start = True
-        self.play_button.setEnabled(True)
-
-    def set_audio(self, chord, interval, style):
-        file_path = str(os.path.abspath(os.curdir)).replace("\\", "/") + \
-                    f"/Guitar Samples/Guitar Samples/{style}/{chord}/{chord} {interval}.wav"
+        chord = self.radio_buttons["Chords"].checkedButton().text()
+        interval = self.radio_buttons["Intervals"].checkedButton().text()
+        style = self.radio_buttons["Styles"].checkedButton().text()
+        file_path = str(os.path.abspath(os.curdir)).replace("\\", "/") + f"/Guitar Samples/Guitar Samples/{style}/" \
+                                                                         f"{chord}/{chord} {interval}.wav"
         self.audio_thread = threading.Thread(target=self.play_audio, args=(file_path,))
         self.audio_thread.start()
 
     def play_audio(self, file_path):
         song = AudioSegment.from_wav(file_path)
         play(song)
-        self.stop()
+        self.stop_audio()
+
+    def stop_audio(self):
+        self.play_button.setText(self.play_button.start_text)
+        self.play_button.setStyleSheet(self.play_button.start_style)
+        self.play_button.is_start = True
+        self.play_button.setEnabled(True)
+
+
