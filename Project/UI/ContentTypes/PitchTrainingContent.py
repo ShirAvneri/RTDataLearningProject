@@ -29,13 +29,13 @@ class PitchTrainingContent(Content):
         self.init_content()
 
     def init_content(self):
-        CardLabel(self, 25, 40)
+        CardLabel(self, 25, 40, "./UI/Images/Guitars/HalfClassicGuitar.png")
         chords_label = Label(50, 55, "CHOOSE A CHORD")
         chords_label.setParent(self)
-        CardLabel(self, 325, 40)
+        CardLabel(self, 325, 40, "./UI/Images/Guitars/HalfAcousticGuitar.png")
         intervals_label = Label(350, 55, "CHOOSE AN INTERVAL")
         intervals_label.setParent(self)
-        CardLabel(self, 625, 40)
+        CardLabel(self, 625, 40, "./UI/Images/Guitars/HalfElectricGuitar.png")
         styles_label = Label(650, 55, "CHOOSE A STYLE")
         styles_label.setParent(self)
         for key in self.radio_buttons.keys():
