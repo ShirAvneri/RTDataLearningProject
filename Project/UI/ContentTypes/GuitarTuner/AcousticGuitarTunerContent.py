@@ -6,7 +6,6 @@ from Project.UI.ContentTypes.GuitarTuner.GuitarTunerContent import GuitarTunerCo
 class AcousticGuitarTunerContent(GuitarTunerContent):
     def __init__(self):
         super(AcousticGuitarTunerContent, self).__init__()
-        self.notes = ["A", "B", "C", "D", "E", "F"]
         self.guitar_image.setGeometry(QRect(190, 10, 220, 629))
         self.guitar_image.setStyleSheet("QLabel#GuitarImageLabel { border-image: "
                                         "url(./UI/Images/TunerGuitars/AcousticGuitar.png) 0 0 0 stretch stretch; }")

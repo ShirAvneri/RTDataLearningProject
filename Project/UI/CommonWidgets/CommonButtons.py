@@ -31,7 +31,6 @@ class RadioButtonsGroup(QButtonGroup):
         self.x = x_pos
         self.y = y_pos
         self.margin = 20
-        self.set_buttons()
 
     def set_buttons(self):
         for i, text in enumerate(self.buttons_names):
@@ -48,7 +47,8 @@ class RadioButtonsGroup(QButtonGroup):
         self.buttons()[0].setChecked(True)
 
     def button_clicked(self, button: QRadioButton):
-        self.invoke_on_click(self.click_signal, button.text())
+        if self.invoke_on_click is not None:
+            self.invoke_on_click(self.click_signal, button.text())
 
 
 class StartStopButton(QPushButton):

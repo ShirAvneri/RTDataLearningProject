@@ -3,7 +3,7 @@ from Project.UI.ContentTypes.GuitarTuner.AcousticGuitarTunerContent import Acous
 from Project.UI.ContentTypes.GuitarTuner.ClassicalGuitarTunerContent import ClassicalGuitarTunerContent
 from Project.UI.ContentTypes.GuitarTuner.ElectricGuitarTunerContent import ElectricGuitarTunerContent
 from Project.UI.ContentTypes.MetronomeContent import MetronomeContent
-from Project.UI.ContentTypes.Music.MusicContent import MusicContent
+from Project.UI.ContentTypes.PitchTrainingContent import PitchTrainingContent
 from Project.UI.ContentTypes.RecordingContent import RecordingContent
 from Project.UI.ContentTypes.SongUploadContent import SongUploadContent
 from Project.UI.SideMenuComponent import SideMenu
@@ -42,10 +42,10 @@ class ContentFactory:
             return ChordDetectionContent(True)
         if of_type == AppWidgetTypes.METRONOME_CONTENT:
             return MetronomeContent()
-        if of_type == AppWidgetTypes.UPLOAD_CONTENT:
+        if of_type == AppWidgetTypes.AUDIO_ANALYSIS_CONTENT:
             return SongUploadContent(True)
-        if of_type == AppWidgetTypes.MUSIC_CONTENT:
-            return MusicContent(True)
+        if of_type == AppWidgetTypes.PITCH_TRAINING_CONTENT:
+            return PitchTrainingContent(True)
 
         return None
 
