@@ -10,7 +10,7 @@ from Project.UI.SideMenuComponent import SideMenu
 class MetronomeSideMenu(SideMenu):
     def __init__(self):
         super(MetronomeSideMenu, self).__init__()
-        self.chooseGenreLabel = Label(10, 60, "CHOOSE A GENRE")
+        self.chooseGenreLabel = Label(self, 10, 60, "CHOOSE A GENRE")
         self.chooseGenreLabel.setParent(self)
         self.genres_list = {  # (min_bpm, max_bpm)
             "None": (70, 300),
