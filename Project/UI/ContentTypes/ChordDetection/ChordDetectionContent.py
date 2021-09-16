@@ -60,11 +60,15 @@ class ChordDetectionContent(Content):
         self.flag = True
 
     def append_text(self, text):
-        self.chord_label.setText("")
         self.chord_label.setText(text)
         self.chord_text.moveCursor(QTextCursor.End)
         self.count += 1
-        self.chord_text.moveCursor(QTextCursor.EndOfBlock)
+        # if len(text) == 1:
+        #     self.chord_text.insertPlainText(text + '                        ')
+        # elif len(text) == 2:
+        #     self.chord_text.insertPlainText(text + '                       ')
+        # else:
+        #     self.chord_text.insertPlainText(text + '                      ')
         self.chord_text.insertPlainText(text + '                      ')
         if self.count == 4:
             self.chord_text.moveCursor(QTextCursor.End)

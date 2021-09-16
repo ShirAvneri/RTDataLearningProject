@@ -1,8 +1,9 @@
 import threading
 import time
 
-from PySide6.QtCore import QRect
-from PySide6.QtWidgets import QPushButton
+from PyQt5.QtGui import QIcon, QPixmap
+from PySide6.QtCore import QRect, QSize
+from PySide6.QtWidgets import QPushButton, QLabel
 from Project import Constants
 from Project.Tuner import better_tuner
 from Project.UI.CommonWidgets.CommonFonts import create_font
@@ -17,22 +18,24 @@ class GuitarTunerButton(QPushButton):
         self.setObjectName(self.name)
         self.x = x_pos
         self.y = y_pos
-        self.style = "border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color: white; " \
+        self.style = "qproperty-icon: url(); border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color: white; " \
                      "border-radius: 25px; "
-        self.style_red = "border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color:  #ff1a1a; " \
+        self.style_red_up = "qproperty-icon: url(./UI/Images/arrow_up.png);qproperty-iconSize: 30px; border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color:  #ff1a1a; " \
                          "border-radius: 25px; "
+        self.style_red_down = "qproperty-icon: url(./UI/Images/arrow_down.png);qproperty-iconSize: 30px; border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color:  #ff1a1a; " \
+                            "border-radius: 25px; "
         self.style_green = "border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color:  green; " \
                            "border-radius: 25px; "
-        self.style_OK = "border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color: green; " \
-                        "border-radius: 25px; "
-        self.style_OK_up = "border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color:   " \
-                           "#ff6666; border-radius: 25px; "
-        self.style_OK_down = "border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color:   " \
-                             "#668cff; border-radius: 25px; "
-        self.style_yellow = "border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color: yellow; "\
+        self.style_yellow_up = "qproperty-icon: url(./UI/Images/arrow_up.png);qproperty-iconSize: 30px; border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color: yellow; "\
                             "border-radius: 25px; "
+        self.style_yellow_down = "qproperty-icon: url(./UI/Images/arrow_down.png);qproperty-iconSize: 30px; border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color: yellow; " \
+                               "border-radius: 25px; "
+        #self.setIcon(QIcon("./UI/Images/Microphone.png"))
+        #self.setIconSize(QSize(5, 5))
         self.clicked.connect(self.start_tuner)
         self.set_button()
+
+
 
     def start_tuner(self):
         self.parent().zero_all(self)
@@ -50,7 +53,7 @@ class GuitarTunerButton(QPushButton):
             print("STOPPPPPP")
             self.flag = True
             # self.setStyleSheet("QPushButton#" + self.name + " { " + self.style + " }")
-            self.setText(self.note)
+            #self.setText(self.note)
             self.sender().Flag = 0
             # self.setEnabled(True)
 
@@ -59,6 +62,7 @@ class GuitarTunerButton(QPushButton):
             # print(self.flag)
             if self.flag:
                 self.setStyleSheet("QPushButton#" + self.name + " { " + self.style + " }")
+                self.setText(self.note)
                 break
             # self.setEnabled(False)
             better_tuner()
@@ -66,14 +70,14 @@ class GuitarTunerButton(QPushButton):
             # print("***********************")
             print(Constants.ClosetNote)
             if Constants.ClosetNote[0] < self.note[0]:
-                self.setStyleSheet("QPushButton#" + self.name + " { " + self.style_red + " }")
-                print("in red")
-                self.setText("UP")
+                self.setStyleSheet("QPushButton#" + self.name + " { " + self.style_red_up + " }")
+                print("in reddddddddddd")
+                self.setText("")
                 if self.flag:
                     self.setStyleSheet("QPushButton#" + self.name + " { " + self.style + " }")
+                    self.setText(self.note)
                     break
             elif Constants.ClosetNote[0] == self.note[0]:
-                # self.setStyleSheet("QPushButton#" + self.name + " { " + self.style_OK + " }")
                 number_in_cur_note = Constants.ClosetNote[1]
                 number_in_note = self.note[1]
                 if number_in_note == "#":
@@ -81,29 +85,30 @@ class GuitarTunerButton(QPushButton):
                 if number_in_cur_note == "#":
                     number_in_note = Constants.ClosetNote[2]
                 if number_in_cur_note < number_in_note:
-                    self.setStyleSheet("QPushButton#" + self.name + " { " + self.style_yellow + " }")
-                    self.setText("UP")
+                    self.setStyleSheet("QPushButton#" + self.name + " { " + self.style_yellow_up + " }")
+                    self.setText("")
                 elif number_in_cur_note == number_in_note:
                     self.setStyleSheet("QPushButton#" + self.name + " { " + self.style_green + " }")
                     self.setText(self.note)
                 else:
-                    self.setStyleSheet("QPushButton#" + self.name + " { " + self.style_yellow + " }")
-                    self.setText("DOWN")
+                    self.setStyleSheet("QPushButton#" + self.name + " { " + self.style_yellow_down + " }")
+                    self.setText("")
 
                 print("in Ylow")
 
             else:
-                self.setStyleSheet("QPushButton#" + self.name + " { " + self.style_red + " }")
+                self.setStyleSheet("QPushButton#" + self.name + " { " + self.style_red_down + " }")
                 print("in green")
-                self.setText("DOWN")
+                self.setText("")
         print("end tuner")
-        self.setText(self.note)
+        #self.setText(self.note)
 
     def set_button(self):
         self.setGeometry(QRect(self.x, self.y, 50, 50))
         self.setStyleSheet("QPushButton#" + self.name + " { " + self.style + " }")
         self.setText(self.note)
         self.setFont(create_font(size=14))
+
 
     def change_note(self, note, string_num):
         self.note = note
