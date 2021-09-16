@@ -1,22 +1,20 @@
 from PySide6.QtCore import QRect, QSize
 from PySide6.QtGui import QIcon, QColor
 from PySide6.QtWidgets import QPushButton, QButtonGroup, QRadioButton, QGraphicsDropShadowEffect, QFileDialog
-
 from Project.UI.CommonWidgets.CommonFonts import create_font
 
 
 class GuitarButton(QPushButton):
-    def __init__(self, click_signal, x_pos, y_pos):
-        super(GuitarButton, self).__init__()
+    def __init__(self, parent, click_signal, x_pos, y_pos, icon_path=None):
+        super(GuitarButton, self).__init__(parent)
         self.click_signal = click_signal
         self.style = "background-color: #f5f5f5; background-radius: 10px; border-radius: 10px;"
         self.setStyleSheet(self.style)
         self.setGeometry(QRect(x_pos, y_pos, 80, 80))
+        if icon_path is not None:
+            self.setIcon(QIcon(icon_path))
+            self.setIconSize(QSize(80, 80))
         self.clicked.connect(self.click_event)
-
-    def set_icon(self, path):
-        self.setIcon(QIcon(path))
-        self.setIconSize(QSize(80, 80))
 
     def click_event(self):
         self.parent().notify(self.click_signal)
@@ -34,11 +32,11 @@ class RadioButtonsGroup(QButtonGroup):
 
     def set_buttons(self):
         for i, text in enumerate(self.buttons_names):
-            radio_button = QRadioButton()
+            radio_button = QRadioButton(self.parent())
             radio_button.setGeometry(QRect(self.x, self.y + i * self.margin, 300, 20))
-            radio_button.setFont(create_font(size=12))
+            radio_button.setFont(create_font(size=10))
             radio_button.setText(text)
-            radio_button.setParent(self.parent())
+            radio_button.setStyleSheet("color: #393939;")
             self.addButton(radio_button, i)
         self.buttonClicked.connect(self.button_clicked)
         self.init_selected_button()
@@ -60,14 +58,14 @@ class StartStopButton(QPushButton):
         self.start_text = start_text
         self.stop_text = stop_text
         self.start_style = "color: white; border-style: solid; border-width: 10px; border-color: #FFFFFF; " \
-                           "background-color: #00a215; border-radius: 50px;"
+                           "background-color: #00a215; border-radius: 55px;"
         self.stop_style = "color: white; border-style: solid; border-width: 10px; border-color: #FFFFFF; " \
-                          "background-color: #972c2c; border-radius: 50px;"
+                          "background-color: #972c2c; border-radius: 55px;"
         self.clicked.connect(self.button_clicked)
 
     def init_style(self, button_name: str, x_pos: int, y_pos: int):
         self.setObjectName(button_name)
-        self.setGeometry(QRect(x_pos, y_pos, 100, 100))
+        self.setGeometry(QRect(x_pos, y_pos, 110, 110))
         self.setText(self.start_text)
         self.setStyleSheet(self.start_style)
         self.setFont(create_font(size=16, bold=True))

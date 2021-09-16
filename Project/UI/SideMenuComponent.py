@@ -17,6 +17,5 @@ class SideMenu(QWidget, BaseGuiComponent):
         # Setting tool-box title:
         self.toolBoxLabel = QLabel(self)
         self.toolBoxLabel.setGeometry(QRect(10, 20, 150, 30))
-        self.toolBoxLabel.setFont(create_font(size=24, bold=True))
-        self.toolBoxLabel.setText("Tool Box")
-        self.toolBoxLabel.setParent(self)
+        self.toolBoxLabel.setFont(create_font(size=20, bold=True))
+        self.toolBoxLabel.setText("TOOL KIT")
