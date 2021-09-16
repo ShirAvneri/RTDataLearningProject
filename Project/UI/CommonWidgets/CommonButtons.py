@@ -36,7 +36,7 @@ class RadioButtonsGroup(QButtonGroup):
         for i, text in enumerate(self.buttons_names):
             radio_button = QRadioButton()
             radio_button.setGeometry(QRect(self.x, self.y + i * self.margin, 300, 20))
-            radio_button.setFont(create_font(size=12))
+            radio_button.setFont(create_font(size=10))
             radio_button.setText(text)
             radio_button.setParent(self.parent())
             self.addButton(radio_button, i)
