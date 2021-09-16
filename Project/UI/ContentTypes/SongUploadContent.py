@@ -76,6 +76,9 @@ class SongUploadContent(Content):
         self.chord_text.clear()
         print('inserting chords')
         count = 0
+        self.chord_text.setPlainText("Detected Chord:")
+        self.chord_text.moveCursor(QTextCursor.End)
+        self.chord_text.insertPlainText('\n\n')
         for x in range(len(chord_list)):
             count += 1
             self.chord_text.moveCursor(QTextCursor.EndOfBlock)
