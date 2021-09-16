@@ -62,6 +62,7 @@ class GuitarTunerButton(QPushButton):
             # print(self.flag)
             if self.flag:
                 self.setStyleSheet("QPushButton#" + self.name + " { " + self.style + " }")
+                self.setText(self.note)
                 break
             # self.setEnabled(False)
             better_tuner()
@@ -77,7 +78,6 @@ class GuitarTunerButton(QPushButton):
                     self.setText(self.note)
                     break
             elif Constants.ClosetNote[0] == self.note[0]:
-                # self.setStyleSheet("QPushButton#" + self.name + " { " + self.style_OK + " }")
                 number_in_cur_note = Constants.ClosetNote[1]
                 number_in_note = self.note[1]
                 if number_in_note == "#":
@@ -101,7 +101,7 @@ class GuitarTunerButton(QPushButton):
                 print("in green")
                 self.setText("")
         print("end tuner")
-        self.setText(self.note)
+        #self.setText(self.note)
 
     def set_button(self):
         self.setGeometry(QRect(self.x, self.y, 50, 50))
