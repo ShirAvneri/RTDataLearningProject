@@ -88,7 +88,7 @@ class GuitarTunerButton(QPushButton):
                 button.setText("")
             if closest_note_index == button_note_index:
                 button.setStyleSheet("QPushButton#" + button.name + " { " + button.style_green + " }")
-                button.setText("")
+                button.setText(button.note)
         if command[0] == "stop":
             button.setStyleSheet("QPushButton#" + button.name + " { " + button.style + " }")
             button.setText(button.note)
