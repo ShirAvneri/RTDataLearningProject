@@ -16,10 +16,10 @@ class AppMainWindow(QMainWindow):
         self.init_gui_components()
 
     # @pyqtSlot(str)
-    @Slot(str)
-    def my_function(self, chord: str):
-        print('in my_function with signal:' + chord)
-        self.content.append_text(chord)
+    # @Slot(str)
+    # def my_function(self, chord: str):
+    #     print('in my_function with signal:' + chord)
+    #     self.content.append_text(chord)
 
     def init_gui_components(self):
         self.top_bar = Factory.create_top_bar()

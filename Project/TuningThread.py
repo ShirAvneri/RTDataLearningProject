@@ -1,5 +1,8 @@
 from PySide6.QtCore import QThread, Signal
 
+from Project import Constants
+from Project.Tuner import better_tuner
+
 
 class TuningThread(QThread):
 
