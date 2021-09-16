@@ -1,4 +1,6 @@
-from PySide6.QtGui import QTextCursor
+import threading
+
+from PySide6.QtGui import QTextCursor, QColor
 from PySide6.QtWidgets import QPlainTextEdit
 
 from Project.ChordDetector.ChordDetection.chroma_chord_detection import chord_detection_prefilepath
@@ -40,21 +42,55 @@ class SongUploadContent(Content):
         self.analyze_button.path = self.path
 
     def analyze(self):
-        print(self.upload_button.path[0])
 
         if self.upload_button.path == "":
+            self.chord_text.setStyleSheet("QPlainTextEdit {color: red;}");
+            self.chord_text.setPlainText("Please, choose song")
             return
         else:
-            return_list = chord_detection_prefilepath(self.upload_button.path[0])
-            self.chord_text.moveCursor(QTextCursor.End)
-            self.chord_text.insertPlainText('\n')
-            count = 0
-            for x in range(len(return_list)):
-                count += 1
-                self.chord_text.moveCursor(QTextCursor.EndOfBlock)
-                self.chord_text.insertPlainText(str(return_list[x]) + '                      ')
-                if count == 4:
-                    self.chord_text.moveCursor(QTextCursor.End)
-                    self.chord_text.insertPlainText('\n\n')
-                    count = 0
-            self.counter += 1
+            print("HERE")
+            self.chord_text.setStyleSheet("QPlainTextEdit {color: black;}");
+            self.chord_text.setPlainText("Detected Chord:")
+            self.finish_analyze=True
+            #self.thread = threading.Thread(target=self.detect_chord_in_analyze)
+            #self.thread.start()
+            self.analyze_thread = threading.Thread(target=self.write_analyze)
+            self.analyze_thread.start()
+
+
+
+    def write_analyze(self):
+        self.chord_text.appendPlainText("\n\n")
+        self.chord_text.appendPlainText("Analyze")
+        count = 0
+        # cursor = self.chord_text.textCursor()
+        while self.finish_analyze:
+            if count == 3:
+                self.chord_text.setPlainText("Detected Chord:\n\nAnalyze")
+                count = 0
+            self.chord_text.appendPlainText(". ")
+            count += 1
+
+    def detect_chord_in_analyze(self):
+        return_list = chord_detection_prefilepath(self.upload_button.path[0])
+        #self.chord_text.moveCursor(QTextCursor.End)
+        self.finish_analyze=False
+        self.chord_text.insertPlainText('\n')
+        self.chord_text.appendPlainText(str(return_list))
+
+        count = 0
+        # for x in range(len(return_list)):
+        #     print("1")
+        #     count += 1
+        #     self.chord_text.moveCursor(QTextCursor.EndOfBlock)
+        #     print("2")
+        #     self.chord_text.insertPlainText(str(return_list[x]) + '                      ')
+        #     print("3")
+        #     if count == 4:
+        #         print("4")
+        #         self.chord_text.moveCursor(QTextCursor.End)
+        #         self.chord_text.insertPlainText('\n\n')
+        #         count = 0
+        #         print("5")
+        self.counter += 1
+        print("thread END")
