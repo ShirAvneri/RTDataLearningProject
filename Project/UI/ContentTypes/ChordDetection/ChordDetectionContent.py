@@ -1,4 +1,4 @@
-from PySide6.QtCore import QRect, Signal, QThread, Qt
+from PySide6.QtCore import QRect, Signal, QThread, Qt, Slot
 from PySide6.QtGui import QTextCursor
 from PySide6.QtWidgets import QPushButton, QLabel, QVBoxLayout, QPlainTextEdit
 
@@ -53,18 +53,23 @@ class ChordDetectionContent(Content):
         self.flag = False
         self.chord_text.clear()
         self.thread.start()
-        self.thread.any_signal.connect(self.parent().my_function)
+        self.thread.any_signal.connect(self.append_text)
         #self.parent().start_record()
 
     def stop_record(self):
         self.flag = True
 
+    @Slot(str)
     def append_text(self, text):
-        self.chord_label.setText("")
         self.chord_label.setText(text)
         self.chord_text.moveCursor(QTextCursor.End)
         self.count += 1
-        self.chord_text.moveCursor(QTextCursor.EndOfBlock)
+        # if len(text) == 1:
+        #     self.chord_text.insertPlainText(text + '                        ')
+        # elif len(text) == 2:
+        #     self.chord_text.insertPlainText(text + '                       ')
+        # else:
+        #     self.chord_text.insertPlainText(text + '                      ')
         self.chord_text.insertPlainText(text + '                      ')
         if self.count == 4:
             self.chord_text.moveCursor(QTextCursor.End)

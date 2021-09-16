@@ -48,6 +48,7 @@ def get_chord_from_stream(stream, p):
 
         chords.append(str(chord_name))
         itterations += 1
+        print(chord_name)
         if itterations == 13:
             itterations = 0
             print("Estimated chord: " + max(chords, key=chords.count))
