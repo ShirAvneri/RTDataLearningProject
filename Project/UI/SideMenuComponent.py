@@ -19,4 +19,3 @@ class SideMenu(QWidget, BaseGuiComponent):
         self.toolBoxLabel.setGeometry(QRect(10, 20, 150, 30))
         self.toolBoxLabel.setFont(create_font(size=20, bold=True))
         self.toolBoxLabel.setText("TOOL KIT")
-        self.toolBoxLabel.setParent(self)
