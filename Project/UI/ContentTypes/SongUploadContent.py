@@ -1,5 +1,7 @@
 import threading
+import time
 
+from PySide6.QtCore import QThread, Signal, Slot
 from PySide6.QtGui import QTextCursor, QColor
 from PySide6.QtWidgets import QPlainTextEdit
 
@@ -39,6 +41,7 @@ class SongUploadContent(Content):
         self.stream = None
         self.p = None
         self.flag = False
+        self.finish_analyze = False
         self.analyze_button.path = self.path
 
     def analyze(self):
@@ -48,49 +51,76 @@ class SongUploadContent(Content):
             self.chord_text.setPlainText("Please, choose song")
             return
         else:
-            print("HERE")
             self.chord_text.setStyleSheet("QPlainTextEdit {color: black;}");
             self.chord_text.setPlainText("Detected Chord:")
-            self.finish_analyze=True
-            #self.thread = threading.Thread(target=self.detect_chord_in_analyze)
-            #self.thread.start()
-            self.analyze_thread = threading.Thread(target=self.write_analyze)
-            self.analyze_thread.start()
+            self.finish_analyze = True
 
+            self.analyzing_sign_thread = AnalyzingSignClass(self)
+            self.analyzing_sign_thread.start()
+            self.analyzing_sign_thread.any_signal.connect(self.update_text)
+            self.analyzing_sign_thread.finish_analyze = self.finish_analyze
 
+            self.thread = AnalyzingThreadClass(self)
+            self.thread.start()
+            self.thread.path = self.upload_button.path[0]
+            self.thread.any_signal.connect(self.insert_chords)
 
-    def write_analyze(self):
-        self.chord_text.appendPlainText("\n\n")
-        self.chord_text.appendPlainText("Analyze")
+    @Slot(str)
+    def update_text(self, text):
+        self.chord_text.clear()
+        self.chord_text.setPlainText(text)
+
+    @Slot(object)
+    def insert_chords(self, chord_list):
+        self.finish_analyze = False
+        self.chord_text.clear()
+        print('inserting chords')
         count = 0
-        # cursor = self.chord_text.textCursor()
-        while self.finish_analyze:
-            if count == 3:
-                self.chord_text.setPlainText("Detected Chord:\n\nAnalyze")
-                count = 0
-            self.chord_text.appendPlainText(". ")
+        for x in range(len(chord_list)):
             count += 1
+            self.chord_text.moveCursor(QTextCursor.EndOfBlock)
+            self.chord_text.insertPlainText(str(chord_list[x]) + '                      ')
+            if count == 4:
+                self.chord_text.moveCursor(QTextCursor.End)
+                self.chord_text.insertPlainText('\n\n')
+                count = 0
 
-    def detect_chord_in_analyze(self):
-        return_list = chord_detection_prefilepath(self.upload_button.path[0])
-        #self.chord_text.moveCursor(QTextCursor.End)
-        self.finish_analyze=False
-        self.chord_text.insertPlainText('\n')
-        self.chord_text.appendPlainText(str(return_list))
 
+class AnalyzingSignClass(QThread):
+
+    any_signal = Signal(str)
+
+    def __init__(self, MySongUploadContent, parent=None, index=0):
+        super(AnalyzingSignClass, self).__init__(parent)
+        self.MySongUploadContent = MySongUploadContent
+        self.finish_analyze = True
+
+    def run(self):
+        text = "Analyzing. "
         count = 0
-        # for x in range(len(return_list)):
-        #     print("1")
-        #     count += 1
-        #     self.chord_text.moveCursor(QTextCursor.EndOfBlock)
-        #     print("2")
-        #     self.chord_text.insertPlainText(str(return_list[x]) + '                      ')
-        #     print("3")
-        #     if count == 4:
-        #         print("4")
-        #         self.chord_text.moveCursor(QTextCursor.End)
-        #         self.chord_text.insertPlainText('\n\n')
-        #         count = 0
-        #         print("5")
-        self.counter += 1
-        print("thread END")
+        while self.MySongUploadContent.finish_analyze:
+            if count == 2:
+                text = "Analyzing. "
+                self.any_signal.emit(text)
+                count = 0
+            else:
+                text += '. '
+                self.any_signal.emit(text)
+                count += 1
+            self.msleep(400)
+
+
+class AnalyzingThreadClass(QThread):
+
+    any_signal = Signal(object)
+
+    def __init__(self, MySongUploadContent, parent=None, index=0):
+        super(AnalyzingThreadClass, self).__init__(parent)
+        self.path = ""
+        self.MySongUploadContent = MySongUploadContent
+
+    def run(self):
+        chord_list = chord_detection_prefilepath(self.path)
+        self.MySongUploadContent.finish_analyze = False
+        self.sleep(1)
+        self.any_signal.emit(chord_list)

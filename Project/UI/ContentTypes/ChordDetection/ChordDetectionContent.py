@@ -81,15 +81,15 @@ class ThreadClass(QThread):
 
     any_signal = Signal(str)
 
-    def __init__(self, ChordDetectionContent, parent=None, index=0):
+    def __init__(self, MyChordDetectionContent, parent=None, index=0):
         super(ThreadClass, self).__init__(parent)
-        self.ChordDetectionContent = ChordDetectionContent
+        self.MyChordDetectionContent = MyChordDetectionContent
 
     def run(self):
         # print("chord")
         self.stream, self.p = chord_detection.open_stream()
         while True:
-            if self.ChordDetectionContent.flag:
+            if self.MyChordDetectionContent.flag:
                 chord_detection.close_stream(self.stream, self.p)
                 print('recording complete')
                 break
