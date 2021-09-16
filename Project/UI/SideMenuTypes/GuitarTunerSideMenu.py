@@ -38,3 +38,4 @@ class GuitarTunerSideMenu(SideMenu):
             self.mediator.notify(SideMenuEvents.CHANGE_TUNING, tunings[tuning])
         else:
             self.mediator.notify(event_signal)
+            self.radio_buttons.init_selected_button()
