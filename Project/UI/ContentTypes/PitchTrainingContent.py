@@ -13,7 +13,7 @@ class PitchTrainingContent(Content):
     def __init__(self, is_full_screen):
         super(PitchTrainingContent, self).__init__(is_full_screen)
         self.audio_thread = None
-        self.chords = ["A", "Ab", "B", "Bb", "C", "D", "Db", "E", "Eb", "F", "G", "Gb"]
+        self.chords = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
         self.intervals = ["Major", "Minor", "7"]
         self.styles = ["Fingers", "Pick"]
         self.radio_buttons = {
