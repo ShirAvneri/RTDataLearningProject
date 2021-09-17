@@ -30,7 +30,7 @@ def get_chord_from_stream(stream, p):
     while True:
         frames = []
 
-        for i in range(0, int(RATE / CHUNK * 0.2)):
+        for i in range(0, int(RATE / CHUNK * 0.25)):
             data = stream.read(CHUNK)
             frames.append(data)
 
@@ -48,8 +48,7 @@ def get_chord_from_stream(stream, p):
 
         chords.append(str(chord_name))
         itterations += 1
-        print(chord_name)
-        if itterations == 13:
+        if itterations == 9:
             itterations = 0
             print("Estimated chord: " + max(chords, key=chords.count))
             return max(chords, key=chords.count)

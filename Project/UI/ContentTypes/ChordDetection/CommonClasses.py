@@ -14,7 +14,6 @@ class PlainText(QPlainTextEdit):
         self.init_content()
 
     def init_content(self):
-        print("I am here")
         text = "Detected Chord:"
         self.appendPlainText(text)
         self.setReadOnly(True)

@@ -13,13 +13,14 @@ files = os.listdir(cwd)  # Get all the files in that directory
 with open('chord_template.json', 'r') as fp:
     templates_json = json.load(fp)
 
-NUMBER_OF_CHORDS = 44
-# List of the 35 (major and minor) chord classes
+cutoff = 0.1
+NUMBER_OF_CHORDS = 32
+# List of 36 common chord classes
 chords = ['N', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#',
             'D','D#', 'E', 'E7', 'F', 'F#', 'Gm', 'G#m', 'Am',
-            'A#m', 'Bm', 'Cm', 'C#m', 'Dm', 'D#m', 'Em', 'Fm',
-          "C7", "Cadd9", "F7", "Fsus2", "Dsus4", "Dm7", "Em7",
-          "Am7", "Asus", "A7sus", 'F#m', 'A7', 'G7', 'D#7', 'D7', 'F#7', 'C#7', 'A#7', 'B7', 'G#7']
+            'A#m', 'Bm', 'Cm', 'C#m', 'Dm', 'D#m', 'Em', 'Fm'
+            , "Cadd9", "Fsus2", "Dsus4", "Em7",
+          "Am7", 'F#m', 'A7', "Dsus2"]
 
 # chords = ['N', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#',
 #             'D','D#', 'E', 'F', 'F#', 'Gm', 'G#m', 'Am',
@@ -54,7 +55,7 @@ def chord_detection_filepath(filepath):
     chroma_template = np.mean(chroma, axis=1)
 
     for i in range(len(chroma_template)):
-        if chroma_template[i] < 0.5:
+        if chroma_template[i] < cutoff:
             chroma_template[i] = 0
     #print(chroma_template)
     """Correlate 12D chroma vector with each of 24 major and minor chords"""
@@ -80,7 +81,7 @@ def chord_detection_filepath(filepath):
     return chord_name
 
 
-def chord_detection_prefilepath(filepath, test_sound_len = 80):
+def chord_detection_prefilepath(filepath, test_sound_len = 10):
     list = []
     for chord in chords:
         if chord == 'N':
@@ -102,7 +103,7 @@ def chord_detection_prefilepath(filepath, test_sound_len = 80):
         chroma_template = np.mean(chroma, axis=1)
         #print(chroma_template)
         for i in range(len(chroma_template)):
-            if chroma_template[i] < 0.05:
+            if chroma_template[i] < cutoff:
                 chroma_template[i] = 0
         """Correlate 12D chroma vector with each of 24 major and minor chords"""
         cor_vec = np.zeros(NUMBER_OF_CHORDS)
@@ -115,7 +116,7 @@ def chord_detection_prefilepath(filepath, test_sound_len = 80):
 
         current_chords.append(str(chord_name))
         iterations += 1
-        if iterations == 1:
+        if iterations == 9:
             iterations = 0
             #print("Estimated chord: " + max(chords, key=chords.count))
             # print(chords)

@@ -45,6 +45,8 @@ def find_closest_note(pitch):
   closest_note = ALL_NOTES[i % 12] + str(4 + (i + 9) // 12)
   closest_pitch = CONCERT_PITCH * 2 ** (i / 12)
   Constants.ClosetNote = closest_note
+  Constants.CURRENT_PITCH = pitch
+  Constants.NOTE_PITCH = closest_pitch
   return closest_note, closest_pitch
 
 
@@ -64,6 +66,7 @@ def callback(indata, frames, time, status):
 
   if status:
     print(status)
+    print('?????????????')
     return
   if any(indata):
     callback.window_samples = np.concatenate((callback.window_samples, indata[:, 0]))  # append new samples
@@ -116,7 +119,6 @@ def callback(indata, frames, time, status):
 
     max_ind = np.argmax(hps_spec)
     max_freq = max_ind * (SAMPLE_FREQ / WINDOW_SIZE) / NUM_HPS
-
     closest_note, closest_pitch = find_closest_note(max_freq)
     max_freq = round(max_freq, 1)
     closest_pitch = round(closest_pitch, 1)

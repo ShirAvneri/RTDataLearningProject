@@ -6,6 +6,7 @@ from PySide6.QtCore import QRect, Qt
 from PySide6.QtWidgets import QFileDialog, QLabel
 
 from Project import Recording
+from Project.Constants import OS_PATH
 from Project.UI.CommonWidgets.CommonButtons import StartStopButton
 from Project.UI.CommonWidgets.CommonFonts import create_font
 from Project.UI.ContentComponent import Content
@@ -37,7 +38,7 @@ class RecordingContent(Content):
         self.count_down_label = QLabel(self)
         self.count_down_label.setGeometry(QRect(0, 0, 900, 550))
         self.count_down_label.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-        self.count_down_label.setFont(create_font(size=500, bold=True))
+        self.count_down_label.setFont(create_font(size=480, bold=True))
         self.count_down_label.setStyleSheet("color: #972c2c")
         self.count_down_label.hide()
 
@@ -53,11 +54,8 @@ class RecordingContent(Content):
         for used_thread in self.used_threads:
             used_thread.join()
         file_name = self.save_file()
-        print("*****************")
-        print(file_name[0])
         if not file_name[0]:
-            file_name = "/Grange.py/"
-            file_name = str(os.path.abspath(os.curdir)).replace("\\", "/") + file_name
+            file_name = f"{OS_PATH}/output.wav"
         Recording.end_stream(self.stream, self.p, self.frames, file_name[0])
         self.frames = []
 
