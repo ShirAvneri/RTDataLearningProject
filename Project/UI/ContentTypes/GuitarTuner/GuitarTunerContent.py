@@ -8,7 +8,7 @@ class GuitarTunerContent(ContentComponent.Content):
         super(GuitarTunerContent, self).__init__()
         #  TO DO:
         #  verify the standard tuning for all guitar types.
-        self.notes = ["E4", "B3", "G3", "D3", "A2", "E2"]
+        self.notes = ["E2", "A2", "D3", "G3", "B3", "E4"]
         self.notes_buttons = []
         self.guitar_image = QLabel(self)
         self.guitar_image.setObjectName("GuitarImageLabel")
