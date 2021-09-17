@@ -70,9 +70,9 @@ class ThreadClass(QThread):
         self.stream, self.pyAudio = chord_detection.open_stream()
         while True:
             if self.MyChordDetectionContent.close_stream_flag:
-                chord_detection.close_stream(self.stream, self.p)
+                chord_detection.close_stream(self.stream, self.pyAudio)
                 print('recording complete')
                 break
-            chord = chord_detection.get_chord_from_stream(self.stream, self.p)
+            chord = chord_detection.get_chord_from_stream(self.stream, self.pyAudio)
             self.any_signal.emit(chord)
 

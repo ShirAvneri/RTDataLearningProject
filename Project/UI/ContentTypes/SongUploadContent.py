@@ -31,7 +31,6 @@ class SongUploadContent(Content):
         self.analyze_button.setParent(self)
         self.analyze_button.clicked.connect(self.analyze)
         self.thread = None
-        self.flag = False
         self.is_analyzing = False
         self.analyze_button.path = self.path
 

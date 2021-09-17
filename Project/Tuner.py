@@ -64,6 +64,7 @@ def callback(indata, frames, time, status):
 
   if status:
     print(status)
+    print('?????????????')
     return
   if any(indata):
     callback.window_samples = np.concatenate((callback.window_samples, indata[:, 0]))  # append new samples
