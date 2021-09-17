@@ -14,9 +14,9 @@ class ClassicalGuitarTunerContent(GuitarTunerContent):
     def zero_all(self, note):
         for button in self.notes_buttons:
             if button != note:
-                if button.Flag == 1:
-                    button.Flag = 0
-                    button.flag = True
+                if button.is_clicked:
+                    button.is_clicked = False
+                    button.is_tuning = True
                     button.setText(button.note)
                     button.setStyleSheet("QPushButton#" + button.name + " { " + button.style + " }")
 
