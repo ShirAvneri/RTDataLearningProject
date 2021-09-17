@@ -27,12 +27,12 @@ class ClassicalGuitarTunerContent(GuitarTunerContent):
         string6 = GuitarTunerButton(self.notes[0], "4", 150, 165)
         string5 = GuitarTunerButton(self.notes[1], "5", 150, 110)
         string4 = GuitarTunerButton(self.notes[2], "6", 150, 55)
-        self.notes_buttons.append(string1)
-        self.notes_buttons.append(string2)
-        self.notes_buttons.append(string3)
-        self.notes_buttons.append(string4)
-        self.notes_buttons.append(string5)
         self.notes_buttons.append(string6)
+        self.notes_buttons.append(string5)
+        self.notes_buttons.append(string4)
+        self.notes_buttons.append(string3)
+        self.notes_buttons.append(string2)
+        self.notes_buttons.append(string1)
         for button in self.notes_buttons:
             button.setParent(self)
 
