@@ -64,19 +64,19 @@ class GuitarTunerButton(QPushButton):
             closes_note = Constants.ClosetNote
             closest_note_index = notes.index(closes_note)
             button_note_index = notes.index(button.note)
-            if closest_note_index < button_note_index - 1:
+            if closest_note_index < button_note_index:
                 button.setStyleSheet("QPushButton#" + button.name + " { " + button.style_red_up + " }")
                 button.setText("")
-            if closest_note_index > button_note_index + 1:
+            if closest_note_index > button_note_index:
                 button.setStyleSheet("QPushButton#" + button.name + " { " + button.style_red_down + " }")
                 button.setText("")
-            if closest_note_index == button_note_index - 1:
+            if closest_note_index == button_note_index and Constants.NOTE_PITCH > Constants.CURRENT_PITCH + 0.8:
                 button.setStyleSheet("QPushButton#" + button.name + " { " + button.style_yellow_up + " }")
                 button.setText("")
-            if closest_note_index == button_note_index + 1:
+            elif closest_note_index == button_note_index and Constants.NOTE_PITCH < Constants.CURRENT_PITCH - 0.8:
                 button.setStyleSheet("QPushButton#" + button.name + " { " + button.style_yellow_down + " }")
                 button.setText("")
-            if closest_note_index == button_note_index:
+            else:
                 button.setStyleSheet("QPushButton#" + button.name + " { " + button.style_green + " }")
                 button.setText(button.note)
         if command[0] == "stop":

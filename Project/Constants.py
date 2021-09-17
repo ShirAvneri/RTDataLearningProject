@@ -11,6 +11,8 @@ TOP_BAR_FUNCTIONALITY = {"Guitar Tuning": TopBarSignals.GUITAR_TUNING_CLICK,
                          "Audio Analysis": TopBarSignals.AUDIO_ANALYSIS_CLICK,
                          "Pitch Training": TopBarSignals.PITCH_TRAINING_CLICK}
 ClosetNote = "E4"
+CURRENT_PITCH = 0.0
+NOTE_PITCH = 0.0
 
 
 
