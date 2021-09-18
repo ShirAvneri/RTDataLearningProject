@@ -14,20 +14,12 @@ class ChordDetectionContent(Content):
         super(ChordDetectionContent, self).__init__(is_full_screen)
 
         self.count = 0
-        self.labelLists = []
-        self.labelList = []
-        self.buttonList = []
-
         text = "Detected Chord:"
         self.chord_text = QPlainTextEdit()
         self.chord_text.setParent(self)
         self.chord_text.setMinimumWidth(450)
         self.chord_text.setMinimumHeight(550)
-
-        # self.QPlainTextEdit.setGeometry(QRect(50, 50, 50, 50))
-
         self.chord_text.appendPlainText(text)
-        # self.chord_text.setPlainText("**********************")
         self.chord_text.setReadOnly(True)
         self.chord_label = QLabel(self)
         self.chord_label.setGeometry(QRect(0, 0, 1350, 400))
@@ -35,41 +27,30 @@ class ChordDetectionContent(Content):
         self.chord_label.setFont(create_font(size=150, bold=True))
         self.chord_label.setStyleSheet("color: #972c2c")
         self.chord_label.setText("")
-        self.buttons = []
         self.record_button = StartStopButton(self.start_record, self.stop_record)
-        self.buttons.append(self.record_button)
         self.record_button.setParent(self)
         self.record_button.init_style("MetronomeController", 625, 400)
         self.thread = None
-        self.process = None
         self.stream = None
-        self.p = None
-        self.flag = False
-        self.counter = 1
+        self.pyAudio = None
+        self.close_stream_flag = False
 
     def start_record(self):
         print('opening stream...')
         self.thread = ThreadClass(self)
-        self.flag = False
+        self.close_stream_flag = False
         self.chord_text.clear()
         self.thread.start()
         self.thread.any_signal.connect(self.append_text)
-        #self.parent().start_record()
 
     def stop_record(self):
-        self.flag = True
+        self.close_stream_flag = True
 
     @Slot(str)
     def append_text(self, text):
         self.chord_label.setText(text)
         self.chord_text.moveCursor(QTextCursor.End)
         self.count += 1
-        # if len(text) == 1:
-        #     self.chord_text.insertPlainText(text + '                        ')
-        # elif len(text) == 2:
-        #     self.chord_text.insertPlainText(text + '                       ')
-        # else:
-        #     self.chord_text.insertPlainText(text + '                      ')
         self.chord_text.insertPlainText(text + '                      ')
         if self.count == 4:
             self.chord_text.moveCursor(QTextCursor.End)
@@ -86,13 +67,12 @@ class ThreadClass(QThread):
         self.MyChordDetectionContent = MyChordDetectionContent
 
     def run(self):
-        # print("chord")
-        self.stream, self.p = chord_detection.open_stream()
+        self.stream, self.pyAudio = chord_detection.open_stream()
         while True:
-            if self.MyChordDetectionContent.flag:
-                chord_detection.close_stream(self.stream, self.p)
+            if self.MyChordDetectionContent.close_stream_flag:
+                chord_detection.close_stream(self.stream, self.pyAudio)
                 print('recording complete')
                 break
-            chord = chord_detection.get_chord_from_stream(self.stream, self.p)
+            chord = chord_detection.get_chord_from_stream(self.stream, self.pyAudio)
             self.any_signal.emit(chord)
 

@@ -1,10 +1,10 @@
 import threading
 import time
-
+import sounddevice as sd
 from PyQt5.QtGui import QIcon, QPixmap
 from PySide6.QtCore import QRect, QSize, QThread, Signal, Slot
 from PySide6.QtWidgets import QPushButton, QLabel
-from Project import Constants
+from Project import Constants, Tuner
 from Project.Tuner import better_tuner
 from Project.UI.CommonWidgets.CommonFonts import create_font
 
@@ -19,7 +19,8 @@ notes = ['StartBuffer', 'A1', 'A#1', 'B1', 'C1', 'C#1', 'D1', 'D#1', 'E1', 'F1',
 class GuitarTunerButton(QPushButton):
     def __init__(self, note, string_num, x_pos, y_pos):
         super(GuitarTunerButton, self).__init__()
-        self.Flag = 0
+        self.is_clicked = False
+        self.is_tuning = False
         self.note = note
         self.name = "string" + string_num
         self.setObjectName(self.name)
@@ -37,8 +38,6 @@ class GuitarTunerButton(QPushButton):
                             "border-radius: 25px; "
         self.style_yellow_down = "qproperty-icon: url(./UI/Images/arrow_down.png);qproperty-iconSize: 30px; border-style: solid; border-width: 1px; border-color: #c9c9c9; background-color: yellow; " \
                                "border-radius: 25px; "
-        #self.setIcon(QIcon("./UI/Images/Microphone.png"))
-        #self.setIconSize(QSize(5, 5))
         self.clicked.connect(self.start_tuner)
         self.set_button()
 
@@ -46,21 +45,16 @@ class GuitarTunerButton(QPushButton):
 
     def start_tuner(self):
         self.parent().zero_all(self)
-        print("start tuner")
-        print(self.sender().Flag)
-        #self.parent().zero_all()
-        if self.sender().Flag == 0:
-            print("START")
-            self.sender().Flag = 1
-            self.flag = False
+        if not self.sender().is_clicked:
+            self.sender().is_clicked = True
+            self.is_tuning = False
             self.thread = TuningThread(self)
             self.thread.start()
             self.thread.any_signal.connect(self.update_style)
             # self.thread.kill()
-        elif self.sender().Flag == 1:
-            print("STOPPPPPP")
-            self.flag = True
-            self.sender().Flag = 0
+        elif self.sender().is_clicked:
+            self.is_tuning = True
+            self.sender().is_clicked = False
 
     @Slot(object)
     def update_style(self, command):
@@ -70,29 +64,27 @@ class GuitarTunerButton(QPushButton):
             closes_note = Constants.ClosetNote
             closest_note_index = notes.index(closes_note)
             button_note_index = notes.index(button.note)
-            # print(str(closestNoteIndex) + " " + str(buttonNoteIndex))
-            # print(notes[closestNoteIndex] + ' ' + notes[buttonNoteIndex])
-            # notes.index(closestNote)
-            # print(Constants.ClosetNote)
-            if closest_note_index < button_note_index - 1:
+            #print(Constants.ClosetNote + " " + str(Constants.CURRENT_PITCH) + ' ' + str(Constants.NOTE_PITCH))
+
+            if closest_note_index < button_note_index:
                 button.setStyleSheet("QPushButton#" + button.name + " { " + button.style_red_up + " }")
                 button.setText("")
-            if closest_note_index > button_note_index + 1:
+            if closest_note_index > button_note_index:
                 button.setStyleSheet("QPushButton#" + button.name + " { " + button.style_red_down + " }")
                 button.setText("")
-            if closest_note_index == button_note_index - 1:
+            if closest_note_index == button_note_index and Constants.NOTE_PITCH > Constants.CURRENT_PITCH + 0.8:
                 button.setStyleSheet("QPushButton#" + button.name + " { " + button.style_yellow_up + " }")
                 button.setText("")
-            if closest_note_index == button_note_index + 1:
+            elif closest_note_index == button_note_index and Constants.NOTE_PITCH < Constants.CURRENT_PITCH - 0.8:
                 button.setStyleSheet("QPushButton#" + button.name + " { " + button.style_yellow_down + " }")
                 button.setText("")
-            if closest_note_index == button_note_index:
+            elif closest_note_index == button_note_index:
+                button.setStyleSheet("QPushButton#" + button.name + " { " + button.style + " }")
                 button.setStyleSheet("QPushButton#" + button.name + " { " + button.style_green + " }")
                 button.setText(button.note)
         if command[0] == "stop":
             button.setStyleSheet("QPushButton#" + button.name + " { " + button.style + " }")
             button.setText(button.note)
-
 
     def set_button(self):
         self.setGeometry(QRect(self.x, self.y, 50, 50))
@@ -100,15 +92,12 @@ class GuitarTunerButton(QPushButton):
         self.setText(self.note)
         self.setFont(create_font(size=14))
 
-
     def change_note(self, note, string_num):
         self.note = note
         self.name = "string" + string_num
         self.setObjectName(self.name)
         self.setStyleSheet("QPushButton#" + self.name + " { " + self.style + " }")
         self.setText(self.note)
-
-
 
 
 class TuningThread(QThread):
@@ -120,15 +109,17 @@ class TuningThread(QThread):
         self.button = button
 
     def run(self):
-        while True:
-            # print(self.flag)
-            if self.button.flag:
-                command = ["stop", self.button]
-                self.any_signal.emit(command)
-                break
-            # self.setEnabled(False)
-
-            better_tuner()
-            command = ["new_note", self.button]
-            self.any_signal.emit(command)
-            self.sleep(0.3)
+        try:
+            with sd.InputStream(channels=1, callback=Tuner.callback, blocksize=Tuner.WINDOW_STEP, samplerate=Tuner.SAMPLE_FREQ):
+                while True:
+                    if self.button.is_tuning:
+                        command = ["stop", self.button]
+                        self.any_signal.emit(command)
+                        break
+                    # self.setEnabled(False)
+                    command = ["new_note", self.button]
+                    self.any_signal.emit(command)
+                    self.msleep(500)
+        except Exception as exc:
+            #print(str(exc))
+            pass
