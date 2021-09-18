@@ -14,19 +14,20 @@ class ElectricGuitarTunerContent(GuitarTunerContent):
         self.init_notes()
 
     def init_notes(self):
-        string1 = GuitarTunerButton(self.notes[0], "1", 285, 5)
-        self.notes_buttons.append(string1)
-        #string1.clicked.connect(self.play_tuner)
-        string2 = GuitarTunerButton(self.notes[1], "2", 250, 45)
-        self.notes_buttons.append(string2)
-        string3 = GuitarTunerButton(self.notes[2], "3", 215, 85)
-        self.notes_buttons.append(string3)
-        string4 = GuitarTunerButton(self.notes[3], "4", 180, 125)
-        self.notes_buttons.append(string4)
-        string5 = GuitarTunerButton(self.notes[4], "5", 145, 165)
-        self.notes_buttons.append(string5)
-        string6 = GuitarTunerButton(self.notes[5], "6", 110, 205)
+        string1 = GuitarTunerButton(self.notes[5], "1", 285, 5)
+        string2 = GuitarTunerButton(self.notes[4], "2", 250, 45)
+        string3 = GuitarTunerButton(self.notes[3], "3", 215, 85)
+        string4 = GuitarTunerButton(self.notes[2], "4", 180, 125)
+        string5 = GuitarTunerButton(self.notes[1], "5", 145, 165)
+        string6 = GuitarTunerButton(self.notes[0], "6", 110, 205)
+
         self.notes_buttons.append(string6)
+        self.notes_buttons.append(string5)
+        self.notes_buttons.append(string4)
+        self.notes_buttons.append(string3)
+        self.notes_buttons.append(string2)
+        self.notes_buttons.append(string1)
+
         for button in self.notes_buttons:
             button.setParent(self)
             #button.clicked.connect(self.play_tuner)

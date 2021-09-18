@@ -13,14 +13,14 @@ files = os.listdir(cwd)  # Get all the files in that directory
 with open('chord_template.json', 'r') as fp:
     templates_json = json.load(fp)
 
-cutoff = 0.1
-NUMBER_OF_CHORDS = 32
+cutoff = 0.07
+NUMBER_OF_CHORDS = 30
 # List of 36 common chord classes
 chords = ['N', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#',
             'D','D#', 'E', 'E7', 'F', 'F#', 'Gm', 'G#m', 'Am',
             'A#m', 'Bm', 'Cm', 'C#m', 'Dm', 'D#m', 'Em', 'Fm'
             , "Cadd9", "Fsus2", "Dsus4", "Em7",
-          "Am7", 'F#m', 'A7', "Dsus2"]
+           'F#m', "Dsus2"]
 
 # chords = ['N', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#',
 #             'D','D#', 'E', 'F', 'F#', 'Gm', 'G#m', 'Am',
@@ -81,7 +81,7 @@ def chord_detection_filepath(filepath):
     return chord_name
 
 
-def chord_detection_prefilepath(filepath, test_sound_len = 10):
+def chord_detection_prefilepath(filepath, test_sound_len = 80):
     list = []
     for chord in chords:
         if chord == 'N':
@@ -116,7 +116,7 @@ def chord_detection_prefilepath(filepath, test_sound_len = 10):
 
         current_chords.append(str(chord_name))
         iterations += 1
-        if iterations == 9:
+        if iterations == 1:
             iterations = 0
             #print("Estimated chord: " + max(chords, key=chords.count))
             # print(chords)

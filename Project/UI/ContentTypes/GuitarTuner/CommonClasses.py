@@ -1,10 +1,10 @@
 import threading
 import time
-
+import sounddevice as sd
 from PyQt5.QtGui import QIcon, QPixmap
 from PySide6.QtCore import QRect, QSize, QThread, Signal, Slot
 from PySide6.QtWidgets import QPushButton, QLabel
-from Project import Constants
+from Project import Constants, Tuner
 from Project.Tuner import better_tuner
 from Project.UI.CommonWidgets.CommonFonts import create_font
 
@@ -64,6 +64,8 @@ class GuitarTunerButton(QPushButton):
             closes_note = Constants.ClosetNote
             closest_note_index = notes.index(closes_note)
             button_note_index = notes.index(button.note)
+            #print(Constants.ClosetNote + " " + str(Constants.CURRENT_PITCH) + ' ' + str(Constants.NOTE_PITCH))
+
             if closest_note_index < button_note_index:
                 button.setStyleSheet("QPushButton#" + button.name + " { " + button.style_red_up + " }")
                 button.setText("")
@@ -107,13 +109,17 @@ class TuningThread(QThread):
         self.button = button
 
     def run(self):
-        while True:
-            if self.button.is_tuning:
-                command = ["stop", self.button]
-                self.any_signal.emit(command)
-                break
-            # self.setEnabled(False)
-
-            better_tuner()
-            command = ["new_note", self.button]
-            self.any_signal.emit(command)
+        try:
+            with sd.InputStream(channels=1, callback=Tuner.callback, blocksize=Tuner.WINDOW_STEP, samplerate=Tuner.SAMPLE_FREQ):
+                while True:
+                    if self.button.is_tuning:
+                        command = ["stop", self.button]
+                        self.any_signal.emit(command)
+                        break
+                    # self.setEnabled(False)
+                    command = ["new_note", self.button]
+                    self.any_signal.emit(command)
+                    self.msleep(500)
+        except Exception as exc:
+            #print(str(exc))
+            pass
