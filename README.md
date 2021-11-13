@@ -6,7 +6,7 @@ The following features are included in this app:
 * Real-time chord detection.
 * Chord detection based on audio analysis. 
 * Audio recording.
-* Metronome with a genre-specific BPMs.
+* Metronome with genre-specific BPMs.
 * Playing chord recordings.
 
 ## Installing Required Packages
